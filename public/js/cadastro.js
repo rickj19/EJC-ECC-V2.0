@@ -210,20 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = 'Gravando inscrição...';
                 console.log('LOG: Iniciando insert na tabela "inscricoes"...');
 
-                // Objeto de dados com compatibilidade para campos 'tipo' ou 'tipo_encontro'
+                /**
+                 * AJUSTE DE MODELO:
+                 * O erro anterior indicava que a coluna 'tipo_encontro' não existe.
+                 * Estamos usando o modelo simples e garantido: nome, telefone, tipo, foto_url.
+                 * Também incluímos cidade e paroquia que estão no formulário.
+                 */
                 const payload = { 
                     nome, 
                     telefone, 
-                    cidade, 
-                    paroquia, 
+                    tipo: tipoInscricao, // ejc ou ecc
                     foto_url: publicUrl,
-                    foto_path: fileName,
-                    created_at: new Date().toISOString()
+                    cidade, 
+                    paroquia
                 };
 
-                // Adiciona ambos para garantir compatibilidade com o schema do banco
-                payload.tipo = tipoInscricao;
-                payload.tipo_encontro = tipoInscricao;
+                console.log('LOG: Payload preparado para o banco:', payload);
 
                 const { data: insertData, error: insertError } = await window.supabaseClient
                     .from('inscricoes')
@@ -232,8 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (insertError) {
                     console.error('LOG: ERRO DETALHADO NO INSERT:', insertError);
-                    // Se o erro for de coluna inexistente, tentamos remover um dos campos e repetir? 
-                    // Mas o ideal é mostrar o erro para ajuste manual ou diagnóstico.
                     throw new Error(`Erro ao salvar no banco: ${insertError.message}`);
                 }
 
