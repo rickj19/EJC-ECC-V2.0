@@ -357,3 +357,24 @@ input:focus {
     background-color: var(--primary-light);
     color: var(--primary);
 }
+
+/**
+ * Estilos para Diagnóstico de Upload
+ */
+#log-console {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #111827;
+}
+
+#log-console::-webkit-scrollbar {
+    width: 6px;
+}
+
+#log-console::-webkit-scrollbar-track {
+    background: #111827;
+}
+
+#log-console::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    border-radius: 20px;
+}
