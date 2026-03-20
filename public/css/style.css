@@ -519,19 +519,49 @@
 }
 
 /**
- * Botão de Login/Cadastro (Contraste Aumentado)
+ * Botão de Login/Cadastro Premium (Estilo App Bancário)
+ * Design refinado com transições suaves, sombras profundas e feedback tátil.
  */
 #submit-btn {
     background-color: var(--primary);
-    color: #2B1D17 !important; /* Marrom escuro para alto contraste sobre o fundo dourado/bege */
-    font-weight: 700 !important; /* Peso da fonte aumentado para melhor legibilidade */
+    color: #2B1D17 !important; /* Marrom escuro para máximo contraste */
+    font-weight: 700 !important;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em; /* Espaçamento elegante entre letras */
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave estilo premium */
+    box-shadow: 0 8px 20px rgba(200, 169, 107, 0.3); /* Sombra suave inicial */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Efeito de Elevação e Brilho no Hover: Estilo Premium */
+#submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px); /* Leve elevação para profundidade */
+    box-shadow: 0 12px 28px rgba(200, 169, 107, 0.5); /* Sombra mais profunda no hover */
+    filter: brightness(1.05); /* Brilho sutil para sensação de interatividade */
+}
+
+/* Feedback Tátil ao Clicar: Sensação de botão físico */
+#submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(200, 169, 107, 0.4);
+}
+
+/* Estado de Loading e Desabilitado: Mantém a elegância mesmo em espera */
 #submit-btn:disabled {
-    opacity: 0.7;
+    opacity: 0.85;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilização do Spinner de Loading: Ícone Lucide animado */
+#submit-btn i.animate-spin {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 /**

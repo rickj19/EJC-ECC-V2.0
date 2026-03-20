@@ -48,10 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`LOG [Login]: Tentativa de login iniciada.`);
             console.log(`LOG [Login]: E-mail digitado: ${email}`);
 
-            // 1. Bloqueia o botão para evitar cliques duplos e mostra estado de carregamento
+            // 1. Estado de Loading Premium: Bloqueia o botão e adiciona o spinner visual
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Autenticando...';
+                // Injeta o ícone de loader do Lucide e o texto de autenticação
+                submitBtn.innerHTML = '<i data-lucide="loader-2" class="animate-spin"></i> Autenticando...';
+                // Re-inicializa os ícones para renderizar o loader recém-adicionado
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
             try {
@@ -162,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     errorMsg.classList.remove('hidden');
                 }
             } finally {
-                // 7. RESTAURAÇÃO DO BOTÃO (Garante que nunca fique travado)
+                // 7. RESTAURAÇÃO DO BOTÃO: Volta ao estado original após a tentativa (sucesso ou erro)
                 console.log('LOG [Login]: Finalizando processo. Restaurando botão.');
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'Entrar';
+                    submitBtn.innerHTML = 'Entrar'; // Remove o spinner e volta o texto original
                 }
             }
         });
