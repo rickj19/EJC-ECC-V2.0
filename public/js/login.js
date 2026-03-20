@@ -1,118 +1,154 @@
 /**
  * Arquivo: public/js/login.js
  * Descrição: Lógica de autenticação e redirecionamento para os painéis específicos.
+ * 
+ * Este arquivo gerencia o login de Administradores, EJC e ECC.
+ * Ele utiliza o cliente Supabase inicializado em supabase.js.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa os ícones Lucide
+    // Inicializa os ícones Lucide para a interface
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
 
     // Captura os parâmetros da URL para identificar o tipo de login (ejc, ecc ou admin)
+    // Exemplo: login.html?tipo=admin
     const urlParams = new URLSearchParams(window.location.search);
-    const tipo = urlParams.get('tipo') || 'ejc';
+    const tipoUrl = urlParams.get('tipo') || 'ejc'; // Default para ejc se não houver parâmetro
+    
     const badge = document.getElementById('type-badge');
     const errorMsg = document.getElementById('error-message');
+    const form = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
 
-    // Aplica o tema visual baseado no tipo de login
-    document.body.classList.add(`theme-${tipo}`);
+    console.log(`LOG [Login]: Tela iniciada. Tipo detectado na URL: ${tipoUrl}`);
+
+    // Aplica o tema visual e o texto do badge baseado no tipo de login
+    document.body.classList.add(`theme-${tipoUrl}`);
     if (badge) {
-        badge.textContent = tipo.toUpperCase();
+        badge.textContent = tipoUrl.toUpperCase();
     }
 
-    // Referência ao formulário de login
-    const form = document.getElementById('login-form');
     if (form) {
         /**
          * Evento: Submit do Formulário
-         * Descrição: Processa a tentativa de login do usuário consultando o Supabase.
+         * Descrição: Processa a tentativa de login.
          */
         form.addEventListener('submit', async (e) => {
-            // Previne o comportamento padrão de recarregar a página
             e.preventDefault();
             
-            // Oculta mensagem de erro anterior, se houver
+            // Limpa mensagens de erro anteriores
             if (errorMsg) errorMsg.classList.add('hidden');
 
-            // Captura os dados inseridos pelo usuário
-            const email = document.getElementById('username').value;
+            // Captura as credenciais digitadas
+            const email = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
-            // Referência ao botão de submissão para feedback visual
-            const submitBtn = document.getElementById('submit-btn');
+            console.log(`LOG [Login]: Tentativa de login iniciada.`);
+            console.log(`LOG [Login]: E-mail digitado: ${email}`);
+
+            // 1. Bloqueia o botão para evitar cliques duplos e mostra estado de carregamento
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Autenticando...';
             }
 
             try {
-                console.log(`LOG: Tentativa de login para: ${email} (Tipo: ${tipo})`);
+                // 2. Validação de segurança: Verifica se o Supabase está disponível
+                if (!window.supabaseClient) {
+                    console.error('ERRO [Login]: window.supabaseClient está indefinido.');
+                    throw new Error('Erro de conexão: O sistema de banco de dados não foi carregado.');
+                }
 
                 /**
-                 * Lógica de Autenticação Real com Supabase
-                 * Consultamos a tabela 'usuarios' filtrando por email, senha e tipo_acesso.
+                 * MAPEAMENTO DE REGRAS DE ACESSO
+                 * Com base no tipo da URL, definimos o que buscar no banco de dados.
+                 * 
+                 * - admin -> tipo_acesso = "geral" (e perfil = "admin")
+                 * - ejc   -> tipo_acesso = "ejc"
+                 * - ecc   -> tipo_acesso = "ecc"
                  */
+                let tipoAcessoEsperado = tipoUrl;
+                let perfilEsperado = null;
+
+                if (tipoUrl === 'admin') {
+                    tipoAcessoEsperado = 'geral';
+                    perfilEsperado = 'admin';
+                }
+
+                console.log(`LOG [Login]: Mapeamento: URL(${tipoUrl}) -> Banco(tipo_acesso: ${tipoAcessoEsperado}, perfil: ${perfilEsperado || 'qualquer'})`);
+
+                // 3. Montagem da consulta ao Supabase
+                console.log('LOG [Login]: Enviando consulta ao Supabase...');
+                
                 let query = window.supabaseClient
                     .from('usuarios')
-                    .select('id, nome, email, perfil, tipo_acesso')
+                    .select('id, nome, email, perfil, tipo_acesso, senha')
                     .eq('email', email)
-                    .eq('senha', password);
+                    .eq('senha', password) // Nota: Em produção, senhas devem ser hasheadas
+                    .eq('tipo_acesso', tipoAcessoEsperado);
 
-                // Se for login de admin, o tipo_acesso no banco é 'geral'
-                if (tipo === 'admin') {
-                    query = query.eq('tipo_acesso', 'geral').eq('perfil', 'admin');
-                } else {
-                    // Para EJC ou ECC, o tipo_acesso deve bater com o parâmetro da URL
-                    query = query.eq('tipo_acesso', tipo);
+                // Se houver um perfil específico (como admin), adicionamos o filtro
+                if (perfilEsperado) {
+                    query = query.eq('perfil', perfilEsperado);
                 }
 
+                // Executa a consulta esperando um único registro
                 const { data, error } = await query.single();
 
-                if (error || !data) {
-                    console.error('ERRO na autenticação:', error);
-                    throw new Error('E-mail ou senha incorretos para este tipo de acesso.');
+                // 4. Tratamento da resposta
+                console.log('LOG [Login]: Resposta recebida do Supabase.');
+                
+                if (error) {
+                    console.error('ERRO [Supabase]:', error);
+                    // Erro PGRST116 significa que nenhum registro foi encontrado
+                    if (error.code === 'PGRST116') {
+                        throw new Error('Usuário ou senha incorretos para este tipo de acesso.');
+                    }
+                    throw new Error(`Erro na consulta: ${error.message}`);
                 }
 
-                console.log('LOG: Login bem-sucedido:', data);
+                if (!data) {
+                    console.warn('AVISO [Login]: Nenhum dado retornado, mas sem erro explícito.');
+                    throw new Error('Credenciais inválidas.');
+                }
 
-                /**
-                 * Armazena o estado de login no localStorage para persistência
-                 * e verificação nos painéis restritos.
-                 * Mantemos a propriedade 'tipo' para compatibilidade com os painéis existentes.
-                 */
-                const dadosUsuario = {
+                console.log('LOG [Login]: Usuário autenticado com sucesso:', data.nome);
+
+                // 5. Armazenamento da sessão
+                // Guardamos os dados no localStorage para uso nos painéis internos
+                const dadosSessao = {
                     id: data.id,
                     nome: data.nome,
                     email: data.email,
                     perfil: data.perfil,
                     tipo_acesso: data.tipo_acesso,
-                    tipo: tipo, // 'admin', 'ejc' ou 'ecc' (conforme URL)
-                    dataLogin: new Date().toISOString()
+                    tipo: tipoUrl, // Guardamos o tipo da URL para compatibilidade visual
+                    timestamp: new Date().getTime()
                 };
-                localStorage.setItem('usuario_logado', JSON.stringify(dadosUsuario));
+                localStorage.setItem('usuario_logado', JSON.stringify(dadosSessao));
 
-                /**
-                 * Redirecionamento Pós-Login:
-                 * O usuário é enviado para o painel correspondente ao seu tipo.
-                 */
-                if (tipo === 'ejc') {
-                    window.location.href = 'painel-ejc.html';
-                } else if (tipo === 'ecc') {
-                    window.location.href = 'painel-ecc.html';
-                } else if (tipo === 'admin') {
-                    window.location.href = 'painel-admin.html';
-                } else {
-                    window.location.href = '/';
-                }
+                // 6. Decisão de Redirecionamento
+                let paginaDestino = 'index.html';
+                if (tipoUrl === 'admin') paginaDestino = 'painel-admin.html';
+                else if (tipoUrl === 'ejc') paginaDestino = 'painel-ejc.html';
+                else if (tipoUrl === 'ecc') paginaDestino = 'painel-ecc.html';
+
+                console.log(`LOG [Login]: Redirecionando para: ${paginaDestino}`);
+                window.location.href = paginaDestino;
 
             } catch (error) {
-                console.error('ERRO no processo de login:', error);
-                // Caso o login falhe, exibe mensagem de erro e reabilita o botão
+                console.error('ERRO [Login]:', error.message);
+                
+                // Exibe o erro na interface para o usuário
                 if (errorMsg) {
-                    errorMsg.textContent = error.message || 'Erro ao realizar login.';
+                    errorMsg.textContent = error.message;
                     errorMsg.classList.remove('hidden');
                 }
+            } finally {
+                // 7. RESTAURAÇÃO DO BOTÃO (Garante que nunca fique travado)
+                console.log('LOG [Login]: Finalizando processo. Restaurando botão.');
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Entrar';
