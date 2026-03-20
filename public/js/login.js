@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         /**
          * Evento: Submit do Formulário
-         * Descrição: Processa a tentativa de login do usuário.
+         * Descrição: Processa a tentativa de login do usuário consultando o Supabase.
          */
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             // Previne o comportamento padrão de recarregar a página
             e.preventDefault();
             
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (errorMsg) errorMsg.classList.add('hidden');
 
             // Captura os dados inseridos pelo usuário
-            const username = document.getElementById('username').value;
+            const email = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
             // Referência ao botão de submissão para feedback visual
@@ -46,50 +46,78 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = 'Autenticando...';
             }
 
-            /**
-             * Lógica de Autenticação (Simulação)
-             * Aqui seria feita a chamada ao Supabase ou outro backend.
-             * Para fins de demonstração, aceitamos qualquer usuário/senha.
-             */
-            setTimeout(() => {
-                // Simulação de validação bem-sucedida
-                const loginSucesso = true; 
+            try {
+                console.log(`LOG: Tentativa de login para: ${email} (Tipo: ${tipo})`);
 
-                if (loginSucesso) {
-                    /**
-                     * Armazena o estado de login no localStorage para persistência
-                     * e verificação nos painéis restritos.
-                     */
-                    const dadosUsuario = {
-                        username: username,
-                        tipo: tipo,
-                        dataLogin: new Date().toISOString()
-                    };
-                    localStorage.setItem('usuario_logado', JSON.stringify(dadosUsuario));
+                /**
+                 * Lógica de Autenticação Real com Supabase
+                 * Consultamos a tabela 'usuarios' filtrando por email, senha e tipo_acesso.
+                 */
+                let query = window.supabaseClient
+                    .from('usuarios')
+                    .select('id, nome, email, perfil, tipo_acesso')
+                    .eq('email', email)
+                    .eq('senha', password);
 
-                    /**
-                     * Redirecionamento Pós-Login:
-                     * O usuário é enviado para o painel correspondente ao seu tipo.
-                     */
-                    if (tipo === 'ejc') {
-                        window.location.href = 'painel-ejc.html';
-                    } else if (tipo === 'ecc') {
-                        window.location.href = 'painel-ecc.html';
-                    } else if (tipo === 'admin') {
-                        window.location.href = 'painel-admin.html';
-                    } else {
-                        // Caso o tipo seja desconhecido, volta para a home por segurança
-                        window.location.href = '/';
-                    }
+                // Se for login de admin, o tipo_acesso no banco é 'geral'
+                if (tipo === 'admin') {
+                    query = query.eq('tipo_acesso', 'geral').eq('perfil', 'admin');
                 } else {
-                    // Caso o login falhe, exibe mensagem de erro e reabilita o botão
-                    if (errorMsg) errorMsg.classList.remove('hidden');
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Entrar';
-                    }
+                    // Para EJC ou ECC, o tipo_acesso deve bater com o parâmetro da URL
+                    query = query.eq('tipo_acesso', tipo);
                 }
-            }, 1500);
+
+                const { data, error } = await query.single();
+
+                if (error || !data) {
+                    console.error('ERRO na autenticação:', error);
+                    throw new Error('E-mail ou senha incorretos para este tipo de acesso.');
+                }
+
+                console.log('LOG: Login bem-sucedido:', data);
+
+                /**
+                 * Armazena o estado de login no localStorage para persistência
+                 * e verificação nos painéis restritos.
+                 * Mantemos a propriedade 'tipo' para compatibilidade com os painéis existentes.
+                 */
+                const dadosUsuario = {
+                    id: data.id,
+                    nome: data.nome,
+                    email: data.email,
+                    perfil: data.perfil,
+                    tipo_acesso: data.tipo_acesso,
+                    tipo: tipo, // 'admin', 'ejc' ou 'ecc' (conforme URL)
+                    dataLogin: new Date().toISOString()
+                };
+                localStorage.setItem('usuario_logado', JSON.stringify(dadosUsuario));
+
+                /**
+                 * Redirecionamento Pós-Login:
+                 * O usuário é enviado para o painel correspondente ao seu tipo.
+                 */
+                if (tipo === 'ejc') {
+                    window.location.href = 'painel-ejc.html';
+                } else if (tipo === 'ecc') {
+                    window.location.href = 'painel-ecc.html';
+                } else if (tipo === 'admin') {
+                    window.location.href = 'painel-admin.html';
+                } else {
+                    window.location.href = '/';
+                }
+
+            } catch (error) {
+                console.error('ERRO no processo de login:', error);
+                // Caso o login falhe, exibe mensagem de erro e reabilita o botão
+                if (errorMsg) {
+                    errorMsg.textContent = error.message || 'Erro ao realizar login.';
+                    errorMsg.classList.remove('hidden');
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Entrar';
+                }
+            }
         });
     }
 });

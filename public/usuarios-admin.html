@@ -47,11 +47,22 @@
                         <option value="admin">Administrador Geral</option>
                     </select>
                 </div>
+
+                <!-- Áreas para Mensagens de Feedback -->
+                <div id="msg-sucesso" class="hidden md:col-span-2 bg-green-500/20 border border-green-500 text-green-200 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    <span id="txt-sucesso">Usuário cadastrado com sucesso!</span>
+                </div>
+                <div id="msg-erro" class="hidden md:col-span-2 bg-red-500/20 border border-red-500 text-red-200 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                    <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                    <span id="txt-erro">Erro ao cadastrar usuário.</span>
+                </div>
+
                 <div class="md:col-span-2 flex justify-end gap-4 mt-4">
                     <a href="/painel-admin.html" class="bg-white/10 hover:bg-white/20 text-cream px-8 py-3 rounded-xl font-bold transition-all">
                         Voltar
                     </a>
-                    <button type="submit" class="bg-[#C8A96B] hover:bg-[#B6985A] text-[#2E1F17] px-8 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2">
+                    <button type="button" id="btn-salvar" class="bg-[#C8A96B] hover:bg-[#B6985A] text-[#2E1F17] px-8 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2">
                         <i data-lucide="save" class="w-5 h-5"></i>
                         Salvar Usuário
                     </button>
