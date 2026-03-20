@@ -12,14 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         lucide.createIcons();
     }
 
-    // 2. Verifica se o usuário está logado como administrador
-    // O sistema de login armazena 'usuario_logado' no localStorage
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuario_logado'));
-    if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
-        console.warn('AVISO [Usuarios]: Acesso negado. Usuário não é administrador.');
-        window.location.href = '/login.html?tipo=admin';
-        return;
-    }
+    // 2. O AuthGuard já validou o acesso no HTML.
+    // Não precisamos mais do check manual aqui.
 
     // 3. Referências aos elementos do DOM
     const formUsuario = document.getElementById('form-usuario');

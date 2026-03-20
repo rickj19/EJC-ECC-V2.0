@@ -12,6 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Auth Guard: Proteção de Acesso -->
+    <script src="/js/auth-guard.js"></script>
+    <script>
+        // Protege a página para permitir somente usuários ECC
+        AuthGuard.protegerPagina({ tipo_acesso: 'ecc' });
+    </script>
 </head>
 <body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
     
@@ -42,11 +48,16 @@
                 </p>
             </div>
 
-            <!-- Botão para voltar à Home -->
-            <div class="max-w-xs mx-auto">
-                <button type="button" onclick="window.location.href='/'" class="btn-church btn-ecc group">
+            <!-- Botões de Ação -->
+            <div class="max-w-xs mx-auto space-y-4">
+                <button type="button" onclick="window.location.href='/'" class="btn-church btn-ecc group w-full">
                     <i data-lucide="home" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
                     <span class="font-bold tracking-widest">Voltar ao Início</span>
+                </button>
+
+                <button type="button" onclick="AuthGuard.logout()" class="btn-church group w-full" style="background: #5C4033; color: #F5EBDD;">
+                    <i data-lucide="log-out" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+                    <span class="font-bold tracking-widest">Sair do Painel</span>
                 </button>
             </div>
         </section>

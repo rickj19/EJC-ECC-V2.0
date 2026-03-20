@@ -126,22 +126,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 5. Armazenamento da sessão
                 // Guardamos os dados no localStorage para uso nos painéis internos
+                // O AuthGuard usará esses dados para validar o acesso às páginas.
                 const dadosSessao = {
                     id: data.id,
                     nome: data.nome,
                     email: data.email,
                     perfil: data.perfil,
                     tipo_acesso: data.tipo_acesso,
-                    tipo: tipoUrl, // Guardamos o tipo da URL para compatibilidade visual
                     timestamp: new Date().getTime()
                 };
                 localStorage.setItem('usuario_logado', JSON.stringify(dadosSessao));
 
                 // 6. Decisão de Redirecionamento
+                // Redirecionamos para a página correta baseada no perfil e tipo_acesso
                 let paginaDestino = 'index.html';
-                if (tipoUrl === 'admin') paginaDestino = 'painel-admin.html';
-                else if (tipoUrl === 'ejc') paginaDestino = 'painel-ejc.html';
-                else if (tipoUrl === 'ecc') paginaDestino = 'painel-ecc.html';
+                if (data.perfil === 'admin' && data.tipo_acesso === 'geral') {
+                    paginaDestino = 'painel-admin.html';
+                } else if (data.tipo_acesso === 'ejc') {
+                    paginaDestino = 'painel-ejc.html';
+                } else if (data.tipo_acesso === 'ecc') {
+                    paginaDestino = 'painel-ecc.html';
+                }
 
                 console.log(`LOG [Login]: Redirecionando para: ${paginaDestino}`);
                 window.location.href = paginaDestino;

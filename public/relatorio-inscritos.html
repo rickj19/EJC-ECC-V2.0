@@ -12,6 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Auth Guard: Proteção de Acesso -->
+    <script src="/js/auth-guard.js"></script>
+    <script>
+        // Protege a página para permitir somente administradores gerais
+        AuthGuard.protegerPagina({ perfil: 'admin', tipo_acesso: 'geral' });
+    </script>
 </head>
 <body class="bg-church font-['Inter'] min-h-screen p-4 md:p-8">
     

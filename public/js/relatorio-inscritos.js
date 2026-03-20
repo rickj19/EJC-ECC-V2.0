@@ -9,12 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         lucide.createIcons();
     }
 
-    // 2. Verifica autenticação (Segurança básica)
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuario_logado'));
-    if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
-        window.location.href = '/login.html?tipo=admin';
-        return;
-    }
+    // 2. O AuthGuard já validou o acesso no HTML.
+    // Não precisamos mais do check manual aqui.
 
     // 3. Referências do DOM
     const tabelaCorpo = document.getElementById('tabela-corpo');

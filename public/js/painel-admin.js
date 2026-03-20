@@ -9,14 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         lucide.createIcons();
     }
 
-    // 2. Verifica se o usuário está logado como administrador
-    // NOTA: Em um sistema real, isso deve ser validado no servidor ou via JWT.
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuario_logado'));
-    if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
-        console.warn('Acesso não autorizado. Redirecionando para o login...');
-        window.location.href = '/login.html?tipo=admin';
-        return;
-    }
+    // 2. O AuthGuard já validou o acesso no HTML.
+    // Não precisamos mais do check manual aqui.
 
     // 3. Referências aos elementos do DOM
     const listaInscritos = document.getElementById('lista-inscritos');
@@ -249,8 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     btnSair?.addEventListener('click', () => {
         if (confirm('Deseja realmente sair do painel administrativo?')) {
-            localStorage.removeItem('usuario_logado');
-            window.location.href = '/';
+            AuthGuard.logout();
         }
     });
 
