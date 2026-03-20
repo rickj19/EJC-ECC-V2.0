@@ -183,13 +183,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         buscarInscritos();
     });
 
-    // Botão de Logout
-    btnLogout.addEventListener('click', () => {
-        if (confirm('Deseja realmente sair do painel administrativo?')) {
+    // Botão de Logout: Realiza a saída segura do administrador
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // Remove a sessão do localStorage
             localStorage.removeItem('usuario_logado');
+            
+            // Log de debug para confirmar a ação
+            console.log('DEBUG: Logout realizado. Redirecionando para a home...');
+            
+            // Redireciona para a página inicial
             window.location.href = '/';
-        }
-    });
+        });
+    }
 
     // 5. Busca inicial de dados
     buscarInscritos();

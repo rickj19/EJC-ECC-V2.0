@@ -75,11 +75,17 @@
                 </div>
             </div>
 
+            <!-- Área para mensagens de feedback (Erro/Sucesso) -->
+            <div id="feedback-message" class="hidden p-4 rounded-xl text-sm font-medium animate-fade-in"></div>
+
             <!-- Botão de submissão -->
-            <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] mt-4">
+            <button type="button" id="submit-btn" class="w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] mt-4">
                 Finalizar Inscrição
             </button>
         </form>
+
+        <!-- Canvas oculto para redimensionamento de imagem -->
+        <canvas id="canvas-resize" class="hidden"></canvas>
 
         <!-- Link para cancelar e voltar à home -->
         <div class="mt-8 text-center">

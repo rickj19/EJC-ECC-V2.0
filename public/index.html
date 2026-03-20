@@ -85,10 +85,18 @@
         <div class="max-w-md mx-auto text-center animate-slide-up" style="animation-delay: 0.6s;">
             <p class="text-beige text-xs uppercase tracking-[0.3em] mb-4 opacity-70">Área restrita da administração</p>
             <!-- Botão de Login Admin: Navega para login.html?tipo=admin -->
-            <button type="button" onclick="irLogin('admin')" class="btn-church btn-admin group">
+            <button type="button" onclick="irLogin('admin')" class="btn-church btn-admin group mb-6">
                 <i data-lucide="shield-check" class="w-6 h-6 transition-transform group-hover:scale-110"></i>
                 <span class="font-bold tracking-widest">Acesso Administrador</span>
             </button>
+
+            <!-- Botão de Teste Supabase: Discreto para diagnóstico técnico -->
+            <div class="mt-4">
+                <a href="teste-supabase.html" class="text-beige/40 hover:text-gold-soft transition-colors text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-2">
+                    <i data-lucide="settings-2" class="w-3 h-3"></i>
+                    Teste Supabase
+                </a>
+            </div>
         </div>
 
         <!-- Rodapé Institucional com Versículo de São Francisco -->

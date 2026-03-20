@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Conexão Supabase - Paróquia São Francisco</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+    
+    <!-- Overlay solene -->
+    <div class="fixed inset-0 bg-black/60 z-0"></div>
+
+    <main class="relative z-10 max-w-2xl w-full animate-fade-in py-12">
+        <header class="text-center mb-10 text-cream">
+            <h1 class="text-3xl md:text-4xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-4">
+                Teste de Conexão Supabase
+            </h1>
+            <p class="text-beige text-sm uppercase tracking-[0.2em] opacity-80">
+                Verificação técnica de comunicação com o banco de dados
+            </p>
+        </header>
+
+        <section class="church-card p-8 space-y-6">
+            <div class="space-y-4">
+                <p class="text-brown-medium text-sm font-semibold uppercase tracking-wider mb-4">Ações de Teste</p>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <!-- Botão 1: Testar conexão básica -->
+                    <button id="btn-test-conn" class="btn-church btn-ejc py-3">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                        Testar Conexão Básica
+                    </button>
+
+                    <!-- Botão 2: Testar leitura de usuários -->
+                    <button id="btn-test-users" class="btn-church btn-ecc py-3">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                        Testar Leitura (Tabela Usuarios)
+                    </button>
+
+                    <!-- Botão 3: Testar leitura de inscrições -->
+                    <button id="btn-test-insc" class="btn-church btn-admin py-3">
+                        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                        Testar Leitura (Tabela Inscricoes)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Área de Resultado Visual -->
+            <div id="test-result-container" class="hidden mt-6 p-6 rounded-xl border-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-3">
+                    <i id="result-icon" data-lucide="info" class="w-6 h-6"></i>
+                    <h3 id="result-title" class="font-bold font-['Cinzel'] text-lg">Resultado</h3>
+                </div>
+                <div id="result-content" class="text-sm font-mono bg-black/5 p-4 rounded-lg overflow-x-auto whitespace-pre-wrap">
+                    Aguardando teste...
+                </div>
+            </div>
+
+            <!-- Botão Voltar -->
+            <div class="pt-6 border-t border-brown-medium/10">
+                <a href="/" class="flex items-center justify-center gap-2 text-brown-medium hover:text-brown-dark transition-colors font-semibold uppercase text-xs tracking-widest">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Voltar para a Tela Inicial
+                </a>
+            </div>
+        </section>
+
+        <footer class="mt-10 text-center text-cream/50 text-[10px] uppercase tracking-[0.3em]">
+            © 2026 Paróquia São Francisco das Chagas • Diagnóstico de Sistema
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/supabase.js"></script>
+    <script src="/js/teste-supabase.js"></script>
+    <script>
+        // Inicializa ícones Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
