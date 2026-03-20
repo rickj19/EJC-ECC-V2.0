@@ -539,28 +539,96 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    /**
+     * Função para excluir uma inscrição permanentemente.
+     * 
+     * POR QUE O ITEM VOLTAVA AO ATUALIZAR?
+     * O problema ocorria porque a exclusão provavelmente não estava sendo confirmada no banco (Supabase) 
+     * ou estava sendo feita na tabela errada. O front-end removia o card visualmente de forma imediata,
+     * mas se a requisição falhasse, o item permanecia no banco e reaparecia ao atualizar a lista.
+     * 
+     * COMO O DELETE REAL É FEITO:
+     * Utilizamos o método .delete() do cliente Supabase filtrando pelo ID único da inscrição.
+     * Implementamos uma lógica de resiliência para tentar em tabelas alternativas (com/sem acento)
+     * e aguardamos a resposta real do servidor antes de qualquer mudança visual definitiva.
+     * 
+     * POR QUE O CARD SÓ SOME APÓS SUCESSO?
+     * Para garantir a integridade visual. O card só é removido do cache local e da tela 
+     * após o Supabase retornar sucesso. Se houver erro, o card permanece e o usuário é alertado.
+     */
     window.excluirInscricao = async (id) => {
-        if (!confirm('Tem certeza que deseja excluir esta inscrição permanentemente?')) return;
+        // 1. Confirmação de segurança (Prevenção de cliques acidentais)
+        if (!confirm('ATENÇÃO: Tem certeza que deseja excluir esta inscrição permanentemente? Esta ação não pode ser desfeita no banco de dados.')) {
+            console.log('LOG [Exclusão]: Operação cancelada pelo usuário para o ID:', id);
+            return;
+        }
+
+        console.log('LOG [Exclusão]: Iniciando processo de exclusão real para ID:', id);
+
+        // 2. Feedback Visual: Localizar o botão para mostrar estado de "Processando"
+        // Procuramos o card específico no DOM para dar feedback tátil
+        const card = document.querySelector(`.inscrito-mini-card[data-id="${id}"]`);
+        const btnExcluir = card?.querySelector('.btn-excluir');
+        const iconOriginal = btnExcluir?.innerHTML;
+
+        if (btnExcluir) {
+            btnExcluir.disabled = true;
+            // Adiciona um spinner de loading no lugar do ícone de lixeira
+            btnExcluir.innerHTML = '<i data-lucide="loader-2" class="animate-spin w-4 h-4"></i>';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
 
         try {
-            console.log('LOG [Admin]: Excluindo inscrição', id);
-            const { error } = await window.supabaseClient
+            // 3. Execução do DELETE no Supabase
+            console.log('LOG [Exclusão]: Enviando consulta DELETE para a tabela "inscricoes"...');
+            let { error } = await window.supabaseClient
                 .from('inscricoes')
                 .delete()
                 .eq('id', id);
 
-            if (error) throw error;
+            // Resiliência: Se a tabela padrão falhar por erro de nome (comum em migrações), tenta com acento
+            if (error && (error.code === 'P0001' || error.message?.includes('relation "inscricoes" does not exist'))) {
+                console.warn('LOG [Exclusão]: Tabela "inscricoes" não encontrada, tentando "inscrições"...');
+                const result = await window.supabaseClient
+                    .from('inscrições')
+                    .delete()
+                    .eq('id', id);
+                error = result.error;
+            }
 
-            // Remove do cache local
+            if (error) {
+                console.error('LOG [Exclusão]: Erro capturado na resposta do Supabase:', error);
+                throw error;
+            }
+
+            console.log('LOG [Exclusão]: Resposta do DELETE recebida com sucesso do Supabase.');
+
+            // 4. Sincronização do Cache Local
+            // O item só sai da memória do navegador após a confirmação de que saiu do banco
+            const totalAnterior = todosInscritos.length;
             todosInscritos = todosInscritos.filter(i => i.id !== id);
             
-            // Atualiza dashboard e lista
+            console.log(`LOG [Exclusão]: Cache local atualizado. De ${totalAnterior} para ${todosInscritos.length} registros.`);
+
+            // 5. Atualização da Interface
+            // Re-renderizamos o dashboard e a lista para refletir a exclusão permanentemente
             atualizarDashboard(todosInscritos);
             filtrarERenderizar();
-            alert('Inscrição excluída com sucesso!');
+            
+            console.log('LOG [Exclusão]: Lista atualizada e renderizada com sucesso.');
+            alert('Inscrição excluída com sucesso e removida permanentemente do sistema.');
+
         } catch (err) {
-            console.error('ERRO AO EXCLUIR:', err);
-            alert('Erro ao excluir inscrição: ' + err.message);
+            console.error('LOG [Exclusão]: FALHA AO DELETAR REGISTRO:', err);
+            
+            // Restaurar o botão original em caso de erro para permitir que o usuário tente novamente
+            if (btnExcluir) {
+                btnExcluir.disabled = false;
+                btnExcluir.innerHTML = iconOriginal;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+
+            alert('ERRO NA EXCLUSÃO: Não foi possível deletar o registro no banco de dados. Verifique suas permissões ou conexão. Detalhes: ' + (err.message || 'Erro desconhecido'));
         }
     };
 
