@@ -212,14 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 /**
                  * AJUSTE DE MODELO:
-                 * A coluna 'perfil' é obrigatória no banco de dados.
-                 * Regra de negócio:
-                 * - Se tipo for 'ejc', perfil é 'jovem'
-                 * - Se tipo for 'ecc', perfil é 'casal'
+                 * A tabela exige tanto 'foto_url' quanto 'foto_path'.
+                 * - foto_url: URL pública para exibição direta no navegador.
+                 * - foto_path: Caminho interno no bucket (ex: ejc_123.jpg), 
+                 *   necessário para gestão de arquivos e exclusões futuras.
                  */
                 const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
                 console.log('LOG: Tipo identificado:', tipoInscricao);
                 console.log('LOG: Perfil calculado:', perfil);
+                console.log('LOG: Nome do arquivo (path):', fileName);
+                console.log('LOG: URL pública (url):', publicUrl);
 
                 const payload = { 
                     nome, 
@@ -227,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     tipo: tipoInscricao, 
                     perfil: perfil,
                     foto_url: publicUrl,
+                    foto_path: fileName, // Caminho exato usado no upload
                     cidade, 
                     paroquia
                 };
