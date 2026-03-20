@@ -1,3 +1,9 @@
+function irLogin(type) {
+    window.location.href = `login.html?type=${type}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 });

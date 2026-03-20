@@ -1,50 +1,157 @@
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+@import "tailwindcss";
+
+@theme {
+    --color-brown-dark: #2E1F17;
+    --color-brown-medium: #5C4033;
+    --color-beige: #D9C2A3;
+    --color-cream: #F5EBDD;
+    --color-gold-soft: #C8A96B;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
+/* Fundo Elegante e Solene */
+.bg-church {
+    background: linear-gradient(rgba(46, 31, 23, 0.85), rgba(46, 31, 23, 0.95)), 
+                url('https://images.unsplash.com/photo-1548625361-195fe5772a9d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat fixed;
+    color: #F5EBDD;
+}
+
+/* Animações Suaves */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes progress {
-    from { width: 0%; }
-    to { width: 100%; }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 1s ease-out forwards;
 }
 
 .animate-slide-up {
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-scale-in {
-    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Cards Institucionais */
+.church-card {
+    background: #F5EBDD;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(200, 169, 107, 0.3);
+    transition: all 0.4s ease;
+    color: #2E1F17;
 }
 
-.animate-progress {
-    animation: progress 5s linear forwards;
+.church-card:hover {
+    transform: translateY(-8px);
+    border-color: #C8A96B;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
-/* Custom styles for EJC/ECC themes */
+.card-header {
+    padding: 1.5rem;
+    background: #5C4033;
+    color: #F5EBDD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 3px solid #C8A96B;
+}
+
+/* Botões Modernos */
+.btn-church {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+}
+
+/* Estilos de Botões por Categoria */
+.btn-ejc {
+    background: #5C4033;
+    color: #F5EBDD;
+    border: 1px solid transparent;
+}
+
+.btn-ejc:hover {
+    background: #2E1F17;
+    transform: scale(1.02);
+}
+
+.btn-outline-ejc {
+    border: 2px solid #5C4033;
+    color: #5C4033;
+    background: transparent;
+}
+
+.btn-outline-ejc:hover {
+    background: rgba(92, 64, 51, 0.05);
+}
+
+.btn-ecc {
+    background: #2E1F17;
+    color: #F5EBDD;
+    border: 1px solid #C8A96B;
+}
+
+.btn-ecc:hover {
+    background: #000;
+    border-color: #F5EBDD;
+    transform: scale(1.02);
+}
+
+.btn-outline-ecc {
+    border: 2px solid #2E1F17;
+    color: #2E1F17;
+    background: transparent;
+}
+
+.btn-outline-ecc:hover {
+    background: rgba(46, 31, 23, 0.05);
+}
+
+.btn-admin {
+    background: #C8A96B;
+    color: #2E1F17;
+    box-shadow: 0 4px 15px rgba(200, 169, 107, 0.3);
+}
+
+.btn-admin:hover {
+    background: #D9C2A3;
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+    .church-card {
+        border-radius: 1rem;
+    }
+}
+
+/* Custom styles for EJC/ECC themes (Login/Cadastro) */
 .theme-ejc {
-    --primary: #4f46e5; /* Indigo-600 */
-    --primary-light: #eef2ff;
-    --primary-ring: rgba(79, 70, 229, 0.2);
+    --primary: #5C4033;
+    --primary-light: #F5EBDD;
+    --primary-ring: rgba(92, 64, 51, 0.2);
 }
 
 .theme-ecc {
-    --primary: #059669; /* Emerald-600 */
-    --primary-light: #ecfdf5;
-    --primary-ring: rgba(5, 150, 105, 0.2);
+    --primary: #2E1F17;
+    --primary-light: #F5EBDD;
+    --primary-ring: rgba(46, 31, 23, 0.2);
 }
 
 input:focus {
