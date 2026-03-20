@@ -18,14 +18,14 @@
     <!-- Overlay solene para garantir legibilidade -->
     <div class="fixed inset-0 bg-black/60 z-0"></div>
 
-    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-12">
-        <!-- Cabeçalho do Painel -->
-        <header class="text-center mb-8 text-cream">
+    <main class="relative z-10 max-w-7xl w-full animate-fade-in py-8 md:py-12">
+        <!-- Cabeçalho do Painel: Identidade Visual da Paróquia -->
+        <header class="text-center mb-10 text-cream">
             <div class="inline-block p-4 mb-4 rounded-full bg-brown-medium/30 backdrop-blur-lg border border-gold-soft/50 shadow-2xl">
                 <i data-lucide="shield-check" class="w-10 h-10 text-gold-soft"></i>
             </div>
             <h1 class="text-3xl md:text-5xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-2 drop-shadow-2xl">
-                Painel Administrador
+                Área Administrativa
             </h1>
             <p class="text-sm md:text-base font-light text-beige tracking-[0.1em] uppercase opacity-90">
                 Gestão de Inscritos • Paróquia São Francisco das Chagas
@@ -33,53 +33,85 @@
             <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
         </header>
 
-        <!-- Barra de Ações e Filtros -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-brown-dark/40 backdrop-blur-md p-4 rounded-2xl border border-gold-soft/20">
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <label for="filtro-tipo" class="text-cream text-sm font-semibold uppercase tracking-wider whitespace-nowrap">Filtrar por:</label>
-                <select id="filtro-tipo" class="bg-cream text-brown-dark px-4 py-2 rounded-lg font-semibold focus:ring-2 focus:ring-gold-soft outline-none w-full md:w-48 transition-all">
-                    <option value="todos">Todos os Encontros</option>
-                    <option value="ejc">EJC (Jovens)</option>
-                    <option value="ecc">ECC (Casais)</option>
-                </select>
-            </div>
+        <!-- Barra de Ações: Filtros, Busca e Comandos -->
+        <div class="bg-brown-dark/60 backdrop-blur-xl p-6 rounded-3xl border border-gold-soft/20 shadow-2xl mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                
+                <!-- Busca por Nome -->
+                <div class="space-y-2">
+                    <label for="busca-nome" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Buscar por Nome</label>
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brown-medium"></i>
+                        <input type="text" id="busca-nome" placeholder="Digite o nome..." 
+                               class="w-full bg-cream text-brown-dark pl-10 pr-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all placeholder:text-brown-medium/50 text-sm font-medium">
+                    </div>
+                </div>
 
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <!-- Botão de Atualizar: Recarrega a lista de inscritos do Supabase -->
-                <button id="btn-refresh" type="button" class="flex-1 md:flex-none bg-gold-soft/20 hover:bg-gold-soft/40 text-gold-soft border border-gold-soft/50 px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 group">
-                    <i data-lucide="refresh-cw" class="w-4 h-4 group-active:rotate-180 transition-transform duration-500"></i>
-                    Atualizar
-                </button>
-                <!-- Botão de Sair: Realiza o logout do administrador -->
-                <button id="btn-logout" type="button" class="flex-1 md:flex-none bg-red-900/40 hover:bg-red-900/60 text-red-200 border border-red-500/30 px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 group">
-                    <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    Sair
-                </button>
+                <!-- Filtro por Tipo (EJC/ECC) -->
+                <div class="space-y-2">
+                    <label for="filtro-tipo" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Tipo de Encontro</label>
+                    <select id="filtro-tipo" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
+                        <option value="todos">Todos os Encontros</option>
+                        <option value="ejc">EJC (Jovens)</option>
+                        <option value="ecc">ECC (Casais)</option>
+                    </select>
+                </div>
+
+                <!-- Filtro por Perfil (Jovem/Casal) -->
+                <div class="space-y-2">
+                    <label for="filtro-perfil" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Perfil do Inscrito</label>
+                    <select id="filtro-perfil" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
+                        <option value="todos">Todos os Perfis</option>
+                        <option value="jovem">Jovens</option>
+                        <option value="casal">Casais</option>
+                    </select>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="flex flex-wrap gap-2 lg:flex-nowrap">
+                    <button id="btn-refresh" type="button" class="flex-1 bg-gold-soft/20 hover:bg-gold-soft/40 text-gold-soft border border-gold-soft/40 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 group-active:rotate-180 transition-transform duration-500"></i>
+                        Atualizar
+                    </button>
+                    <a href="/relatorio-inscritos.html" class="flex-1 bg-brown-medium/40 hover:bg-brown-medium/60 text-cream border border-gold-soft/30 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest text-center">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                        Relatório
+                    </a>
+                    <button id="btn-logout" type="button" class="flex-1 bg-red-900/40 hover:bg-red-900/60 text-red-200 border border-red-500/30 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest">
+                        <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        Sair
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Área de Listagem de Inscritos -->
-        <section id="lista-inscritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
+        <section id="lista-inscritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 min-h-[400px]">
             <!-- Os cards dos inscritos serão injetados aqui via JavaScript -->
             
-            <!-- Estado de Carregamento (Skeletton/Spinner) -->
-            <div id="loading-state" class="col-span-full flex flex-col items-center justify-center py-20 text-cream/50">
-                <div class="w-12 h-12 border-4 border-gold-soft/20 border-t-gold-soft rounded-full animate-spin mb-4"></div>
-                <p class="font-['Cinzel'] tracking-widest animate-pulse">Buscando inscritos no altar...</p>
+            <!-- Estado de Carregamento -->
+            <div id="loading-state" class="col-span-full flex flex-col items-center justify-center py-24 text-cream/50">
+                <div class="w-16 h-16 border-4 border-gold-soft/10 border-t-gold-soft rounded-full animate-spin mb-6"></div>
+                <p class="font-['Cinzel'] text-lg tracking-[0.3em] animate-pulse text-gold-soft">Buscando registros...</p>
             </div>
 
             <!-- Estado Vazio -->
-            <div id="empty-state" class="hidden col-span-full flex flex-col items-center justify-center py-20 text-cream/50 bg-brown-dark/20 rounded-3xl border border-dashed border-gold-soft/30">
-                <i data-lucide="users" class="w-16 h-16 mb-4 opacity-20"></i>
-                <p class="text-xl font-['Cinzel'] tracking-widest mb-2">Nenhum inscrito encontrado</p>
-                <p class="text-sm opacity-70">Ainda não há registros para este filtro.</p>
+            <div id="empty-state" class="hidden col-span-full flex flex-col items-center justify-center py-24 text-cream/40 bg-brown-dark/30 rounded-[3rem] border-2 border-dashed border-gold-soft/20">
+                <div class="p-6 bg-brown-medium/20 rounded-full mb-6">
+                    <i data-lucide="users" class="w-12 h-12 opacity-40"></i>
+                </div>
+                <p class="text-2xl font-['Cinzel'] tracking-widest mb-2 text-gold-soft/60">Nenhum registro</p>
+                <p class="text-sm font-light tracking-wider">Não encontramos inscritos com os filtros aplicados.</p>
             </div>
 
             <!-- Estado de Erro -->
-            <div id="error-state" class="hidden col-span-full flex flex-col items-center justify-center py-20 text-red-400 bg-red-900/10 rounded-3xl border border-red-500/30">
-                <i data-lucide="alert-triangle" class="w-16 h-16 mb-4"></i>
-                <p class="text-xl font-['Cinzel'] tracking-widest mb-2">Erro na conexão</p>
-                <p id="error-message" class="text-sm opacity-70">Não foi possível carregar os dados do Supabase.</p>
+            <div id="error-state" class="hidden col-span-full flex flex-col items-center justify-center py-24 text-red-400 bg-red-900/10 rounded-[3rem] border border-red-500/20">
+                <div class="p-6 bg-red-900/20 rounded-full mb-6">
+                    <i data-lucide="alert-circle" class="w-12 h-12"></i>
+                </div>
+                <p class="text-2xl font-['Cinzel'] tracking-widest mb-2">Falha na Conexão</p>
+                <p id="error-message" class="text-sm font-light tracking-wider opacity-80">Ocorreu um problema ao acessar o banco de dados.</p>
+                <button onclick="location.reload()" class="mt-8 px-8 py-3 bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 rounded-full text-xs font-bold uppercase tracking-widest transition-all">Tentar Novamente</button>
             </div>
         </section>
 

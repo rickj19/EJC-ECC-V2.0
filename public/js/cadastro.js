@@ -207,21 +207,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // 7. INSERT NA TABELA INSCRICOES
+                // Sincronização com a estrutura real do banco no Supabase
                 submitBtn.textContent = 'Gravando inscrição...';
                 console.log('LOG: Iniciando insert na tabela "inscricoes"...');
 
                 /**
-                 * AJUSTE DE MODELO:
-                 * A tabela exige tanto 'foto_url' quanto 'foto_path'.
-                 * - foto_url: URL pública para exibição direta no navegador.
-                 * - foto_path: Caminho interno no bucket (ex: ejc_123.jpg), 
-                 *   necessário para gestão de arquivos e exclusões futuras.
+                 * REGRAS DE NEGÓCIO PARA O BANCO:
+                 * - perfil: Automático (ejc -> jovem, ecc -> casal)
+                 * - foto_path: Caminho interno no bucket (essencial para manutenção)
+                 * - foto_url: URL pública para visualização
+                 * - cidade/paroquia: Capturados do formulário
                  */
                 const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
-                console.log('LOG: Tipo identificado:', tipoInscricao);
-                console.log('LOG: Perfil calculado:', perfil);
-                console.log('LOG: Nome do arquivo (path):', fileName);
-                console.log('LOG: URL pública (url):', publicUrl);
+                
+                console.log('LOG: Dados de sincronização:', {
+                    tipo: tipoInscricao,
+                    perfil: perfil,
+                    path: fileName,
+                    url: publicUrl
+                });
 
                 const payload = { 
                     nome, 
@@ -229,12 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     tipo: tipoInscricao, 
                     perfil: perfil,
                     foto_url: publicUrl,
-                    foto_path: fileName, // Caminho exato usado no upload
+                    foto_path: fileName, // Referência interna no bucket 'fotos'
                     cidade, 
                     paroquia
                 };
 
-                console.log('LOG: Payload preparado para o banco:', payload);
+                console.log('LOG: Payload final para sincronização:', payload);
 
                 const { data: insertData, error: insertError } = await window.supabaseClient
                     .from('inscricoes')

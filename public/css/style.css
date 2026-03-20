@@ -201,6 +201,7 @@
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .inscrito-card:hover {
@@ -211,7 +212,7 @@
 
 .inscrito-foto-container {
     width: 100%;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
     position: relative;
     background: #2E1F17;
@@ -229,27 +230,28 @@
 }
 
 .inscrito-info {
-    padding: 1.5rem;
+    padding: 1.25rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .inscrito-nome {
     font-family: 'Cinzel', serif;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #2E1F17;
     line-height: 1.2;
+    margin-bottom: 0.25rem;
 }
 
 .inscrito-detalhe {
     display: flex;
-    items-center: center;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.6rem;
     color: #5C4033;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .badge-tipo {
@@ -258,24 +260,120 @@
     right: 1rem;
     padding: 0.35rem 0.75rem;
     border-radius: 2rem;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    backdrop-blur-md;
+    letter-spacing: 0.15em;
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 2;
 }
 
 .badge-ejc {
-    background: rgba(92, 64, 51, 0.9);
+    background: rgba(92, 64, 51, 0.85);
     color: #F5EBDD;
-    border: 1px solid rgba(200, 169, 107, 0.5);
+    border: 1px solid rgba(200, 169, 107, 0.4);
 }
 
 .badge-ecc {
-    background: rgba(46, 31, 23, 0.9);
+    background: rgba(46, 31, 23, 0.85);
     color: #F5EBDD;
     border: 1px solid #C8A96B;
+}
+
+/**
+ * Estilização de Scrollbar Customizada para o Painel
+ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2E1F17;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C8A96B;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #D9C2A3;
+}
+
+/**
+ * Regras de Impressão para Relatórios
+ * Como o layout de impressão foi organizado:
+ * - Removemos o fundo escuro e gradientes para economizar tinta.
+ * - Ocultamos elementos de interface (filtros, botões, overlays).
+ * - Forçamos o conteúdo a ocupar 100% da largura do papel.
+ * - Garantimos que as cores dos textos sejam pretas/escuras para legibilidade.
+ */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .bg-church {
+        background: white !important;
+    }
+
+    .print-container {
+        box-shadow: none !important;
+        border: 1px solid #eee !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+
+    .print-header {
+        margin-bottom: 2rem !important;
+    }
+
+    .print-header h1 {
+        color: #2E1F17 !important;
+        font-size: 24pt !important;
+    }
+
+    .print-footer {
+        display: block !important;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+
+    table {
+        width: 100% !important;
+        page-break-inside: auto;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    th {
+        background-color: #f9f9f9 !important;
+        color: #2E1F17 !important;
+        border-bottom: 2px solid #C8A96B !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    img {
+        max-width: 50px !important;
+    }
 }
 
 /**
