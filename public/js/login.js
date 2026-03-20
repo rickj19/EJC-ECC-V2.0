@@ -102,6 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (error) {
                     console.error('ERRO [Supabase]:', error);
+
+                    // TRATAMENTO DE ERRO TEMPORÁRIO (Schema Cache / 503)
+                    // PGRST002: Could not query the database for the schema cache. Retrying.
+                    if (error.code === 'PGRST002' || error.status === 503) {
+                        console.warn('AVISO [Login]: Supabase retornou erro 503/PGRST002 (Indisponibilidade temporária).');
+                        throw new Error('O Supabase está temporariamente indisponível. Tente novamente em instantes.');
+                    }
+
                     // Erro PGRST116 significa que nenhum registro foi encontrado
                     if (error.code === 'PGRST116') {
                         throw new Error('Usuário ou senha incorretos para este tipo de acesso.');
