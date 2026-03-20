@@ -171,12 +171,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const novoUsuario = {
             nome,
             email,
-            senha: senhaHasheada, // Salvamos apenas o hash
+            senha_hash: senhaHasheada, // Atualizado: Salvando no campo senha_hash
             perfil,
             tipo_acesso
         };
 
-        console.log('LOG [Usuarios]: Objeto preparado para INSERT (senha protegida):', { ...novoUsuario, senha: '[PROTECTED]' });
+        console.log('LOG [Usuarios]: Objeto preparado para INSERT (senha protegida):', { ...novoUsuario, senha_hash: '[PROTECTED]' });
 
         // Feedback visual no botão (Estado de Loading)
         btnSalvar.disabled = true;

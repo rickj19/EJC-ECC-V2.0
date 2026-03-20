@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const { data, error } = await window.supabaseClient
                     .from('usuarios')
-                    .select('id, nome, email, perfil, tipo_acesso, senha')
+                    .select('id, nome, email, perfil, tipo_acesso, senha_hash') // Atualizado: Usando senha_hash em vez de senha
                     .eq('email', email)
                     .eq('tipo_acesso', tipoAcessoEsperado)
                     .single();
@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 5. Comparação de Senha Criptografada (Bcrypt)
                 console.log('LOG [Login]: Comparando senha digitada com o hash do banco...');
                 
-                // Usamos dcodeIO.bcrypt para comparar a senha em texto puro com o hash
-                const senhaValida = await dcodeIO.bcrypt.compare(password, data.senha);
+                // Usamos dcodeIO.bcrypt para comparar a senha em texto puro com o hash (senha_hash)
+                const senhaValida = await dcodeIO.bcrypt.compare(password, data.senha_hash);
 
                 if (!senhaValida) {
                     console.warn('AVISO [Login]: Senha incorreta.');
