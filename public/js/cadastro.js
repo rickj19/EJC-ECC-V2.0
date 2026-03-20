@@ -212,14 +212,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 /**
                  * AJUSTE DE MODELO:
-                 * O erro anterior indicava que a coluna 'tipo_encontro' não existe.
-                 * Estamos usando o modelo simples e garantido: nome, telefone, tipo, foto_url.
-                 * Também incluímos cidade e paroquia que estão no formulário.
+                 * A coluna 'perfil' é obrigatória no banco de dados.
+                 * Regra de negócio:
+                 * - Se tipo for 'ejc', perfil é 'jovem'
+                 * - Se tipo for 'ecc', perfil é 'casal'
                  */
+                const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
+                console.log('LOG: Tipo identificado:', tipoInscricao);
+                console.log('LOG: Perfil calculado:', perfil);
+
                 const payload = { 
                     nome, 
                     telefone, 
-                    tipo: tipoInscricao, // ejc ou ecc
+                    tipo: tipoInscricao, 
+                    perfil: perfil,
                     foto_url: publicUrl,
                     cidade, 
                     paroquia
