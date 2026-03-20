@@ -190,96 +190,156 @@
 }
 
 /**
- * Estilização dos Cards de Inscritos no Painel Admin
+ * Seção de Ações Rápidas (Topo do Painel)
  */
-.inscrito-card {
-    background: #F5EBDD;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(200, 169, 107, 0.1);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.acoes-rapidas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
 }
 
-.inscrito-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.btn-acao-rapida {
+    background: #F5EBDD;
+    color: #2E1F17;
+    border: 1px solid #D9C2A3;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-acao-rapida:hover {
+    background: #C8A96B;
+    color: #F5EBDD;
+    border-color: #F5EBDD;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.btn-acao-rapida i {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/**
+ * Estilização dos Mini-Cards de Inscritos (Estilo Ficha 3x4)
+ * Otimizado para legibilidade e economia de espaço.
+ */
+.inscrito-mini-card {
+    background: #FFFFFF; /* Fundo branco para máximo contraste */
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(46, 31, 23, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    height: 140px; /* Altura fixa para alinhamento */
+}
+
+.inscrito-mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     border-color: #C8A96B;
 }
 
-.inscrito-foto-container {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    position: relative;
+.foto-3x4-container {
+    width: 105px; /* Proporção aproximada de 3x4 */
+    height: 140px;
+    flex-shrink: 0;
     background: #2E1F17;
+    border-right: 2px solid #C8A96B;
+    position: relative;
 }
 
-.inscrito-foto {
+.foto-3x4 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
 }
 
-.inscrito-card:hover .inscrito-foto {
-    transform: scale(1.1);
-}
-
-.inscrito-info {
-    padding: 1.25rem;
+.info-compacta {
+    padding: 0.75rem 1rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    min-width: 0;
 }
 
-.inscrito-nome {
+.nome-destaque {
     font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    color: #2E1F17;
+    color: #2E1F17; /* Texto escuro para leitura clara */
     line-height: 1.2;
     margin-bottom: 0.25rem;
 }
 
-.inscrito-detalhe {
+.dado-linha {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    color: #5C4033;
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    color: #2E1F17; /* Contraste forte */
+    font-size: 0.7rem;
+    margin-bottom: 0.15rem;
 }
 
-.badge-tipo {
+.dado-linha i {
+    color: #5C4033;
+    opacity: 0.8;
+}
+
+.badge-compacto {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.35rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.65rem;
+    bottom: 0.5rem;
+    right: -0.5rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    font-size: 0.55rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    letter-spacing: 0.05em;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
     z-index: 2;
 }
 
-.badge-ejc {
-    background: rgba(92, 64, 51, 0.85);
-    color: #F5EBDD;
-    border: 1px solid rgba(200, 169, 107, 0.4);
+/**
+ * Estilos para Gerenciamento de Usuários
+ */
+.user-list-item {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(46, 31, 23, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.badge-ecc {
-    background: rgba(46, 31, 23, 0.85);
-    color: #F5EBDD;
-    border: 1px solid #C8A96B;
+.user-type-badge {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
 }
+
+.type-admin { background: #C8A96B; color: #2E1F17; }
+.type-ejc { background: #5C4033; color: #F5EBDD; }
+.type-ecc { background: #2E1F17; color: #F5EBDD; }
 
 /**
  * Estilização de Scrollbar Customizada para o Painel

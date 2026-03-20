@@ -33,9 +33,37 @@
             <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
         </header>
 
-        <!-- Barra de Ações: Filtros, Busca e Comandos -->
-        <div class="bg-brown-dark/60 backdrop-blur-xl p-6 rounded-3xl border border-gold-soft/20 shadow-2xl mb-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+        <!-- Seção de Ações Rápidas -->
+        <div class="acoes-rapidas-grid mb-8">
+            <button id="btn-usuarios" class="btn-acao-rapida">
+                <i data-lucide="users-2"></i>
+                <span>Gerenciar Usuários</span>
+            </button>
+            <button id="btn-nova-inscricao-ejc" class="btn-acao-rapida">
+                <i data-lucide="user-plus"></i>
+                <span>Nova Inscrição EJC</span>
+            </button>
+            <button id="btn-nova-inscricao-ecc" class="btn-acao-rapida">
+                <i data-lucide="user-plus"></i>
+                <span>Nova Inscrição ECC</span>
+            </button>
+            <button id="btn-relatorio" class="btn-acao-rapida">
+                <i data-lucide="file-text"></i>
+                <span>Ver Relatório</span>
+            </button>
+            <button id="btn-atualizar" class="btn-acao-rapida">
+                <i data-lucide="refresh-cw"></i>
+                <span>Atualizar Lista</span>
+            </button>
+            <button id="btn-sair" class="btn-acao-rapida" style="background: #5C4033; color: #F5EBDD;">
+                <i data-lucide="log-out"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+
+        <!-- Barra de Filtros e Busca -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 mb-8 shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 <!-- Busca por Nome -->
                 <div class="space-y-2">
@@ -64,23 +92,8 @@
                         <option value="todos">Todos os Perfis</option>
                         <option value="jovem">Jovens</option>
                         <option value="casal">Casais</option>
+                        <option value="tio">Tio/Tia</option>
                     </select>
-                </div>
-
-                <!-- Botões de Ação -->
-                <div class="flex flex-wrap gap-2 lg:flex-nowrap">
-                    <button id="btn-refresh" type="button" class="flex-1 bg-gold-soft/20 hover:bg-gold-soft/40 text-gold-soft border border-gold-soft/40 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest">
-                        <i data-lucide="refresh-cw" class="w-4 h-4 group-active:rotate-180 transition-transform duration-500"></i>
-                        Atualizar
-                    </button>
-                    <a href="/relatorio-inscritos.html" class="flex-1 bg-brown-medium/40 hover:bg-brown-medium/60 text-cream border border-gold-soft/30 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest text-center">
-                        <i data-lucide="file-text" class="w-4 h-4"></i>
-                        Relatório
-                    </a>
-                    <button id="btn-logout" type="button" class="flex-1 bg-red-900/40 hover:bg-red-900/60 text-red-200 border border-red-500/30 py-2.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group text-xs uppercase tracking-widest">
-                        <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        Sair
-                    </button>
                 </div>
             </div>
         </div>

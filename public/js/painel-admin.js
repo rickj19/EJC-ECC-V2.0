@@ -23,8 +23,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const filtroTipo = document.getElementById('filtro-tipo');
     const filtroPerfil = document.getElementById('filtro-perfil');
     const buscaNome = document.getElementById('busca-nome');
-    const btnRefresh = document.getElementById('btn-refresh');
-    const btnLogout = document.getElementById('btn-logout');
+    
+    // Novos botões de Ações Rápidas
+    const btnUsuarios = document.getElementById('btn-usuarios');
+    const btnNovaInscricaoEjc = document.getElementById('btn-nova-inscricao-ejc');
+    const btnNovaInscricaoEcc = document.getElementById('btn-nova-inscricao-ecc');
+    const btnRelatorio = document.getElementById('btn-relatorio');
+    const btnAtualizar = document.getElementById('btn-atualizar');
+    const btnSair = document.getElementById('btn-sair');
     
     const loadingState = document.getElementById('loading-state');
     const emptyState = document.getElementById('empty-state');
@@ -146,70 +152,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     /**
-     * Cria o elemento HTML do card de um inscrito
-     * Como os cards são renderizados:
-     * - Criamos um elemento div dinamicamente.
-     * - Injetamos o HTML com as classes de estilo da Paróquia.
-     * - Exibimos todos os dados: foto, nome, telefone, tipo, perfil, cidade, paróquia e data.
+     * Cria o elemento HTML do card de um inscrito (Estilo Ficha 3x4)
+     * Otimizado para legibilidade e economia de espaço.
      */
     function criarCardInscrito(inscrito) {
         const div = document.createElement('div');
-        div.className = 'inscrito-card animate-fade-in';
+        div.className = 'inscrito-mini-card animate-fade-in';
         
         // Formata a data de criação do registro
         const dataCadastro = inscrito.created_at 
-            ? new Date(inscrito.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
-            : 'Data não disponível';
+            ? new Date(inscrito.created_at).toLocaleDateString('pt-BR')
+            : 'Data N/I';
 
         // Determina o tipo (EJC ou ECC) para o badge superior
         const tipo = (inscrito.tipo || inscrito.tipo_encontro || 'EJC').toUpperCase();
-        const badgeClass = tipo === 'ECC' ? 'badge-ecc' : 'badge-ejc';
+        const badgeClass = tipo === 'ECC' ? 'bg-[#2E1F17] text-[#F5EBDD]' : 'bg-[#5C4033] text-[#F5EBDD]';
         
         // Perfil formatado (Jovem ou Casal)
         const perfilDisplay = inscrito.perfil ? inscrito.perfil.charAt(0).toUpperCase() + inscrito.perfil.slice(1) : 'Não informado';
 
         div.innerHTML = `
-            <div class="inscrito-foto-container">
-                <img src="${inscrito.foto_url || 'https://picsum.photos/seed/church/400/300'}" 
+            <div class="foto-3x4-container">
+                <img src="${inscrito.foto_url || 'https://picsum.photos/seed/church/300/400'}" 
                      alt="Foto de ${inscrito.nome}" 
-                     class="inscrito-foto"
+                     class="foto-3x4"
                      referrerpolicy="no-referrer">
-                <span class="badge-tipo ${badgeClass}">${tipo}</span>
+                <span class="badge-compacto ${badgeClass}">${tipo}</span>
             </div>
-            <div class="inscrito-info">
-                <h3 class="inscrito-nome truncate" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
-                
-                <!-- Perfil (Jovem/Casal) -->
-                <div class="inscrito-detalhe">
-                    <i data-lucide="user" class="w-4 h-4 text-brown-medium/60"></i>
-                    <span class="font-bold text-[10px] uppercase tracking-widest text-brown-medium">${perfilDisplay}</span>
+            <div class="info-compacta">
+                <div>
+                    <h3 class="nome-destaque truncate" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
+                    
+                    <!-- Perfil (Jovem/Casal) -->
+                    <div class="dado-linha">
+                        <i data-lucide="user" class="w-3 h-3"></i>
+                        <span class="truncate">${perfilDisplay}</span>
+                    </div>
+
+                    <!-- Telefone -->
+                    <div class="dado-linha">
+                        <i data-lucide="phone" class="w-3 h-3"></i>
+                        <span>${inscrito.telefone || 'Sem Telefone'}</span>
+                    </div>
+                    
+                    <!-- Localização: Cidade -->
+                    <div class="dado-linha">
+                        <i data-lucide="map-pin" class="w-3 h-3"></i>
+                        <span class="truncate">${inscrito.cidade || 'Cidade N/I'}</span>
+                    </div>
                 </div>
 
-                <!-- Telefone -->
-                <div class="inscrito-detalhe">
-                    <i data-lucide="phone" class="w-4 h-4 text-brown-medium/60"></i>
-                    <span class="font-medium">${inscrito.telefone || 'Sem Telefone'}</span>
-                </div>
-                
-                <!-- Localização: Cidade e Paróquia -->
-                <div class="inscrito-detalhe">
-                    <i data-lucide="map-pin" class="w-4 h-4 text-brown-medium/60"></i>
-                    <span class="text-xs text-brown-medium/80">${inscrito.cidade || 'Cidade N/I'} • ${inscrito.paroquia || 'Paróquia N/I'}</span>
-                </div>
-
-                <!-- Data de Cadastro -->
-                <div class="inscrito-detalhe mt-2">
-                    <i data-lucide="calendar" class="w-4 h-4 text-brown-medium/40"></i>
-                    <span class="text-[10px] text-brown-medium/60 italic">Inscrito em: ${dataCadastro}</span>
-                </div>
-
-                <!-- Rodapé do Card com ID -->
-                <div class="mt-auto pt-4 border-t border-brown-medium/10 flex justify-between items-center">
-                    <span class="text-[9px] uppercase tracking-widest text-brown-medium/40 font-mono">ID: ${inscrito.id ? inscrito.id.substring(0, 8) : '---'}</span>
-                    <div class="flex gap-2">
-                        <button class="p-1.5 text-brown-medium/40 hover:text-gold-soft transition-colors" title="Ver Detalhes">
-                            <i data-lucide="external-link" class="w-4 h-4"></i>
-                        </button>
+                <!-- Rodapé do Card com Data -->
+                <div class="pt-1 border-t border-gray-100 mt-1">
+                    <div class="dado-linha opacity-60">
+                        <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
+                        <span class="text-[10px] italic">${dataCadastro}</span>
                     </div>
                 </div>
             </div>
@@ -225,24 +222,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     filtroPerfil.addEventListener('change', filtrarERenderizar);
     buscaNome.addEventListener('input', filtrarERenderizar);
 
-    // Botão de Atualizar: Força uma nova busca no banco de dados
-    btnRefresh.addEventListener('click', () => {
-        console.log('LOG: Atualizando lista de inscritos...');
-        buscarInscritos();
+    // Botões de Ações Rápidas
+    btnUsuarios?.addEventListener('click', () => {
+        window.location.href = '/usuarios-admin.html';
     });
 
-    /**
-     * Como o logout funciona:
-     * - Removemos a chave 'usuario_logado' do localStorage para invalidar a sessão local.
-     * - Redirecionamos o usuário para a página inicial (index.html).
-     */
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            localStorage.removeItem('usuario_logado');
-            console.log('LOG: Logout realizado com sucesso.');
-            window.location.href = '/';
+    btnNovaInscricaoEjc?.addEventListener('click', () => {
+        window.location.href = '/cadastro.html?tipo=ejc';
+    });
+
+    btnNovaInscricaoEcc?.addEventListener('click', () => {
+        window.location.href = '/cadastro.html?tipo=ecc';
+    });
+
+    btnRelatorio?.addEventListener('click', () => {
+        window.location.href = '/relatorio-inscritos.html';
+    });
+
+    btnAtualizar?.addEventListener('click', () => {
+        const icon = btnAtualizar.querySelector('i');
+        if (icon) icon.classList.add('animate-spin');
+        buscarInscritos().finally(() => {
+            if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 500);
         });
-    }
+    });
+
+    btnSair?.addEventListener('click', () => {
+        if (confirm('Deseja realmente sair do painel administrativo?')) {
+            localStorage.removeItem('usuario_logado');
+            window.location.href = '/';
+        }
+    });
 
     // 5. Busca inicial de dados
     buscarInscritos();
