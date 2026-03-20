@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let todosInscritos = [];
     // Referência para o gráfico Chart.js
     let chartDistribuicao = null;
+    // Controle para evitar execuções duplicadas simultâneas
+    let estaCarregando = false;
 
     /**
      * Função para animar um valor numérico de 0 até o final
@@ -162,16 +164,27 @@ document.addEventListener('DOMContentLoaded', async () => {
      * - Implementamos uma resiliência para tentar buscar na tabela com acento caso a padrão falhe.
      */
     async function buscarInscritos() {
-        console.log('LOG [Dashboard]: Iniciando busca de inscritos...');
+        // PROTEÇÃO CONTRA CLIQUES REPETIDOS:
+        // Se já houver uma busca em andamento, bloqueamos a nova chamada para evitar conflitos e duplicidade.
+        if (estaCarregando) {
+            console.warn('LOG [Admin]: Uma busca já está em andamento. Chamada bloqueada para evitar duplicidade.');
+            return;
+        }
+
+        console.log('LOG [Admin]: Iniciando busca de inscritos no Supabase...');
+        estaCarregando = true;
         
         // Mostra estado de carregamento visual
         loadingState.classList.remove('hidden');
         emptyState.classList.add('hidden');
         errorState.classList.add('hidden');
         
-        // Limpa a lista atual de cards para evitar duplicidade
-        const cards = listaInscritos.querySelectorAll('.inscrito-card');
-        cards.forEach(card => card.remove());
+        // CORREÇÃO DA DUPLICAÇÃO:
+        // Limpamos o container da lista principal ANTES de qualquer nova renderização.
+        // O problema ocorria porque o seletor anterior não encontrava os cards com a classe correta.
+        // Usar innerHTML = '' é o método mais seguro para garantir que a área esteja limpa.
+        listaInscritos.innerHTML = '';
+        console.log('LOG [Admin]: Container da lista principal limpo.');
 
         try {
             if (!window.supabaseClient) {
@@ -199,7 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Armazena no cache local para filtragem sem novas requisições
             todosInscritos = data || [];
-            console.log(`LOG [Dashboard]: ${todosInscritos.length} registros encontrados.`);
+            console.log(`LOG [Admin]: ${todosInscritos.length} registros encontrados no banco.`);
             
             // 1. Calcula e Atualiza Métricas do Dashboard
             atualizarDashboard(todosInscritos);
@@ -212,6 +225,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingState.classList.add('hidden');
             errorState.classList.remove('hidden');
             errorMessage.textContent = err.message || 'Erro ao carregar dados do Supabase.';
+        } finally {
+            estaCarregando = false;
+            console.log('LOG [Admin]: Atualização de dados concluída.');
         }
     }
 
@@ -257,6 +273,8 @@ document.addEventListener('DOMContentLoaded', async () => {
      */
     function renderizarUltimos(ultimos) {
         if (!containerUltimos) return;
+        
+        // Limpa o container antes de renderizar para evitar duplicação nesta área também
         containerUltimos.innerHTML = '';
 
         if (ultimos.length === 0) {
@@ -264,7 +282,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        console.log(`LOG [Dashboard]: Montando ${ultimos.length} últimos cadastros.`);
+        console.log(`LOG [Dashboard]: Renderizando ${ultimos.length} cards na seção de últimos cadastros.`);
 
         ultimos.forEach(inscrito => {
             const div = document.createElement('div');
@@ -329,13 +347,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Esconde carregamento
         loadingState.classList.add('hidden');
 
-        // Limpa cards atuais antes de renderizar os novos resultados
-        const cardsExistentes = listaInscritos.querySelectorAll('.inscrito-card');
-        cardsExistentes.forEach(card => card.remove());
+        // CORREÇÃO DA DUPLICAÇÃO:
+        // Limpamos o container da lista principal ANTES de renderizar os novos resultados filtrados.
+        // O problema ocorria porque o seletor anterior '.inscrito-card' não correspondia à classe real '.inscrito-mini-card'.
+        listaInscritos.innerHTML = '';
+        console.log('LOG [Admin]: Container da lista principal limpo para renderização dos filtros.');
 
         // Verifica se há resultados
         if (inscritosFiltrados.length === 0) {
             emptyState.classList.remove('hidden');
+            console.log('LOG [Admin]: Nenhum resultado para os filtros atuais.');
             return;
         }
 
@@ -346,6 +367,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const card = criarCardInscrito(inscrito);
             listaInscritos.appendChild(card);
         });
+
+        console.log(`LOG [Admin]: ${inscritosFiltrados.length} cards renderizados na lista principal.`);
 
         // Recria os ícones Lucide nos novos cards
         if (typeof lucide !== 'undefined') {
