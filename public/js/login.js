@@ -80,22 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`LOG [Login]: Mapeamento: URL(${tipoUrl}) -> Banco(tipo_acesso: ${tipoAcessoEsperado}, perfil: ${perfilEsperado || 'qualquer'})`);
 
                 // 3. Montagem da consulta ao Supabase
-                console.log('LOG [Login]: Enviando consulta ao Supabase...');
+                console.log('LOG [Login]: Enviando consulta ao Supabase para buscar usuário...');
                 
-                let query = window.supabaseClient
+                const { data, error } = await window.supabaseClient
                     .from('usuarios')
                     .select('id, nome, email, perfil, tipo_acesso, senha')
                     .eq('email', email)
-                    .eq('senha', password) // Nota: Em produção, senhas devem ser hasheadas
-                    .eq('tipo_acesso', tipoAcessoEsperado);
-
-                // Se houver um perfil específico (como admin), adicionamos o filtro
-                if (perfilEsperado) {
-                    query = query.eq('perfil', perfilEsperado);
-                }
-
-                // Executa a consulta esperando um único registro
-                const { data, error } = await query.single();
+                    .eq('tipo_acesso', tipoAcessoEsperado)
+                    .single();
 
                 // 4. Tratamento da resposta
                 console.log('LOG [Login]: Resposta recebida do Supabase.');
@@ -103,41 +95,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) {
                     console.error('ERRO [Supabase]:', error);
 
-                    // TRATAMENTO DE ERRO TEMPORÁRIO (Schema Cache / 503)
-                    // PGRST002: Could not query the database for the schema cache. Retrying.
-                    if (error.code === 'PGRST002' || error.status === 503) {
-                        console.warn('AVISO [Login]: Supabase retornou erro 503/PGRST002 (Indisponibilidade temporária).');
-                        throw new Error('O Supabase está temporariamente indisponível. Tente novamente em instantes.');
-                    }
-
                     // Erro PGRST116 significa que nenhum registro foi encontrado
                     if (error.code === 'PGRST116') {
-                        throw new Error('Usuário ou senha incorretos para este tipo de acesso.');
+                        throw new Error('Usuário não encontrado para este tipo de acesso.');
                     }
                     throw new Error(`Erro na consulta: ${error.message}`);
                 }
 
                 if (!data) {
-                    console.warn('AVISO [Login]: Nenhum dado retornado, mas sem erro explícito.');
                     throw new Error('Credenciais inválidas.');
+                }
+
+                // 5. Comparação de Senha Criptografada (Bcrypt)
+                console.log('LOG [Login]: Comparando senha digitada com o hash do banco...');
+                
+                // Usamos dcodeIO.bcrypt para comparar a senha em texto puro com o hash
+                const senhaValida = await dcodeIO.bcrypt.compare(password, data.senha);
+
+                if (!senhaValida) {
+                    console.warn('AVISO [Login]: Senha incorreta.');
+                    throw new Error('Senha incorreta.');
                 }
 
                 console.log('LOG [Login]: Usuário autenticado com sucesso:', data.nome);
 
-                // 5. Armazenamento da sessão
-                // Guardamos os dados no localStorage para uso nos painéis internos
-                // O AuthGuard usará esses dados para validar o acesso às páginas.
+                // 6. Armazenamento da sessão via SessionManager
+                // Guardamos os dados no localStorage de forma estruturada e com timestamp
                 const dadosSessao = {
                     id: data.id,
                     nome: data.nome,
                     email: data.email,
                     perfil: data.perfil,
-                    tipo_acesso: data.tipo_acesso,
-                    timestamp: new Date().getTime()
+                    tipo_acesso: data.tipo_acesso
                 };
-                localStorage.setItem('usuario_logado', JSON.stringify(dadosSessao));
+                
+                if (window.SessionManager) {
+                    window.SessionManager.salvarSessao(dadosSessao);
+                } else {
+                    // Fallback se o SessionManager não carregar
+                    localStorage.setItem('usuario_logado', JSON.stringify({
+                        ...dadosSessao,
+                        login_at: new Date().getTime()
+                    }));
+                }
 
-                // 6. Decisão de Redirecionamento
+                // 7. Decisão de Redirecionamento
                 // Redirecionamos para a página correta baseada no perfil e tipo_acesso
                 let paginaDestino = 'index.html';
                 if (data.perfil === 'admin' && data.tipo_acesso === 'geral') {

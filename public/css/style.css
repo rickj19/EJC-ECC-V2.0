@@ -519,44 +519,124 @@
 }
 
 /**
- * Estilização de Inputs e Botões de Submissão
+ * Estilização de Inputs, Selects e Textareas (Contraste Aumentado)
  */
-input,
-select {
-    color: #2B1D17; /* marrom escuro elegante */
-    font-weight: 500;
-}
-
-input::placeholder {
-    color: #7A5C45; /* marrom médio */
-}
-
-select option {
-    color: #2B1D17;
-}
-
-.filter-label {
-    color: #EAD9C0; /* claro mas visível no fundo escuro */
+label {
+    color: #4A3427 !important; /* Marrom escuro para labels em fundo claro */
     font-weight: 600;
-    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    display: block;
 }
 
-input:focus {
+input,
+select,
+textarea {
+    color: #2B1D17 !important; /* Marrom quase preto para texto digitado */
+    background-color: #FFFFFF !important;
+    border: 1.5px solid #D9C2A3 !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8C7365 !important; /* Marrom médio para placeholders */
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 4px var(--primary-ring) !important;
+    outline: none;
 }
 
-#submit-btn {
-    background-color: var(--primary);
+/**
+ * Mensagens de Erro de Validação
+ */
+.error-message {
+    color: #C62828 !important; /* Vermelho forte para erro */
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
-#submit-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+/**
+ * Preview de Foto 3x4 Profissional
+ */
+.photo-3x4-preview-box {
+    width: 150px; /* Proporção 3x4 (150x200) */
+    height: 200px;
+    background-color: #2E1F17;
+    border: 3px solid #C8A96B;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin: 0 auto;
 }
 
-#feedback-message {
-    transition: all 0.3s ease;
+.photo-3x4-preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/**
+ * Modal de Confirmação Elegante
+ */
+#modal-confirmacao {
+    backdrop-filter: blur(8px);
+    background-color: rgba(46, 31, 23, 0.7);
+    z-index: 100;
+}
+
+.modal-content {
+    background-color: #F5EBDD;
+    border: 2px solid #C8A96B;
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+    background-color: #5C4033;
+    color: #F5EBDD;
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 3px solid #C8A96B;
+}
+
+.modal-body {
+    padding: 2rem;
+    text-align: center;
+    color: #2E1F17;
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    border-top: 1px solid rgba(92, 64, 51, 0.1);
 }
 
 /**

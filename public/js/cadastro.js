@@ -25,10 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackMessage = document.getElementById('feedback-message');
     const canvasResize = document.getElementById('canvas-resize');
 
+    // Modal de Confirmação
+    const modalConfirmacao = document.getElementById('modal-confirmacao');
+    const btnConfirmar = document.getElementById('confirmar-envio');
+    const btnCancelar = document.getElementById('cancelar-envio');
+
     // Aplica o tema visual baseado no tipo
     document.body.classList.add(`theme-${tipoInscricao}`);
     if (badge) {
         badge.textContent = `INSCRIÇÃO ${tipoInscricao.toUpperCase()}`;
+    }
+
+    /**
+     * MÁSCARA DE TELEFONE: (99) 99999-9999
+     * Aplica a formatação enquanto o usuário digita.
+     */
+    const inputTelefone = document.getElementById('telefone');
+    if (inputTelefone) {
+        inputTelefone.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+            if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+
+            // Aplica a máscara progressivamente
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+            e.target.value = value;
+        });
     }
 
     /**
@@ -37,36 +66,81 @@ document.addEventListener('DOMContentLoaded', () => {
     function showFeedback(message, isError = true) {
         if (!feedbackMessage) return;
         feedbackMessage.textContent = message;
-        feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+        feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700', 'success-message');
         
         if (isError) {
             feedbackMessage.classList.add('bg-red-100', 'text-red-700');
         } else {
-            feedbackMessage.classList.add('bg-green-100', 'text-green-700');
+            feedbackMessage.classList.add('success-message');
         }
         
-        // Garante que o usuário veja a mensagem
+        feedbackMessage.classList.remove('hidden');
         feedbackMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    /**
+     * VALIDAÇÃO PROFISSIONAL
+     * Verifica cada campo e exibe mensagens de erro específicas.
+     */
+    function validarFormulario() {
+        console.log('LOG: Iniciando validação do formulário...');
+        let isValid = true;
+
+        const campos = [
+            { id: 'nome', min: 3, errorId: 'error-nome' },
+            { id: 'telefone', min: 14, errorId: 'error-telefone' }, // (99) 99999-9999 tem 15 caracteres, mas aceitamos 14 para fixos
+            { id: 'cidade', min: 2, errorId: 'error-cidade' },
+            { id: 'paroquia', min: 2, errorId: 'error-paroquia' }
+        ];
+
+        campos.forEach(campo => {
+            const input = document.getElementById(campo.id);
+            const errorEl = document.getElementById(campo.errorId);
+            const value = input.value.trim();
+
+            if (value.length < campo.min) {
+                errorEl?.classList.remove('hidden');
+                input.classList.add('border-red-500');
+                isValid = false;
+                console.warn(`LOG: Campo "${campo.id}" inválido.`);
+            } else {
+                errorEl?.classList.add('hidden');
+                input.classList.remove('border-red-500');
+            }
+        });
+
+        // Validação da foto
+        const errorFoto = document.getElementById('error-foto');
+        if (!photoInput.files[0]) {
+            errorFoto?.classList.remove('hidden');
+            isValid = false;
+            console.warn('LOG: Foto não selecionada.');
+        } else {
+            errorFoto?.classList.add('hidden');
+        }
+
+        console.log('LOG: Resultado da validação:', isValid ? 'VÁLIDO' : 'INVÁLIDO');
+        return isValid;
     }
 
     /**
      * Função para processar, redimensionar e converter a imagem para 3x4 JPEG
      */
     async function processImage(file) {
-        console.log('LOG: Iniciando processamento da imagem original:', file.name, `(${Math.round(file.size/1024)}KB)`);
+        console.log('LOG: Processando imagem para padrão 3x4 profissional...');
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
                 const ctx = canvasResize.getContext('2d');
                 
-                // Dimensões padrão 3x4 para documentos
+                // Dimensões padrão 3x4 (600x800 é uma boa resolução para web)
                 const targetWidth = 600;
                 const targetHeight = 800;
                 
                 canvasResize.width = targetWidth;
                 canvasResize.height = targetHeight;
 
-                // Cálculo de crop centralizado
+                // Crop centralizado para garantir proporção 3x4
                 let sourceX = 0;
                 let sourceY = 0;
                 let sourceWidth = img.width;
@@ -85,17 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, targetWidth, targetHeight);
                 
-                // Converte para Blob JPEG com qualidade equilibrada
                 canvasResize.toBlob((blob) => {
                     if (blob) {
-                        console.log('LOG: Imagem processada com sucesso. Novo tamanho:', Math.round(blob.size/1024), 'KB');
+                        console.log('LOG: Imagem recortada e otimizada com sucesso.');
                         resolve(blob);
                     } else {
-                        reject(new Error('Erro ao converter imagem para Blob.'));
+                        reject(new Error('Erro ao processar imagem.'));
                     }
-                }, 'image/jpeg', 0.85);
+                }, 'image/jpeg', 0.8);
             };
-            img.onerror = () => reject(new Error('Erro ao carregar a imagem para processamento.'));
+            img.onerror = () => reject(new Error('Erro ao carregar imagem.'));
             img.src = URL.createObjectURL(file);
         });
     }
@@ -112,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (photoPreview) photoPreview.src = e.target.result;
                     if (photoPreviewContainer) photoPreviewContainer.classList.remove('hidden');
                     if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+                    console.log('LOG: Preview da foto atualizado.');
                 }
                 reader.readAsDataURL(file);
             }
@@ -119,162 +193,113 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * EVENTO PRINCIPAL: Clique no Botão de Finalizar Cadastro
+     * FLUXO DE SUBMISSÃO COM CONFIRMAÇÃO
      */
     if (submitBtn) {
-        submitBtn.addEventListener('click', async () => {
-            console.log('--- INÍCIO DO FLUXO DE CADASTRO ---');
-            
-            // Limpa mensagens anteriores
-            feedbackMessage.classList.add('hidden');
-            
-            // 1. VALIDAÇÃO DE CAMPOS
-            const nome = document.getElementById('nome').value.trim();
-            const telefone = document.getElementById('telefone').value.trim();
-            const cidade = document.getElementById('cidade').value.trim();
-            const paroquia = document.getElementById('paroquia').value.trim();
-            const fotoFile = photoInput.files[0];
-
-            if (!nome || !telefone || !cidade || !paroquia) {
-                console.warn('LOG: Validação falhou - campos vazios.');
-                showFeedback('Por favor, preencha todos os campos obrigatórios.');
-                return;
-            }
-
-            // 2. VALIDAÇÃO DE FOTO OBRIGATÓRIA
-            if (!fotoFile) {
-                console.warn('LOG: Validação falhou - sem foto.');
-                showFeedback('A foto é obrigatória para realizar a inscrição.');
-                return;
-            }
-
-            console.log('LOG: Dados básicos validados:', { nome, tipo: tipoInscricao });
-
-            // Trava o botão para evitar cliques duplos
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Processando imagem...';
-
-            try {
-                // Verifica se o cliente Supabase está disponível
-                if (!window.supabaseClient) {
-                    throw new Error('O sistema não conseguiu se conectar ao Supabase. Verifique sua conexão ou configurações.');
-                }
-
-                // 3. PROCESSAMENTO DA IMAGEM
-                const processedBlob = await processImage(fotoFile);
-
-                // 4. GERAÇÃO DE NOME ÚNICO
-                const timestamp = Date.now();
-                const randomStr = Math.random().toString(36).substring(7);
-                const fileName = `${tipoInscricao}_${timestamp}_${randomStr}.jpg`;
-                
-                // 5. UPLOAD PARA O SUPABASE STORAGE
-                const BUCKET_NAME = 'fotos';
-                console.log(`LOG: Iniciando upload para o bucket "${BUCKET_NAME}"...`);
-                console.log('LOG: Nome do arquivo gerado:', fileName);
-                console.log('LOG: Tamanho do blob para upload:', Math.round(processedBlob.size/1024), 'KB');
-
-                submitBtn.textContent = 'Enviando foto...';
-
-                // Realiza o upload sem timeout manual para capturar o erro real do Supabase
-                const { data: uploadData, error: uploadError } = await window.supabaseClient
-                    .storage
-                    .from(BUCKET_NAME)
-                    .upload(fileName, processedBlob, {
-                        contentType: 'image/jpeg',
-                        upsert: false
-                    });
-
-                // Captura erro detalhado do Storage
-                if (uploadError) {
-                    console.error('LOG: ERRO DETALHADO NO UPLOAD:', uploadError);
-                    throw new Error(`Erro no Supabase Storage: ${uploadError.message || 'Falha ao enviar arquivo'}`);
-                }
-
-                console.log('LOG: Resposta do upload recebida com sucesso:', uploadData);
-
-                // 6. OBTER URL PÚBLICA
-                const { data: publicUrlData } = window.supabaseClient
-                    .storage
-                    .from(BUCKET_NAME)
-                    .getPublicUrl(fileName);
-
-                const publicUrl = publicUrlData.publicUrl;
-                console.log('LOG: URL pública gerada:', publicUrl);
-
-                if (!publicUrl) {
-                    throw new Error('Falha ao gerar a URL pública da imagem.');
-                }
-
-                // 7. INSERT NA TABELA INSCRICOES
-                // Sincronização com a estrutura real do banco no Supabase
-                submitBtn.textContent = 'Gravando inscrição...';
-                console.log('LOG: Iniciando insert na tabela "inscricoes"...');
-
-                /**
-                 * REGRAS DE NEGÓCIO PARA O BANCO:
-                 * - perfil: Automático (ejc -> jovem, ecc -> casal)
-                 * - foto_path: Caminho interno no bucket (essencial para manutenção)
-                 * - foto_url: URL pública para visualização
-                 * - cidade/paroquia: Capturados do formulário
-                 */
-                const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
-                
-                console.log('LOG: Dados de sincronização:', {
-                    tipo: tipoInscricao,
-                    perfil: perfil,
-                    path: fileName,
-                    url: publicUrl
-                });
-
-                const payload = { 
-                    nome, 
-                    telefone, 
-                    tipo: tipoInscricao, 
-                    perfil: perfil,
-                    foto_url: publicUrl,
-                    foto_path: fileName, // Referência interna no bucket 'fotos'
-                    cidade, 
-                    paroquia
-                };
-
-                console.log('LOG: Payload final para sincronização:', payload);
-
-                const { data: insertData, error: insertError } = await window.supabaseClient
-                    .from('inscricoes')
-                    .insert([payload])
-                    .select();
-
-                if (insertError) {
-                    console.error('LOG: ERRO DETALHADO NO INSERT:', insertError);
-                    throw new Error(`Erro ao salvar no banco: ${insertError.message}`);
-                }
-
-                console.log('LOG: Resposta do insert recebida com sucesso:', insertData);
-                console.log('LOG: Inscrição finalizada com sucesso total!');
-
-                showFeedback('Inscrição realizada com sucesso! Redirecionando...', false);
-
-                // 8. REDIRECIONAMENTO
-                setTimeout(() => {
-                    window.location.href = `/sucesso.html?tipo=${tipoInscricao}`;
-                }, 1500);
-
-            } catch (err) {
-                console.error('LOG: ERRO CAPTURADO NO FLUXO:', err);
-                // Mostra a mensagem de erro amigável mas informativa
-                showFeedback(`Falha no cadastro: ${err.message}`);
-            } finally {
-                // RESTAURAÇÃO DO BOTÃO
-                // Só restaura se não tiver redirecionado (caso de erro)
-                if (!window.location.href.includes('sucesso.html')) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Finalizar Inscrição';
-                    console.log('LOG: Botão restaurado para nova tentativa.');
-                }
-                console.log('--- FIM DO FLUXO DE CADASTRO ---');
+        submitBtn.addEventListener('click', () => {
+            if (validarFormulario()) {
+                modalConfirmacao?.classList.remove('hidden');
+                console.log('LOG: Aguardando confirmação do usuário...');
+            } else {
+                showFeedback('Por favor, corrija os campos destacados em vermelho.');
             }
         });
+    }
+
+    // Ação de Cancelar no Modal
+    btnCancelar?.addEventListener('click', () => {
+        modalConfirmacao?.classList.add('hidden');
+        console.log('LOG: Envio cancelado pelo usuário.');
+    });
+
+    // Ação de Confirmar no Modal -> Inicia o envio real
+    btnConfirmar?.addEventListener('click', async () => {
+        modalConfirmacao?.classList.add('hidden');
+        console.log('LOG: Confirmação aceita. Iniciando processamento final...');
+        await executarCadastro();
+    });
+
+    /**
+     * FUNÇÃO PRINCIPAL DE CADASTRO
+     * Executa o upload e o insert no banco.
+     */
+    async function executarCadastro() {
+        console.log('--- INÍCIO DO PROCESSAMENTO DE DADOS ---');
+        
+        const nome = document.getElementById('nome').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const cidade = document.getElementById('cidade').value.trim();
+        const paroquia = document.getElementById('paroquia').value.trim();
+        const observacoes = document.getElementById('observacoes').value.trim();
+        const fotoFile = photoInput.files[0];
+
+        // Trava o botão
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processando...';
+
+        try {
+            if (!window.supabaseClient) throw new Error('Conexão com banco de dados falhou.');
+
+            // 1. Processamento da Imagem
+            const processedBlob = await processImage(fotoFile);
+
+            // 2. Upload para Storage
+            const timestamp = Date.now();
+            const fileName = `${tipoInscricao}_${timestamp}.jpg`;
+            const BUCKET_NAME = 'fotos';
+
+            console.log(`LOG: Enviando foto para o bucket "${BUCKET_NAME}"...`);
+            const { error: uploadError } = await window.supabaseClient
+                .storage
+                .from(BUCKET_NAME)
+                .upload(fileName, processedBlob, { contentType: 'image/jpeg' });
+
+            if (uploadError) throw uploadError;
+
+            // 3. Obter URL
+            const { data: publicUrlData } = window.supabaseClient
+                .storage
+                .from(BUCKET_NAME)
+                .getPublicUrl(fileName);
+
+            const publicUrl = publicUrlData.publicUrl;
+            console.log('LOG: Foto enviada. URL:', publicUrl);
+
+            // 4. Salvar no Banco
+            const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
+            const payload = { 
+                nome, 
+                telefone, 
+                tipo: tipoInscricao, 
+                perfil,
+                foto_url: publicUrl,
+                foto_path: fileName,
+                cidade, 
+                paroquia,
+                observacoes,
+                status: 'pendente'
+            };
+
+            console.log('LOG: Salvando registro na tabela "inscricoes"...');
+            const { error: insertError } = await window.supabaseClient
+                .from('inscricoes')
+                .insert([payload]);
+
+            if (insertError) throw insertError;
+
+            console.log('LOG: Cadastro concluído com sucesso!');
+            showFeedback('Inscrição realizada com sucesso! Redirecionando...', false);
+
+            setTimeout(() => {
+                window.location.href = `/sucesso.html?tipo=${tipoInscricao}`;
+            }, 1500);
+
+        } catch (err) {
+            console.error('LOG: ERRO NO PROCESSO:', err);
+            showFeedback(`Erro ao processar inscrição: ${err.message}`);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Finalizar Inscrição';
+        }
     }
 });
 

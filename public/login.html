@@ -69,11 +69,15 @@
     </div>
 
     <!-- Scripts de lógica de autenticação -->
-    <!-- 1. Biblioteca Supabase via CDN -->
+    <!-- 1. Biblioteca BcryptJS para criptografia no front-end -->
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <!-- 2. Gerenciador de Sessão -->
+    <script src="/js/session.js"></script>
+    <!-- 3. Biblioteca Supabase via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- 2. Configuração do cliente Supabase (inicializa window.supabaseClient) -->
+    <!-- 4. Configuração do cliente Supabase (inicializa window.supabaseClient) -->
     <script src="/js/supabase.js"></script>
-    <!-- 3. Lógica específica da tela de login -->
+    <!-- 5. Lógica específica da tela de login -->
     <script src="/js/login.js"></script>
 </body>
 </html>

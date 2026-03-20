@@ -4,22 +4,20 @@
  * 
  * Este script valida a sessão do usuário no localStorage e verifica se ele
  * possui as permissões necessárias para acessar a página atual.
+ * Ele utiliza o SessionManager para gerenciar a validade da sessão.
  */
 
 const AuthGuard = {
     /**
-     * Obtém o usuário logado do localStorage.
+     * Obtém o usuário logado do localStorage usando o SessionManager.
      * @returns {Object|null} Objeto do usuário ou null se não houver sessão.
      */
     getUsuarioLogado: function() {
-        try {
-            const userJson = localStorage.getItem('usuario_logado');
-            if (!userJson) return null;
-            return JSON.parse(userJson);
-        } catch (e) {
-            console.error('ERRO [AuthGuard]: Falha ao ler localStorage.', e);
+        if (!window.SessionManager) {
+            console.error('ERRO [AuthGuard]: SessionManager não foi carregado.');
             return null;
         }
+        return window.SessionManager.obterSessao();
     },
 
     /**
@@ -51,20 +49,20 @@ const AuthGuard = {
         let mensagemErro = 'Você não tem permissão para acessar esta página.';
         let redirecionarPara = '/index.html';
 
-        // Regra para Painel Admin
+        // Regra para Painel Admin e páginas administrativas
         if (config.perfil === 'admin') {
             if (usuario.perfil !== 'admin' || usuario.tipo_acesso !== 'geral') {
                 acessoPermitido = false;
-                console.error('ERRO [AuthGuard]: Acesso negado ao Painel Admin. Usuário não é administrador geral.');
+                console.error('ERRO [AuthGuard]: Acesso negado. Usuário não é administrador geral.');
                 
                 // Redireciona para o painel correto do usuário se ele tiver um
                 if (usuario.tipo_acesso === 'ejc') redirecionarPara = '/painel-ejc.html';
                 else if (usuario.tipo_acesso === 'ecc') redirecionarPara = '/painel-ecc.html';
             }
         } 
-        // Regra para Painel EJC
+        // Regra para Painel EJC e coordenação EJC
         else if (config.tipo_acesso === 'ejc') {
-            if (usuario.tipo_acesso !== 'ejc') {
+            if (usuario.tipo_acesso !== 'ejc' && usuario.perfil !== 'admin') {
                 acessoPermitido = false;
                 console.error('ERRO [AuthGuard]: Acesso negado ao Painel EJC. Tipo de acesso incompatível.');
                 
@@ -72,9 +70,9 @@ const AuthGuard = {
                 else if (usuario.tipo_acesso === 'ecc') redirecionarPara = '/painel-ecc.html';
             }
         }
-        // Regra para Painel ECC
+        // Regra para Painel ECC e coordenação ECC
         else if (config.tipo_acesso === 'ecc') {
-            if (usuario.tipo_acesso !== 'ecc') {
+            if (usuario.tipo_acesso !== 'ecc' && usuario.perfil !== 'admin') {
                 acessoPermitido = false;
                 console.error('ERRO [AuthGuard]: Acesso negado ao Painel ECC. Tipo de acesso incompatível.');
                 
@@ -96,12 +94,16 @@ const AuthGuard = {
     },
 
     /**
-     * Realiza o logout do sistema.
+     * Realiza o logout do sistema usando o SessionManager.
      */
     logout: function() {
-        console.log('LOG [AuthGuard]: Executando logout...');
-        localStorage.removeItem('usuario_logado');
-        window.location.href = '/index.html';
+        if (window.SessionManager) {
+            window.SessionManager.logout();
+        } else {
+            console.error('ERRO [AuthGuard]: SessionManager não disponível para logout.');
+            localStorage.removeItem('usuario_logado');
+            window.location.href = '/index.html';
+        }
     }
 };
 

@@ -161,15 +161,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             tipo_acesso = 'geral';
         }
 
+        // CRIPTOGRAFIA DE SENHA (Bcrypt)
+        console.log('LOG [Usuarios]: Criptografando senha antes de salvar...');
+        
+        // Geramos um salt e o hash da senha usando bcryptjs
+        const salt = await dcodeIO.bcrypt.genSalt(10);
+        const senhaHasheada = await dcodeIO.bcrypt.hash(senha, salt);
+
         const novoUsuario = {
             nome,
             email,
-            senha,
+            senha: senhaHasheada, // Salvamos apenas o hash
             perfil,
             tipo_acesso
         };
 
-        console.log('LOG [Usuarios]: Objeto preparado para INSERT:', novoUsuario);
+        console.log('LOG [Usuarios]: Objeto preparado para INSERT (senha protegida):', { ...novoUsuario, senha: '[PROTECTED]' });
 
         // Feedback visual no botão (Estado de Loading)
         btnSalvar.disabled = true;
