@@ -538,6 +538,42 @@ input:focus {
 }
 
 /**
+ * Dashboard Admin: Cards de Métricas
+ */
+.dashboard-card {
+    background: #F5EBDD;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(200, 169, 107, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    border-color: #C8A96B;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/**
+ * Dashboard Admin: Seção de Últimos Cadastros
+ */
+.ultimo-cadastro-card {
+    background: rgba(245, 235, 221, 0.95);
+    padding: 1rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(200, 169, 107, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.ultimo-cadastro-card:hover {
+    background: #F5EBDD;
+    transform: scale(1.02);
+    border-color: #C8A96B;
+}
+
+/**
  * Mensagens de Feedback de Sucesso (Contraste Aumentado)
  */
 .success-message {

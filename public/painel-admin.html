@@ -39,6 +39,71 @@
             <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
         </header>
 
+        <!-- Dashboard de Métricas -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Card: Total Geral -->
+            <div class="dashboard-card group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Total de Inscritos</span>
+                    <div class="p-2 rounded-lg bg-gold-soft/10 text-gold-soft group-hover:bg-gold-soft group-hover:text-white transition-all">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div id="metric-total" class="text-3xl font-bold font-['Cinzel'] text-brown-dark">0</div>
+                <p class="text-[10px] text-brown-medium/60 mt-1 italic">Todos os encontros</p>
+            </div>
+
+            <!-- Card: Total EJC -->
+            <div class="dashboard-card group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Inscritos EJC</span>
+                    <div class="p-2 rounded-lg bg-brown-medium/10 text-brown-medium group-hover:bg-brown-medium group-hover:text-white transition-all">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div id="metric-ejc" class="text-3xl font-bold font-['Cinzel'] text-brown-dark">0</div>
+                <p class="text-[10px] text-brown-medium/60 mt-1 italic">Jovens com Cristo</p>
+            </div>
+
+            <!-- Card: Total ECC -->
+            <div class="dashboard-card group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Inscritos ECC</span>
+                    <div class="p-2 rounded-lg bg-brown-dark/10 text-brown-dark group-hover:bg-brown-dark group-hover:text-white transition-all">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div id="metric-ecc" class="text-3xl font-bold font-['Cinzel'] text-brown-dark">0</div>
+                <p class="text-[10px] text-brown-medium/60 mt-1 italic">Casais com Cristo</p>
+            </div>
+
+            <!-- Card: Último Cadastro -->
+            <div class="dashboard-card group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Último Cadastro</span>
+                    <div class="p-2 rounded-lg bg-green-600/10 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div id="metric-last-date" class="text-xl font-bold font-['Cinzel'] text-brown-dark truncate">---</div>
+                <p id="metric-last-name" class="text-[10px] text-brown-medium/60 mt-1 italic truncate">Nenhum registro</p>
+            </div>
+        </section>
+
+        <!-- Seção: Últimos Cadastros (Visual Rápido) -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-px flex-grow bg-gold-soft/30"></div>
+                <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase">Últimos Cadastros</h2>
+                <div class="h-px flex-grow bg-gold-soft/30"></div>
+            </div>
+            
+            <div id="container-ultimos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Injetado via JS: cards pequenos dos últimos 5/10 -->
+                <div class="col-span-full text-center py-8 text-cream/30 italic">Carregando métricas...</div>
+            </div>
+        </section>
+
         <!-- Seção de Ações Rápidas -->
         <div class="acoes-rapidas-grid mb-8">
             <button id="btn-usuarios" class="btn-acao-rapida">

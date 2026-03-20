@@ -18,6 +18,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const filtroPerfil = document.getElementById('filtro-perfil');
     const buscaNome = document.getElementById('busca-nome');
     
+    // Elementos do Dashboard
+    const metricTotal = document.getElementById('metric-total');
+    const metricEjc = document.getElementById('metric-ejc');
+    const metricEcc = document.getElementById('metric-ecc');
+    const metricLastDate = document.getElementById('metric-last-date');
+    const metricLastName = document.getElementById('metric-last-name');
+    const containerUltimos = document.getElementById('container-ultimos');
+
     // Novos botões de Ações Rápidas
     const btnUsuarios = document.getElementById('btn-usuarios');
     const btnNovaInscricaoEjc = document.getElementById('btn-nova-inscricao-ejc');
@@ -42,6 +50,8 @@ document.addEventListener('DOMContentLoaded', async () => {
      * - Implementamos uma resiliência para tentar buscar na tabela com acento caso a padrão falhe.
      */
     async function buscarInscritos() {
+        console.log('LOG [Dashboard]: Iniciando busca de inscritos...');
+        
         // Mostra estado de carregamento visual
         loadingState.classList.remove('hidden');
         emptyState.classList.add('hidden');
@@ -77,8 +87,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Armazena no cache local para filtragem sem novas requisições
             todosInscritos = data || [];
+            console.log(`LOG [Dashboard]: ${todosInscritos.length} registros encontrados.`);
             
-            // Renderiza os dados aplicando os filtros selecionados
+            // 1. Calcula e Atualiza Métricas do Dashboard
+            atualizarDashboard(todosInscritos);
+
+            // 2. Renderiza os dados aplicando os filtros selecionados na listagem principal
             filtrarERenderizar();
 
         } catch (err) {
@@ -87,6 +101,85 @@ document.addEventListener('DOMContentLoaded', async () => {
             errorState.classList.remove('hidden');
             errorMessage.textContent = err.message || 'Erro ao carregar dados do Supabase.';
         }
+    }
+
+    /**
+     * Calcula as métricas e renderiza os cards do dashboard
+     * @param {Array} dados Lista completa de inscritos
+     */
+    function atualizarDashboard(dados) {
+        // Cálculo de Totais
+        const total = dados.length;
+        const totalEjc = dados.filter(i => (i.tipo || i.tipo_encontro || '').toLowerCase() === 'ejc').length;
+        const totalEcc = dados.filter(i => (i.tipo || i.tipo_encontro || '').toLowerCase() === 'ecc').length;
+
+        console.log('LOG [Dashboard]: Métricas calculadas:', { total, totalEjc, totalEcc });
+
+        // Atualiza os números na tela
+        if (metricTotal) metricTotal.textContent = total;
+        if (metricEjc) metricEjc.textContent = totalEjc;
+        if (metricEcc) metricEcc.textContent = totalEcc;
+
+        // Último Cadastro (Tolerante à ausência de created_at)
+        if (total > 0) {
+            // Se houver created_at, o primeiro item (devido ao order desc) é o mais recente
+            const ultimo = dados[0];
+            const dataFormatada = ultimo.created_at 
+                ? new Date(ultimo.created_at).toLocaleDateString('pt-BR')
+                : 'Recente';
+            
+            if (metricLastDate) metricLastDate.textContent = dataFormatada;
+            if (metricLastName) metricLastName.textContent = ultimo.nome || 'Sem nome';
+        }
+
+        // Renderiza a seção de "Últimos Cadastros" (Top 5)
+        renderizarUltimos(dados.slice(0, 5));
+    }
+
+    /**
+     * Renderiza a seção visual de últimos cadastros
+     * @param {Array} ultimos Lista dos 5 registros mais recentes
+     */
+    function renderizarUltimos(ultimos) {
+        if (!containerUltimos) return;
+        containerUltimos.innerHTML = '';
+
+        if (ultimos.length === 0) {
+            containerUltimos.innerHTML = '<div class="col-span-full text-center py-8 text-cream/30 italic">Nenhum registro encontrado.</div>';
+            return;
+        }
+
+        console.log(`LOG [Dashboard]: Montando ${ultimos.length} últimos cadastros.`);
+
+        ultimos.forEach(inscrito => {
+            const div = document.createElement('div');
+            div.className = 'ultimo-cadastro-card animate-fade-in';
+            
+            const dataFormatada = inscrito.created_at 
+                ? new Date(inscrito.created_at).toLocaleDateString('pt-BR')
+                : '';
+
+            const tipo = (inscrito.tipo || inscrito.tipo_encontro || 'EJC').toUpperCase();
+            const badgeClass = tipo === 'ECC' ? 'bg-brown-dark' : 'bg-brown-medium';
+
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden border border-gold-soft/30 flex-shrink-0">
+                        <img src="${inscrito.foto_url || 'https://picsum.photos/seed/church/100'}" 
+                             alt="${inscrito.nome}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
+                    </div>
+                    <div class="min-w-0">
+                        <h4 class="text-xs font-bold text-brown-dark truncate" title="${inscrito.nome}">${inscrito.nome}</h4>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <span class="px-1.5 py-0.5 rounded text-[8px] font-bold text-white ${badgeClass}">${tipo}</span>
+                            <span class="text-[9px] text-brown-medium/60 truncate">${inscrito.cidade || 'Cidade N/I'}</span>
+                        </div>
+                    </div>
+                </div>
+                ${dataFormatada ? `<div class="text-[8px] text-brown-medium/40 mt-2 text-right italic">${dataFormatada}</div>` : ''}
+            `;
+            containerUltimos.appendChild(div);
+        });
     }
 
     /**
