@@ -359,7 +359,13 @@ document.addEventListener('DOMContentLoaded', async () => {
      */
     function criarCardInscrito(inscrito) {
         const div = document.createElement('div');
-        div.className = 'inscrito-mini-card animate-fade-in';
+        
+        // Determina a classe de status
+        const status = (inscrito.status || 'pendente').toLowerCase();
+        const statusClass = `status-${status}`;
+        
+        div.className = `inscrito-mini-card animate-fade-in ${statusClass}`;
+        div.dataset.id = inscrito.id;
         
         // Formata a data de criação do registro
         const dataCadastro = inscrito.created_at 
@@ -374,16 +380,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         const perfilDisplay = inscrito.perfil ? inscrito.perfil.charAt(0).toUpperCase() + inscrito.perfil.slice(1) : 'Não informado';
 
         div.innerHTML = `
-            <div class="foto-3x4-container">
+            <div class="foto-3x4-container cursor-pointer group" onclick="abrirFoto('${inscrito.foto_url}')">
                 <img src="${inscrito.foto_url || 'https://picsum.photos/seed/church/300/400'}" 
                      alt="Foto de ${inscrito.nome}" 
-                     class="foto-3x4"
+                     class="foto-3x4 transition-transform group-hover:scale-110"
                      referrerpolicy="no-referrer">
                 <span class="badge-compacto ${badgeClass}">${tipo}</span>
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i data-lucide="maximize-2" class="text-white w-6 h-6"></i>
+                </div>
             </div>
             <div class="info-compacta">
-                <div>
-                    <h3 class="nome-destaque truncate" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
+                <div class="relative">
+                    <div class="flex justify-between items-start gap-2">
+                        <h3 class="nome-destaque truncate flex-grow" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
+                        <div class="flex gap-1">
+                            <button onclick="editarInscricao('${inscrito.id}')" class="btn-card-acao btn-editar" title="Editar">
+                                <i data-lucide="edit-3"></i>
+                            </button>
+                            <button onclick="excluirInscricao('${inscrito.id}')" class="btn-card-acao btn-excluir" title="Excluir">
+                                <i data-lucide="trash-2"></i>
+                            </button>
+                        </div>
+                    </div>
                     
                     <!-- Perfil (Jovem/Casal) -->
                     <div class="dado-linha">
@@ -404,9 +423,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
 
-                <!-- Rodapé do Card com Data -->
-                <div class="pt-1 border-t border-gray-100 mt-1">
-                    <div class="dado-linha opacity-60">
+                <!-- Rodapé do Card com Ações de Status e Data -->
+                <div class="pt-2 border-t border-gray-100 mt-1 flex items-center justify-between">
+                    <div class="flex gap-1">
+                        <button onclick="atualizarStatus('${inscrito.id}', 'aprovado')" class="btn-card-acao btn-aprovar" title="Aprovar">
+                            <i data-lucide="check"></i>
+                        </button>
+                        <button onclick="atualizarStatus('${inscrito.id}', 'rejeitado')" class="btn-card-acao btn-rejeitar" title="Rejeitar">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+                    <div class="dado-linha opacity-60 m-0">
                         <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
                         <span class="text-[10px] italic">${dataCadastro}</span>
                     </div>
@@ -416,6 +443,126 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         return div;
     }
+
+    /**
+     * Funções Globais de Ação (Expostas ao Window)
+     */
+    window.abrirFoto = (url) => {
+        const modal = document.getElementById('modal-foto');
+        const img = document.getElementById('img-ampliada');
+        if (modal && img) {
+            img.src = url || 'https://picsum.photos/seed/church/800/600';
+            modal.classList.remove('hidden');
+        }
+    };
+
+    window.fecharModalFoto = () => {
+        const modal = document.getElementById('modal-foto');
+        if (modal) modal.classList.add('hidden');
+    };
+
+    window.editarInscricao = (id) => {
+        console.log('LOG [Admin]: Iniciando edição da inscrição', id);
+        const inscrito = todosInscritos.find(i => i.id === id);
+        if (!inscrito) return;
+
+        document.getElementById('edit-id').value = inscrito.id;
+        document.getElementById('edit-nome').value = inscrito.nome || '';
+        document.getElementById('edit-telefone').value = inscrito.telefone || '';
+        document.getElementById('edit-perfil').value = inscrito.perfil || 'jovem';
+        document.getElementById('edit-cidade').value = inscrito.cidade || '';
+        document.getElementById('edit-paroquia').value = inscrito.paroquia || '';
+
+        document.getElementById('modal-editar').classList.remove('hidden');
+    };
+
+    window.fecharModalEditar = () => {
+        document.getElementById('modal-editar').classList.add('hidden');
+    };
+
+    // Handler do formulário de edição
+    document.getElementById('form-editar')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('edit-id').value;
+        const dados = {
+            nome: document.getElementById('edit-nome').value,
+            telefone: document.getElementById('edit-telefone').value,
+            perfil: document.getElementById('edit-perfil').value,
+            cidade: document.getElementById('edit-cidade').value,
+            paroquia: document.getElementById('edit-paroquia').value
+        };
+
+        try {
+            console.log('LOG [Admin]: Salvando alterações para', id);
+            const { error } = await window.supabaseClient
+                .from('inscricoes')
+                .update(dados)
+                .eq('id', id);
+
+            if (error) throw error;
+
+            // Atualiza cache local
+            const index = todosInscritos.findIndex(i => i.id === id);
+            if (index !== -1) {
+                todosInscritos[index] = { ...todosInscritos[index], ...dados };
+            }
+
+            fecharModalEditar();
+            filtrarERenderizar();
+            alert('Inscrição atualizada com sucesso!');
+        } catch (err) {
+            console.error('ERRO AO SALVAR EDIÇÃO:', err);
+            alert('Erro ao salvar alterações: ' + err.message);
+        }
+    });
+
+    window.excluirInscricao = async (id) => {
+        if (!confirm('Tem certeza que deseja excluir esta inscrição permanentemente?')) return;
+
+        try {
+            console.log('LOG [Admin]: Excluindo inscrição', id);
+            const { error } = await window.supabaseClient
+                .from('inscricoes')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            // Remove do cache local
+            todosInscritos = todosInscritos.filter(i => i.id !== id);
+            
+            // Atualiza dashboard e lista
+            atualizarDashboard(todosInscritos);
+            filtrarERenderizar();
+            alert('Inscrição excluída com sucesso!');
+        } catch (err) {
+            console.error('ERRO AO EXCLUIR:', err);
+            alert('Erro ao excluir inscrição: ' + err.message);
+        }
+    };
+
+    window.atualizarStatus = async (id, status) => {
+        try {
+            console.log(`LOG [Admin]: Atualizando status de ${id} para ${status}`);
+            const { error } = await window.supabaseClient
+                .from('inscricoes')
+                .update({ status })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            // Atualiza cache local
+            const index = todosInscritos.findIndex(i => i.id === id);
+            if (index !== -1) {
+                todosInscritos[index].status = status;
+            }
+
+            filtrarERenderizar();
+        } catch (err) {
+            console.error('ERRO AO ATUALIZAR STATUS:', err);
+            alert('Erro ao atualizar status: ' + err.message);
+        }
+    };
 
     // 4. Event Listeners
     

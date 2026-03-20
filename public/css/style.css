@@ -342,6 +342,55 @@
 .type-ecc { background: #2E1F17; color: #F5EBDD; }
 
 /**
+ * Status de Inscrição: Cores e Bordas
+ */
+.status-aprovado {
+    background-color: #E6F4EA !important;
+    border: 1px solid #2E7D32 !important;
+}
+
+.status-rejeitado {
+    background-color: #FDECEA !important;
+    border: 1px solid #C62828 !important;
+}
+
+.status-pendente {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(46, 31, 23, 0.1) !important;
+}
+
+/**
+ * Botões de Ação nos Cards de Inscritos
+ */
+.btn-card-acao {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-card-acao i {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-editar { background: #E3F2FD; color: #1976D2; }
+.btn-editar:hover { background: #1976D2; color: white; }
+
+.btn-excluir { background: #FFEBEE; color: #D32F2F; }
+.btn-excluir:hover { background: #D32F2F; color: white; }
+
+.btn-aprovar { background: #E8F5E9; color: #2E7D32; }
+.btn-aprovar:hover { background: #2E7D32; color: white; }
+
+.btn-rejeitar { background: #FFF3E0; color: #EF6C00; }
+.btn-rejeitar:hover { background: #EF6C00; color: white; }
+
+/**
  * Estilização de Scrollbar Customizada para o Painel
  */
 ::-webkit-scrollbar {
@@ -472,6 +521,26 @@
 /**
  * Estilização de Inputs e Botões de Submissão
  */
+input,
+select {
+    color: #2B1D17; /* marrom escuro elegante */
+    font-weight: 500;
+}
+
+input::placeholder {
+    color: #7A5C45; /* marrom médio */
+}
+
+select option {
+    color: #2B1D17;
+}
+
+.filter-label {
+    color: #EAD9C0; /* claro mas visível no fundo escuro */
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
 input:focus {
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 4px var(--primary-ring) !important;

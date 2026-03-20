@@ -154,7 +154,7 @@
                 
                 <!-- Busca por Nome -->
                 <div class="space-y-2">
-                    <label for="busca-nome" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Buscar por Nome</label>
+                    <label for="busca-nome" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Buscar por Nome</label>
                     <div class="relative">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brown-medium"></i>
                         <input type="text" id="busca-nome" placeholder="Digite o nome..." 
@@ -164,7 +164,7 @@
 
                 <!-- Filtro por Tipo (EJC/ECC) -->
                 <div class="space-y-2">
-                    <label for="filtro-tipo" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Tipo de Encontro</label>
+                    <label for="filtro-tipo" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Tipo de Encontro</label>
                     <select id="filtro-tipo" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
                         <option value="todos">Todos os Encontros</option>
                         <option value="ejc">EJC (Jovens)</option>
@@ -174,7 +174,7 @@
 
                 <!-- Filtro por Perfil (Jovem/Casal) -->
                 <div class="space-y-2">
-                    <label for="filtro-perfil" class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Perfil do Inscrito</label>
+                    <label for="filtro-perfil" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Perfil do Inscrito</label>
                     <select id="filtro-perfil" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
                         <option value="todos">Todos os Perfis</option>
                         <option value="jovem">Jovens</option>
@@ -220,6 +220,70 @@
             <p class="text-[10px] uppercase tracking-[0.4em]">© 2026 Paróquia São Francisco das Chagas • Gestão Administrativa</p>
         </footer>
     </main>
+
+    <!-- Modal: Visualizar Foto Ampliada -->
+    <div id="modal-foto" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-fade-in">
+        <div class="relative max-w-4xl w-full flex flex-col items-center">
+            <button onclick="fecharModalFoto()" class="absolute -top-12 right-0 text-white hover:text-gold-soft transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <img id="img-ampliada" src="" alt="Foto Ampliada" class="max-h-[80vh] rounded-2xl shadow-2xl border-2 border-gold-soft/30 object-contain">
+        </div>
+    </div>
+
+    <!-- Modal: Editar Inscrição -->
+    <div id="modal-editar" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+        <div class="bg-cream w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl border border-gold-soft/30">
+            <div class="bg-brown-dark p-6 flex items-center justify-between border-b-4 border-gold-soft">
+                <h3 class="font-['Cinzel'] text-xl text-gold-soft tracking-widest">Editar Inscrição</h3>
+                <button onclick="fecharModalEditar()" class="text-beige hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <form id="form-editar" class="p-8 space-y-4">
+                <input type="hidden" id="edit-id">
+                
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Nome Completo</label>
+                    <input type="text" id="edit-nome" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Telefone</label>
+                        <input type="text" id="edit-telefone" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Perfil</label>
+                        <select id="edit-perfil" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all cursor-pointer">
+                            <option value="jovem">Jovem</option>
+                            <option value="casal">Casal</option>
+                            <option value="tio">Tio/Tia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Cidade</label>
+                        <input type="text" id="edit-cidade" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Paróquia</label>
+                        <input type="text" id="edit-paroquia" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brown-dark text-gold-soft font-bold py-4 rounded-2xl border border-gold-soft/50 hover:bg-black hover:text-white transition-all shadow-lg flex items-center justify-center gap-3">
+                        <i data-lucide="save" class="w-5 h-5"></i>
+                        <span>SALVAR ALTERAÇÕES</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Scripts do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
