@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js para o gráfico de distribuição -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Auth Guard: Proteção de Acesso -->
     <script src="/js/auth-guard.js"></script>
     <script>
@@ -42,7 +44,7 @@
         <!-- Dashboard de Métricas -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <!-- Card: Total Geral -->
-            <div class="dashboard-card group">
+            <div class="dashboard-card group animate-slide-up" style="animation-delay: 0.1s;">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Total de Inscritos</span>
                     <div class="p-2 rounded-lg bg-gold-soft/10 text-gold-soft group-hover:bg-gold-soft group-hover:text-white transition-all">
@@ -54,7 +56,7 @@
             </div>
 
             <!-- Card: Total EJC -->
-            <div class="dashboard-card group">
+            <div class="dashboard-card group animate-slide-up" style="animation-delay: 0.2s;">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Inscritos EJC</span>
                     <div class="p-2 rounded-lg bg-brown-medium/10 text-brown-medium group-hover:bg-brown-medium group-hover:text-white transition-all">
@@ -66,7 +68,7 @@
             </div>
 
             <!-- Card: Total ECC -->
-            <div class="dashboard-card group">
+            <div class="dashboard-card group animate-slide-up" style="animation-delay: 0.3s;">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Inscritos ECC</span>
                     <div class="p-2 rounded-lg bg-brown-dark/10 text-brown-dark group-hover:bg-brown-dark group-hover:text-white transition-all">
@@ -78,7 +80,7 @@
             </div>
 
             <!-- Card: Último Cadastro -->
-            <div class="dashboard-card group">
+            <div class="dashboard-card group animate-slide-up" style="animation-delay: 0.4s;">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-brown-medium font-bold">Último Cadastro</span>
                     <div class="p-2 rounded-lg bg-green-600/10 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
@@ -90,11 +92,25 @@
             </div>
         </section>
 
+        <!-- Seção de Gráfico -->
+        <section class="mb-12 animate-fade-in" style="animation-delay: 0.5s;">
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-px flex-grow bg-gold-soft/30"></div>
+                    <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase section-title">Distribuição das Inscrições</h2>
+                    <div class="h-px flex-grow bg-gold-soft/30"></div>
+                </div>
+                <div class="h-[300px] w-full">
+                    <canvas id="chart-distribuicao"></canvas>
+                </div>
+            </div>
+        </section>
+
         <!-- Seção: Últimos Cadastros (Visual Rápido) -->
         <section class="mb-12">
             <div class="flex items-center gap-3 mb-6">
                 <div class="h-px flex-grow bg-gold-soft/30"></div>
-                <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase">Últimos Cadastros</h2>
+                <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase section-title">Últimos Cadastros</h2>
                 <div class="h-px flex-grow bg-gold-soft/30"></div>
             </div>
             
