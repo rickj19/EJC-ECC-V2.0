@@ -519,6 +519,22 @@
 }
 
 /**
+ * Botão de Login/Cadastro (Contraste Aumentado)
+ */
+#submit-btn {
+    background-color: var(--primary);
+    color: #2B1D17 !important; /* Marrom escuro para alto contraste sobre o fundo dourado/bege */
+    font-weight: 700 !important; /* Peso da fonte aumentado para melhor legibilidade */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+#submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/**
  * Estilização de Inputs, Selects e Textareas (Contraste Aumentado)
  */
 label {
