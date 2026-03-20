@@ -1,5 +1,13 @@
+/**
+ * Arquivo: public/css/style.css
+ * Descrição: Estilização global da aplicação, incluindo temas religiosos e componentes modernos.
+ */
+
 @import "tailwindcss";
 
+/**
+ * Definição de Variáveis de Tema (Cores da Paróquia)
+ */
 @theme {
     --color-brown-dark: #2E1F17;
     --color-brown-medium: #5C4033;
@@ -8,87 +16,124 @@
     --color-gold-soft: #C8A96B;
 }
 
-/* Fundo Elegante e Solene */
+/**
+ * Estilo do Fundo Principal: Elegante, Solene e Religioso.
+ */
 .bg-church {
-    background: linear-gradient(rgba(46, 31, 23, 0.85), rgba(46, 31, 23, 0.95)), 
+    background: linear-gradient(rgba(46, 31, 23, 0.9), rgba(46, 31, 23, 0.98)), 
                 url('https://images.unsplash.com/photo-1548625361-195fe5772a9d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat fixed;
     color: #F5EBDD;
 }
 
-/* Animações Suaves */
+/**
+ * Animações Suaves para Transições de Tela
+ */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-slide-up {
-    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
 }
 
-/* Cards Institucionais */
+/**
+ * Cards Institucionais: Usados na Home e nos Painéis.
+ */
 .church-card {
     background: #F5EBDD;
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(200, 169, 107, 0.3);
-    transition: all 0.4s ease;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(200, 169, 107, 0.2);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     color: #2E1F17;
 }
 
 .church-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(1.01);
     border-color: #C8A96B;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 169, 107, 0.2);
 }
 
 .card-header {
-    padding: 1.5rem;
+    padding: 2rem;
     background: #5C4033;
     color: #F5EBDD;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    border-bottom: 3px solid #C8A96B;
+    border-bottom: 4px solid #C8A96B;
 }
 
-/* Botões Modernos */
+/**
+ * Botões Modernos e Elegantes
+ */
 .btn-church {
     width: 100%;
-    padding: 0.85rem 1.5rem;
-    border-radius: 0.75rem;
+    padding: 1rem 1.75rem;
+    border-radius: 1rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    transition: all 0.3s ease;
+    gap: 0.85rem;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Estilos de Botões por Categoria */
+.btn-church:active {
+    transform: scale(0.98);
+}
+
+/**
+ * Efeito de Brilho Suave no Hover dos Botões
+ */
+.btn-church::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.btn-church:hover::after {
+    left: 100%;
+}
+
+/**
+ * Estilos Específicos de Botões por Categoria
+ */
 .btn-ejc {
     background: #5C4033;
     color: #F5EBDD;
-    border: 1px solid transparent;
+    border: 1px solid rgba(200, 169, 107, 0.2);
+    box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
 }
 
 .btn-ejc:hover {
     background: #2E1F17;
-    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(46, 31, 23, 0.4), 0 0 15px rgba(200, 169, 107, 0.2);
+    transform: translateY(-2px);
 }
 
 .btn-outline-ejc {
@@ -98,19 +143,22 @@
 }
 
 .btn-outline-ejc:hover {
-    background: rgba(92, 64, 51, 0.05);
+    background: rgba(92, 64, 51, 0.08);
+    transform: translateY(-2px);
 }
 
 .btn-ecc {
     background: #2E1F17;
     color: #F5EBDD;
     border: 1px solid #C8A96B;
+    box-shadow: 0 4px 12px rgba(46, 31, 23, 0.3);
 }
 
 .btn-ecc:hover {
     background: #000;
     border-color: #F5EBDD;
-    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(200, 169, 107, 0.2);
+    transform: translateY(-2px);
 }
 
 .btn-outline-ecc {
@@ -120,28 +168,131 @@
 }
 
 .btn-outline-ecc:hover {
-    background: rgba(46, 31, 23, 0.05);
-}
-
-.btn-admin {
-    background: #C8A96B;
-    color: #2E1F17;
-    box-shadow: 0 4px 15px rgba(200, 169, 107, 0.3);
-}
-
-.btn-admin:hover {
-    background: #D9C2A3;
+    background: rgba(46, 31, 23, 0.08);
     transform: translateY(-2px);
 }
 
-/* Responsividade */
+/**
+ * Botão Admin Premium (Dourado)
+ */
+.btn-admin {
+    background: linear-gradient(135deg, #C8A96B, #B69559);
+    color: #2E1F17;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(200, 169, 107, 0.4);
+    padding: 1.1rem 2rem;
+}
+
+.btn-admin:hover {
+    background: linear-gradient(135deg, #D9C2A3, #C8A96B);
+    box-shadow: 0 15px 35px rgba(200, 169, 107, 0.6), 0 0 25px rgba(200, 169, 107, 0.3);
+    transform: translateY(-4px);
+}
+
+/**
+ * Estilização dos Cards de Inscritos no Painel Admin
+ */
+.inscrito-card {
+    background: #F5EBDD;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(200, 169, 107, 0.1);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.inscrito-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: #C8A96B;
+}
+
+.inscrito-foto-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    background: #2E1F17;
+}
+
+.inscrito-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.inscrito-card:hover .inscrito-foto {
+    transform: scale(1.1);
+}
+
+.inscrito-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.inscrito-nome {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2E1F17;
+    line-height: 1.2;
+}
+
+.inscrito-detalhe {
+    display: flex;
+    items-center: center;
+    gap: 0.5rem;
+    color: #5C4033;
+    font-size: 0.9rem;
+}
+
+.badge-tipo {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    backdrop-blur-md;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.badge-ejc {
+    background: rgba(92, 64, 51, 0.9);
+    color: #F5EBDD;
+    border: 1px solid rgba(200, 169, 107, 0.5);
+}
+
+.badge-ecc {
+    background: rgba(46, 31, 23, 0.9);
+    color: #F5EBDD;
+    border: 1px solid #C8A96B;
+}
+
+/**
+ * Ajustes de Responsividade para Dispositivos Móveis
+ */
 @media (max-width: 640px) {
     .church-card {
-        border-radius: 1rem;
+        border-radius: 1.5rem;
+    }
+    .btn-church {
+        padding: 0.9rem 1.2rem;
     }
 }
 
-/* Custom styles for EJC/ECC themes (Login/Cadastro) */
+/**
+ * Temas Dinâmicos para Páginas de Login e Cadastro
+ */
 .theme-ejc {
     --primary: #5C4033;
     --primary-light: #F5EBDD;
@@ -154,6 +305,15 @@
     --primary-ring: rgba(46, 31, 23, 0.2);
 }
 
+.theme-admin {
+    --primary: #C8A96B;
+    --primary-light: #F5EBDD;
+    --primary-ring: rgba(200, 169, 107, 0.2);
+}
+
+/**
+ * Estilização de Inputs e Botões de Submissão
+ */
 input:focus {
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 4px var(--primary-ring) !important;

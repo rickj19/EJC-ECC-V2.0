@@ -1,3 +1,9 @@
+/**
+ * Arquivo: public/js/sucesso.js
+ * Descrição: Lógica para a página de sucesso, incluindo exibição de versículos bíblicos e redirecionamento automático.
+ */
+
+// Lista de mensagens bíblicas para exibição aleatória
 const messages = [
     {
         text: "Tudo posso naquele que me fortalece.",
@@ -22,13 +28,26 @@ const messages = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
+    // Inicializa os ícones Lucide
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
+    /**
+     * Lógica de Mensagem Aleatória
+     * Seleciona um versículo da lista e o exibe na tela.
+     */
     const messageObj = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById('biblical-message').textContent = `"${messageObj.text}"`;
-    document.getElementById('biblical-reference').textContent = messageObj.ref;
+    const msgEl = document.getElementById('biblical-message');
+    const refEl = document.getElementById('biblical-reference');
+    
+    if (msgEl) msgEl.textContent = `"${messageObj.text}"`;
+    if (refEl) refEl.textContent = messageObj.ref;
 
-    // Automatic redirect after 5 seconds
+    /**
+     * Redirecionamento Automático
+     * Após 5 segundos, o usuário é enviado de volta para a página inicial.
+     */
     setTimeout(() => {
         window.location.href = '/';
     }, 5000);

@@ -3,67 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título da página que aparece na aba do navegador -->
     <title>Paróquia São Francisco das Chagas - Portal Oficial</title>
+    <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS customizado da paróquia para identidade visual solene -->
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Fontes elegantes para identidade religiosa -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
     
-    <!-- Overlay solene -->
-    <div class="fixed inset-0 bg-black/50 z-0"></div>
+    <!-- Overlay solene para garantir legibilidade sobre o fundo -->
+    <div class="fixed inset-0 bg-black/60 z-0"></div>
 
-    <main class="relative z-10 max-w-5xl w-full animate-fade-in py-8">
-        <!-- Cabeçalho Institucional -->
-        <header class="text-center mb-12 text-cream">
-            <div class="inline-block p-4 mb-6 rounded-full bg-brown-medium/20 backdrop-blur-md border border-gold-soft/40 shadow-2xl">
-                <i data-lucide="cross" class="w-12 h-12 text-gold-soft animate-pulse"></i>
+    <main class="relative z-10 max-w-5xl w-full animate-fade-in py-12">
+        <!-- Cabeçalho Institucional: Nome da Paróquia e Identidade Visual -->
+        <header class="text-center mb-16 text-cream">
+            <div class="inline-block p-5 mb-8 rounded-full bg-brown-medium/30 backdrop-blur-lg border border-gold-soft/50 shadow-2xl animate-slide-up">
+                <i data-lucide="cross" class="w-14 h-14 text-gold-soft animate-pulse"></i>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold font-['Cinzel'] tracking-wider text-gold-soft mb-4 drop-shadow-2xl">
+            <h1 class="text-5xl md:text-7xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-6 drop-shadow-2xl">
                 Paróquia São Francisco das Chagas
             </h1>
-            <p class="text-lg md:text-xl font-light text-beige tracking-widest uppercase">
+            <p class="text-xl md:text-2xl font-light text-beige tracking-[0.2em] uppercase opacity-90">
                 sistema oficial de inscrições e acesso
             </p>
-            <div class="w-32 h-0.5 bg-gold-soft mx-auto mt-6 rounded-full opacity-60"></div>
+            <div class="w-40 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-8 rounded-full opacity-70"></div>
         </header>
 
-        <!-- Áreas EJC e ECC -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+        <!-- Áreas EJC e ECC: Cards de acesso e inscrição -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
             
-            <!-- Card EJC -->
-            <section class="church-card group">
+            <!-- Card EJC (Encontro de Jovens com Cristo) -->
+            <section class="church-card group animate-slide-up" style="animation-delay: 0.2s;">
                 <div class="card-header">
-                    <i data-lucide="sparkles" class="w-8 h-8 text-gold-soft"></i>
-                    <h2 class="text-3xl font-bold font-['Cinzel'] tracking-widest">EJC</h2>
+                    <i data-lucide="sparkles" class="w-10 h-10 text-gold-soft mb-2"></i>
+                    <h2 class="text-4xl font-bold font-['Cinzel'] tracking-widest">EJC</h2>
                 </div>
-                <div class="p-8 space-y-4 bg-cream/50">
-                    <p class="text-brown-medium font-medium text-center mb-6 uppercase text-sm tracking-tighter">Encontro de Jovens com Cristo</p>
-                    <button onclick="irLogin('ejc')" class="btn-church btn-ejc">
+                <div class="p-10 space-y-6 bg-cream/60 backdrop-blur-sm">
+                    <p class="text-brown-medium font-semibold text-center mb-8 uppercase text-sm tracking-[0.1em]">Encontro de Jovens com Cristo</p>
+                    <!-- Botão de Login EJC: Navega para login.html?tipo=ejc -->
+                    <button type="button" onclick="irLogin('ejc')" class="btn-church btn-ejc">
                         <i data-lucide="log-in" class="w-5 h-5"></i>
                         Entrar no EJC
                     </button>
-                    <button onclick="window.location='cadastro.html?tipo=ejc'" class="btn-church btn-outline-ejc">
+                    <!-- Botão de Inscrição EJC: Navega para cadastro.html?tipo=ejc -->
+                    <button type="button" onclick="window.location='cadastro.html?tipo=ejc'" class="btn-church btn-outline-ejc">
                         <i data-lucide="user-plus" class="w-5 h-5"></i>
                         Inscrição Encontrista EJC
                     </button>
                 </div>
             </section>
 
-            <!-- Card ECC -->
-            <section class="church-card group">
+            <!-- Card ECC (Encontro de Casais com Cristo) -->
+            <section class="church-card group animate-slide-up" style="animation-delay: 0.4s;">
                 <div class="card-header">
-                    <i data-lucide="heart" class="w-8 h-8 text-gold-soft"></i>
-                    <h2 class="text-3xl font-bold font-['Cinzel'] tracking-widest">ECC</h2>
+                    <i data-lucide="heart" class="w-10 h-10 text-gold-soft mb-2"></i>
+                    <h2 class="text-4xl font-bold font-['Cinzel'] tracking-widest">ECC</h2>
                 </div>
-                <div class="p-8 space-y-4 bg-cream/50">
-                    <p class="text-brown-medium font-medium text-center mb-6 uppercase text-sm tracking-tighter">Encontro de Casais com Cristo</p>
-                    <button onclick="irLogin('ecc')" class="btn-church btn-ecc">
+                <div class="p-10 space-y-6 bg-cream/60 backdrop-blur-sm">
+                    <p class="text-brown-medium font-semibold text-center mb-8 uppercase text-sm tracking-[0.1em]">Encontro de Casais com Cristo</p>
+                    <!-- Botão de Login ECC: Navega para login.html?tipo=ecc -->
+                    <button type="button" onclick="irLogin('ecc')" class="btn-church btn-ecc">
                         <i data-lucide="log-in" class="w-5 h-5"></i>
                         Entrar no ECC
                     </button>
-                    <button onclick="window.location='cadastro.html?tipo=ecc'" class="btn-church btn-outline-ecc">
+                    <!-- Botão de Inscrição ECC: Navega para cadastro.html?tipo=ecc -->
+                    <button type="button" onclick="window.location='cadastro.html?tipo=ecc'" class="btn-church btn-outline-ecc">
                         <i data-lucide="users" class="w-5 h-5"></i>
                         Inscrição Encontrista ECC
                     </button>
@@ -72,24 +81,28 @@
 
         </div>
 
-        <!-- Acesso Administrador -->
-        <div class="max-w-xs mx-auto animate-slide-up">
-            <button onclick="irLogin('admin')" class="btn-church btn-admin">
-                <i data-lucide="shield-check" class="w-5 h-5"></i>
-                Acesso Administrador
+        <!-- Acesso Administrador: Área restrita para gestão do sistema -->
+        <div class="max-w-md mx-auto text-center animate-slide-up" style="animation-delay: 0.6s;">
+            <p class="text-beige text-xs uppercase tracking-[0.3em] mb-4 opacity-70">Área restrita da administração</p>
+            <!-- Botão de Login Admin: Navega para login.html?tipo=admin -->
+            <button type="button" onclick="irLogin('admin')" class="btn-church btn-admin group">
+                <i data-lucide="shield-check" class="w-6 h-6 transition-transform group-hover:scale-110"></i>
+                <span class="font-bold tracking-widest">Acesso Administrador</span>
             </button>
         </div>
 
-        <!-- Rodapé com Versículo -->
-        <footer class="mt-16 text-center text-cream/80">
-            <div class="max-w-2xl mx-auto bg-brown-dark/40 backdrop-blur-sm p-8 rounded-3xl border border-gold-soft/20 italic shadow-inner">
-                <p class="text-lg md:text-xl leading-relaxed">"Senhor, fazei-me instrumento de vossa paz. Onde houver ódio, que eu leve o amor."</p>
-                <p class="mt-4 font-bold text-gold-soft uppercase tracking-widest text-sm">— São Francisco de Assis</p>
+        <!-- Rodapé Institucional com Versículo de São Francisco -->
+        <footer class="mt-24 text-center text-cream/80">
+            <div class="max-w-3xl mx-auto bg-brown-dark/50 backdrop-blur-md p-10 rounded-[2.5rem] border border-gold-soft/30 italic shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-soft/50 to-transparent"></div>
+                <p class="text-xl md:text-2xl leading-relaxed text-cream">"Senhor, fazei-me instrumento de vossa paz. Onde houver ódio, que eu leve o amor."</p>
+                <p class="mt-6 font-bold text-gold-soft uppercase tracking-[0.4em] text-sm">— São Francisco de Assis</p>
             </div>
-            <p class="mt-10 text-[10px] uppercase tracking-[0.3em] opacity-40">© 2026 Paróquia São Francisco das Chagas • Todos os direitos reservados</p>
+            <p class="mt-12 text-[11px] uppercase tracking-[0.4em] opacity-50">© 2026 Paróquia São Francisco das Chagas • Portal Institucional</p>
         </footer>
     </main>
 
+    <!-- Script de lógica da Home -->
     <script src="/js/index.js"></script>
 </body>
 </html>

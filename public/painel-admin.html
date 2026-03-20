@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrador - Paróquia São Francisco das Chagas</title>
+    <!-- Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS customizado da paróquia -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Fontes elegantes para identidade religiosa -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Biblioteca de ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+    
+    <!-- Overlay solene para garantir legibilidade -->
+    <div class="fixed inset-0 bg-black/60 z-0"></div>
+
+    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-12">
+        <!-- Cabeçalho do Painel -->
+        <header class="text-center mb-8 text-cream">
+            <div class="inline-block p-4 mb-4 rounded-full bg-brown-medium/30 backdrop-blur-lg border border-gold-soft/50 shadow-2xl">
+                <i data-lucide="shield-check" class="w-10 h-10 text-gold-soft"></i>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-2 drop-shadow-2xl">
+                Painel Administrador
+            </h1>
+            <p class="text-sm md:text-base font-light text-beige tracking-[0.1em] uppercase opacity-90">
+                Gestão de Inscritos • Paróquia São Francisco das Chagas
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
+        </header>
+
+        <!-- Barra de Ações e Filtros -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-brown-dark/40 backdrop-blur-md p-4 rounded-2xl border border-gold-soft/20">
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <label for="filtro-tipo" class="text-cream text-sm font-semibold uppercase tracking-wider whitespace-nowrap">Filtrar por:</label>
+                <select id="filtro-tipo" class="bg-cream text-brown-dark px-4 py-2 rounded-lg font-semibold focus:ring-2 focus:ring-gold-soft outline-none w-full md:w-48 transition-all">
+                    <option value="todos">Todos os Encontros</option>
+                    <option value="ejc">EJC (Jovens)</option>
+                    <option value="ecc">ECC (Casais)</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <button id="btn-refresh" class="flex-1 md:flex-none bg-gold-soft/20 hover:bg-gold-soft/40 text-gold-soft border border-gold-soft/50 px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 group">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 group-active:rotate-180 transition-transform duration-500"></i>
+                    Atualizar
+                </button>
+                <button id="btn-logout" class="flex-1 md:flex-none bg-red-900/40 hover:bg-red-900/60 text-red-200 border border-red-500/30 px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 group">
+                    <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <!-- Área de Listagem de Inscritos -->
+        <section id="lista-inscritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
+            <!-- Os cards dos inscritos serão injetados aqui via JavaScript -->
+            
+            <!-- Estado de Carregamento (Skeletton/Spinner) -->
+            <div id="loading-state" class="col-span-full flex flex-col items-center justify-center py-20 text-cream/50">
+                <div class="w-12 h-12 border-4 border-gold-soft/20 border-t-gold-soft rounded-full animate-spin mb-4"></div>
+                <p class="font-['Cinzel'] tracking-widest animate-pulse">Buscando inscritos no altar...</p>
+            </div>
+
+            <!-- Estado Vazio -->
+            <div id="empty-state" class="hidden col-span-full flex flex-col items-center justify-center py-20 text-cream/50 bg-brown-dark/20 rounded-3xl border border-dashed border-gold-soft/30">
+                <i data-lucide="users" class="w-16 h-16 mb-4 opacity-20"></i>
+                <p class="text-xl font-['Cinzel'] tracking-widest mb-2">Nenhum inscrito encontrado</p>
+                <p class="text-sm opacity-70">Ainda não há registros para este filtro.</p>
+            </div>
+
+            <!-- Estado de Erro -->
+            <div id="error-state" class="hidden col-span-full flex flex-col items-center justify-center py-20 text-red-400 bg-red-900/10 rounded-3xl border border-red-500/30">
+                <i data-lucide="alert-triangle" class="w-16 h-16 mb-4"></i>
+                <p class="text-xl font-['Cinzel'] tracking-widest mb-2">Erro na conexão</p>
+                <p id="error-message" class="text-sm opacity-70">Não foi possível carregar os dados do Supabase.</p>
+            </div>
+        </section>
+
+        <!-- Rodapé Institucional -->
+        <footer class="mt-12 text-center text-cream/60">
+            <p class="text-[10px] uppercase tracking-[0.4em]">© 2026 Paróquia São Francisco das Chagas • Gestão Administrativa</p>
+        </footer>
+    </main>
+
+    <!-- Scripts do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/supabase.js"></script>
+    <!-- Script do Painel Admin -->
+    <script src="/js/painel-admin.js"></script>
+</body>
+</html>

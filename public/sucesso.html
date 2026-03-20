@@ -1,17 +1,29 @@
+<!-- 
+    Arquivo: public/sucesso.html
+    Descrição: Página exibida após a conclusão bem-sucedida de uma inscrição.
+    Apresenta uma mensagem de confirmação e um versículo bíblico aleatório.
+-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título da página -->
     <title>Sucesso - EJC & ECC</title>
+    <!-- Tailwind CSS para estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS customizado -->
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Fontes elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="bg-zinc-50 font-['Inter'] min-h-screen flex items-center justify-center p-4">
+    <!-- Card de Sucesso: Design limpo e acolhedor -->
     <div class="max-w-lg w-full bg-white p-12 rounded-3xl shadow-xl border border-zinc-100 text-center animate-scale-in">
         <div class="mb-8 flex justify-center">
+            <!-- Ícone de Check com animação de bounce -->
             <div class="p-6 bg-emerald-100 text-emerald-600 rounded-full animate-bounce">
                 <i data-lucide="check-circle-2" class="w-16 h-16"></i>
             </div>
@@ -19,13 +31,16 @@
 
         <h1 class="text-4xl font-bold text-zinc-900 mb-6">Inscrição Realizada!</h1>
         
+        <!-- Container para a Mensagem Bíblica (preenchido via JavaScript) -->
         <div class="bg-zinc-50 p-8 rounded-2xl border border-zinc-100 mb-8 italic text-zinc-600 leading-relaxed">
             <p id="biblical-message" class="text-lg"></p>
             <p id="biblical-reference" class="mt-4 font-bold text-zinc-800 text-sm uppercase tracking-widest"></p>
         </div>
 
+        <!-- Feedback de redirecionamento automático -->
         <p class="text-zinc-400 text-sm">Você será redirecionado em alguns segundos...</p>
         
+        <!-- Barra de progresso visual para o redirecionamento -->
         <div class="mt-8">
             <div class="w-full bg-zinc-100 h-1 rounded-full overflow-hidden">
                 <div class="bg-emerald-500 h-full animate-progress"></div>
@@ -33,6 +48,7 @@
         </div>
     </div>
 
+    <!-- Script de lógica da página de sucesso -->
     <script src="/js/sucesso.js"></script>
 </body>
 </html>
