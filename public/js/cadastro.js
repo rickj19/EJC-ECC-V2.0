@@ -212,11 +212,33 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('LOG: Envio cancelado pelo usuário.');
     });
 
-    // Ação de Confirmar no Modal -> Inicia o envio real
+    // Ação de Confirmar no Modal -> Inicia o envio real com feedback visual premium
     btnConfirmar?.addEventListener('click', async () => {
-        modalConfirmacao?.classList.add('hidden');
         console.log('LOG: Confirmação aceita. Iniciando processamento final...');
-        await executarCadastro();
+        
+        // Estado de Loading no botão do Modal (Estilo Apple)
+        const originalText = btnConfirmar.innerHTML;
+        btnConfirmar.disabled = true;
+        if (btnCancelar) btnCancelar.disabled = true;
+        
+        // Adiciona o spinner elegante e troca o texto
+        btnConfirmar.innerHTML = `
+            <div class="spinner-premium"></div>
+            <span>Enviando...</span>
+        `;
+
+        try {
+            await executarCadastro();
+            // Se chegar aqui, o redirecionamento vai acontecer dentro de executarCadastro
+        } catch (err) {
+            // Em caso de erro, restaura o botão para permitir nova tentativa
+            btnConfirmar.disabled = false;
+            if (btnCancelar) btnCancelar.disabled = false;
+            btnConfirmar.innerHTML = originalText;
+            
+            // Fecha o modal para que o usuário veja a mensagem de erro no formulário
+            modalConfirmacao?.classList.add('hidden');
+        }
     });
 
     /**
@@ -233,14 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const observacoes = document.getElementById('observacoes').value.trim();
         const fotoFile = photoInput.files[0];
 
-        // Trava o botão
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Processando...';
+        // O botão do modal já está em loading, mas garantimos o botão principal também
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processando...';
+        }
 
         try {
             if (!window.supabaseClient) throw new Error('Conexão com banco de dados falhou.');
 
-            // 1. Processamento da Imagem
+            // 1. Processamento da Imagem (Redimensionamento 3x4)
             const processedBlob = await processImage(fotoFile);
 
             // 2. Upload para Storage
@@ -256,16 +280,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (uploadError) throw uploadError;
 
-            // 3. Obter URL
+            // 3. Obter URL Pública
             const { data: publicUrlData } = window.supabaseClient
                 .storage
                 .from(BUCKET_NAME)
                 .getPublicUrl(fileName);
 
             const publicUrl = publicUrlData.publicUrl;
-            console.log('LOG: Foto enviada. URL:', publicUrl);
+            console.log('LOG: Foto enviada com sucesso. URL:', publicUrl);
 
-            // 4. Salvar no Banco
+            // 4. Salvar Registro no Banco de Dados
             const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
             const payload = { 
                 nome, 
@@ -288,17 +312,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if (insertError) throw insertError;
 
             console.log('LOG: Cadastro concluído com sucesso!');
-            showFeedback('Inscrição realizada com sucesso! Redirecionando...', false);
+            
+            // Feedback de sucesso premium antes do redirecionamento
+            showFeedback('Inscrição realizada com sucesso! Prepare seu coração...', false);
 
+            // Fecha o modal suavemente antes de ir para a tela de sucesso
             setTimeout(() => {
+                modalConfirmacao?.classList.add('hidden');
                 window.location.href = `/sucesso.html?tipo=${tipoInscricao}`;
             }, 1500);
 
         } catch (err) {
             console.error('LOG: ERRO NO PROCESSO:', err);
-            showFeedback(`Erro ao processar inscrição: ${err.message}`);
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Finalizar Inscrição';
+            showFeedback(`Ops! Algo deu errado: ${err.message}`);
+            
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Finalizar Inscrição';
+            }
+            
+            // Re-lança o erro para que o listener do modal possa tratar a UI
+            throw err;
         }
     }
 });

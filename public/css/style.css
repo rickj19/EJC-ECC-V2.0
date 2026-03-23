@@ -915,12 +915,11 @@ textarea:focus {
 }
 
 /**
- * Seção: Modal de Confirmação Premium
- * Foco em alto contraste, legibilidade e animações suaves.
- * Ajustes realizados para evitar botões escuros com texto invisível.
+ * SEÇÃO: Modal de Confirmação "Apple UX"
+ * Foco em animações fluidas, desfoque de fundo (glassmorphism) e feedback tátil.
  */
 
-/* Overlay com desfoque e escurecimento elegante */
+/* Overlay: Escurecimento com desfoque refinado (estilo iOS) */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -928,125 +927,129 @@ textarea:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.75); /* Fundo escurecido */
-    backdrop-filter: blur(8px); /* Blur suave para foco total no modal */
-    transition: all 0.3s ease;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.6); /* Overlay mais suave */
+    backdrop-filter: blur(12px); /* Desfoque mais intenso para profundidade */
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Container do Modal: Fundo claro elegante e bordas suaves */
+/* Container do Modal: Animação de escala e fade estilo iPhone */
 .modal-content {
-    background-color: #F5EBDD; /* Cor Cream do sistema (bege claro) */
-    max-width: 24rem; /* max-w-sm */
+    background-color: #FDF8F2; /* Tom de creme mais claro e limpo */
+    max-width: 22rem;
     width: 100%;
     padding: 2.5rem;
     border-radius: 2.5rem;
-    border: 1px solid rgba(200, 169, 107, 0.3); /* Borda dourada sutil */
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(200, 169, 107, 0.25);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
     text-align: center;
     position: relative;
+    transform-origin: center;
 }
 
-/* Ícone de destaque com cor dourada suave */
-.modal-icon-container {
-    width: 4rem;
-    height: 4rem;
-    background-color: rgba(200, 169, 107, 0.15);
-    border-radius: 9999px;
+/* Título Premium: Marrom Profundo (#2B1D17) */
+.modal-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+    color: #2B1D17;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+/* Descrição: Marrom Suave (#6B4F3B) */
+.modal-description {
+    color: #6B4F3B;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 2.25rem;
+    font-weight: 400;
+}
+
+/* Botão de Confirmação: Estilo Premium com Loading */
+.btn-modal-confirm {
+    width: 100%;
+    height: 3.5rem; /* Altura fixa para evitar pulos no loading */
+    background-color: #C8A96B;
+    color: #2B1D17;
+    border-radius: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: #C8A96B;
+    gap: 0.75rem;
+    box-shadow: 0 8px 20px rgba(200, 169, 107, 0.25);
 }
 
-/* Título com alto contraste (Marrom Escuro #2B1D17) */
-.modal-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    font-family: 'Cinzel', serif;
-    color: #2B1D17; /* Cor solicitada para legibilidade máxima */
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.05em;
+.btn-modal-confirm:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.02);
+    background-color: #D9C2A3;
+    box-shadow: 0 15px 30px rgba(200, 169, 107, 0.4);
 }
 
-/* Descrição com cor marrom suave e legível (#6B4F3B) */
-.modal-description {
-    color: #6B4F3B; /* Cor solicitada para contraste equilibrado */
-    font-size: 0.875rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+.btn-modal-confirm:active:not(:disabled) {
+    transform: scale(0.97);
 }
 
-/* Grid de ações do modal */
-.modal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+.btn-modal-confirm:disabled {
+    opacity: 0.8;
+    cursor: wait;
+    background-color: #D9C2A3;
 }
 
-/* Botão de Confirmação: Estilo Premium Dourado (Substitui o antigo botão preto) */
-.btn-modal-confirm {
+/* Botão de Cancelamento: Discreto e Elegante */
+.btn-modal-cancel {
     width: 100%;
     padding: 1rem;
-    background-color: #C8A96B; /* Dourado/Bege do sistema */
-    color: #2B1D17; /* Texto escuro para alto contraste e legibilidade */
-    border-radius: 1rem;
-    font-weight: 700; /* Peso de fonte solicitado */
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.75rem;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    cursor: pointer;
+    background-color: transparent;
+    color: #6B4F3B;
     border: none;
-    box-shadow: 0 4px 12px rgba(200, 169, 107, 0.25);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 0.5rem;
 }
 
-.btn-modal-confirm:hover {
-    transform: translateY(-3px); /* Elevação sutil solicitada */
-    background-color: #D9C2A3; /* Leve clareamento no hover */
-    box-shadow: 0 12px 24px rgba(200, 169, 107, 0.4);
-    filter: brightness(1.05);
-}
-
-.btn-modal-confirm:active {
+.btn-modal-cancel:hover:not(:disabled) {
+    color: #2B1D17;
     transform: translateY(-1px);
 }
 
-/* Botão de Cancelamento: Elegante e Discreto (Revisar Dados) */
-.btn-modal-cancel {
-    width: 100%;
-    padding: 0.85rem;
-    background-color: transparent;
-    color: #6B4F3B; /* Marrom suave solicitado */
-    border: 1px solid rgba(107, 79, 59, 0.2);
-    border-radius: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.65rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.btn-modal-cancel:hover {
-    background-color: rgba(107, 79, 59, 0.05);
-    border-color: rgba(107, 79, 59, 0.4);
-    color: #2B1D17;
-}
-
-/* Animação de Entrada: Fade + Zoom Suave (Sensação Premium) */
-@keyframes modalEntry {
-    from {
+/* Animação de Entrada "Apple Style": Fade + Scale */
+@keyframes appleModalEntry {
+    0% {
         opacity: 0;
-        transform: scale(0.92) translateY(15px);
+        transform: scale(0.85) translateY(20px);
     }
-    to {
+    100% {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
 }
 
 .animate-modal-entry {
-    animation: modalEntry 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: appleModalEntry 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Spinner de Loading Refinado */
+.spinner-premium {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2.5px solid rgba(43, 29, 23, 0.2);
+    border-top-color: #2B1D17;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
