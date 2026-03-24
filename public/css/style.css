@@ -7,44 +7,50 @@
 
 /**
  * Definição de Variáveis de Tema (Cores da Paróquia e Padrão de Legibilidade)
- * Inspirado na bata de São Francisco e na identidade visual da Igreja Católica.
+ * 
+ * DESIGN CHOICE:
+ * Refinamos a paleta de cores para um visual mais "Premium", leve e acolhedor.
+ * - Fundo: Creme Suave (#F5F1EA) inspirado em ambientes sacros.
+ * - Primária: Marrom St. Francisco (#5A3E2B) remetendo ao hábito franciscano.
+ * - Dourado: Suave (#C8A96A) para detalhes de nobreza e divindade.
+ * - Texto: Marrom Escuro (#3B2A1F) para leitura confortável sem o peso do preto puro.
  */
 :root {
-    /* Cores de Texto - Contraste Aumentado para Legibilidade Premium */
-    --text-primary: #1a1a1a;
-    --text-secondary: #3E2C23; /* Marrom Escuro para textos secundários */
-    --text-muted: #6B4F3B;
+    /* Cores de Texto - Contraste Elegante */
+    --text-primary: #3B2A1F;   /* Marrom Escuro Profundo */
+    --text-secondary: #7A6A5A; /* Marrom Médio para textos de apoio */
+    --text-muted: #8B5E3C;     /* Marrom Claro */
 
     /* Cores de Fundo */
-    --bg-main: #F7F1E8; /* Creme Acolhedor */
+    --bg-main: #F5F1EA; /* Creme Suave Acolhedor */
     --bg-card: #ffffff;
 
     /* Cores de Identidade (Inspiradas em São Francisco) */
-    --primary: #5C4033;      /* Marrom Principal (Hábito) */
-    --primary-dark: #3E2C23; /* Marrom Escuro Profundo */
-    --primary-light: #8B6B4A; /* Marrom Suave */
-    --gold-soft: #C8A96B;    /* Dourado Suave Elegante */
-    --beige-light: #EADCC8;  /* Bege Claro para detalhes */
+    --primary: #5A3E2B;      /* Marrom Principal (Hábito) */
+    --primary-dark: #3B2A1F; /* Marrom Escuro */
+    --primary-light: #8B5E3C; /* Marrom Claro */
+    --gold-soft: #C8A96A;    /* Dourado Suave Elegante */
+    --beige-light: #F5F1EA;  /* Bege para detalhes */
 
     /* Bordas e Elementos de UI */
-    --border: #D9C2A3; /* Bege para bordas sutis */
+    --border: rgba(200, 169, 106, 0.2); /* Dourado muito sutil para bordas */
 }
 
 @theme {
-    --color-brown-dark: #3E2C23;
-    --color-brown-medium: #5C4033;
-    --color-brown-soft: #8B6B4A;
-    --color-beige: #EADCC8;
-    --color-cream: #F7F1E8;
-    --color-gold-soft: #C8A96B;
+    --color-brown-dark: #3B2A1F;
+    --color-brown-medium: #5A3E2B;
+    --color-brown-soft: #8B5E3C;
+    --color-beige: #F5F1EA;
+    --color-cream: #F5F1EA;
+    --color-gold-soft: #C8A96A;
 }
 
 /**
  * Estilo do Fundo Principal: Elegante, Solene e Religioso.
- * Usa um gradiente sutil e uma textura de papel/parede antiga para profundidade.
+ * DESIGN CHOICE: Usamos o tom #F5F1EA para um visual mais leve e sofisticado.
  */
 .bg-church-home {
-    background: radial-gradient(circle at center, #F7F1E8 0%, #EADCC8 100%);
+    background: #F5F1EA;
     background-attachment: fixed;
     position: relative;
 }
@@ -57,7 +63,7 @@
     right: 0;
     bottom: 0;
     background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-    opacity: 0.4;
+    opacity: 0.3; /* Reduzido para maior leveza */
     pointer-events: none;
 }
 
@@ -99,14 +105,14 @@ p {
 }
 
 /**
- * Cards Institucionais: Usados na Home e nos Painéis.
- * Design Premium com bordas arredondadas generosas e sombras suaves.
+ * Cards Institucionais: Design Premium e Leve.
+ * DESIGN CHOICE: Sombras mais suaves e bordas elegantes.
  */
 .church-card {
     background: var(--bg-card);
-    border-radius: 3rem;
+    border-radius: 2.5rem;
     overflow: hidden;
-    box-shadow: 0 25px 60px rgba(62, 44, 35, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Sombra suave e sofisticada */
     border: 1px solid var(--border);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     color: var(--text-primary);
@@ -114,32 +120,33 @@ p {
 }
 
 .church-card:hover {
-    transform: translateY(-12px);
+    transform: translateY(-8px);
     border-color: var(--gold-soft);
-    box-shadow: 0 40px 80px rgba(92, 64, 51, 0.15);
+    box-shadow: 0 20px 40px rgba(90, 62, 43, 0.12);
 }
 
 .card-header {
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    /* DESIGN CHOICE: Gradiente marrom elegante inspirado no hábito franciscano */
+    background: linear-gradient(135deg, #5A3E2B, #8B5E3C);
     color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    border-bottom: 5px solid var(--gold-soft);
+    border-bottom: 4px solid var(--gold-soft);
     position: relative;
 }
 
 .card-header::after {
     content: '';
     position: absolute;
-    bottom: -15px;
+    bottom: -12px;
     left: 50%;
     transform: translateX(-50%);
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 15px solid var(--gold-soft);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--gold-soft);
 }
 
 /**
@@ -188,54 +195,33 @@ p {
 
 /**
  * Estilos Específicos de Botões por Categoria
+ * DESIGN CHOICE: Padronização dos botões principais para harmonia visual.
  */
-.btn-ejc {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+.btn-ejc, .btn-ecc {
+    background: linear-gradient(135deg, #5A3E2B, #8B5E3C);
     color: #ffffff;
-    box-shadow: 0 8px 20px rgba(90, 59, 46, 0.25);
+    box-shadow: 0 8px 20px rgba(90, 62, 43, 0.2);
 }
 
-.btn-ejc:hover {
+.btn-ejc:hover, .btn-ecc:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(90, 59, 46, 0.35);
+    box-shadow: 0 12px 25px rgba(90, 62, 43, 0.3);
     filter: brightness(1.1);
 }
 
-.btn-outline-ejc {
-    border: 1.5px solid var(--primary);
+/* DESIGN CHOICE: Botões secundários mais leves com borda dourada */
+.btn-outline-ejc, .btn-outline-ecc {
+    border: 1.5px solid var(--gold-soft);
     color: var(--primary);
-    background: transparent;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
-.btn-outline-ejc:hover {
-    background: rgba(139, 94, 60, 0.05);
+.btn-outline-ejc:hover, .btn-outline-ecc:hover {
+    background: #FDFBF8;
+    border-color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(139, 94, 60, 0.1);
-}
-
-.btn-ecc {
-    background: linear-gradient(135deg, #1a1a1a, #333333);
-    color: #ffffff;
-    border: 1px solid rgba(200, 169, 107, 0.3);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.btn-ecc:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-    filter: brightness(1.2);
-}
-
-.btn-outline-ecc {
-    border: 1.5px solid #1a1a1a;
-    color: #1a1a1a;
-    background: transparent;
-}
-
-.btn-outline-ecc:hover {
-    background: rgba(26, 26, 26, 0.05);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(26, 26, 26, 0.1);
+    box-shadow: 0 8px 20px rgba(200, 169, 106, 0.15);
 }
 
 /**
@@ -1143,31 +1129,31 @@ textarea:focus {
 
 /* Container do Modal: Animação de escala e fade estilo iPhone */
 .modal-content {
-    background-color: #FDF8F2; /* Tom de creme mais claro e limpo */
+    background-color: #FFFFFF; /* DESIGN CHOICE: Branco puro para leveza */
     max-width: 22rem;
     width: 100%;
     padding: 2.5rem;
     border-radius: 2.5rem;
-    border: 1px solid rgba(200, 169, 107, 0.25);
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15);
     text-align: center;
     position: relative;
     transform-origin: center;
 }
 
-/* Título Premium: Marrom Profundo (#2B1D17) */
+/* Título Premium: Marrom Profundo */
 .modal-title {
     font-size: 1.65rem;
     font-weight: 700;
     font-family: 'Cinzel', serif;
-    color: #2B1D17;
+    color: var(--text-primary);
     margin-bottom: 0.85rem;
     letter-spacing: 0.02em;
 }
 
-/* Descrição: Marrom Suave (#6B4F3B) */
+/* Descrição: Marrom Suave */
 .modal-description {
-    color: #6B4F3B;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 2.25rem;
@@ -1178,8 +1164,8 @@ textarea:focus {
 .btn-modal-confirm {
     width: 100%;
     height: 3.5rem; /* Altura fixa para evitar pulos visuais durante o loading */
-    background-color: #C8A96B;
-    color: #2B1D17;
+    background: linear-gradient(135deg, #5A3E2B, #8B5E3C);
+    color: #FFFFFF;
     border-radius: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -1192,14 +1178,14 @@ textarea:focus {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    box-shadow: 0 8px 20px rgba(200, 169, 107, 0.25);
+    box-shadow: 0 8px 20px rgba(90, 62, 43, 0.2);
 }
 
 /* Microinterações de Hover e Clique */
 .btn-modal-confirm:hover:not(:disabled) {
     transform: translateY(-3px) scale(1.02);
-    background-color: #D9C2A3;
-    box-shadow: 0 15px 30px rgba(200, 169, 107, 0.4);
+    filter: brightness(1.1);
+    box-shadow: 0 15px 30px rgba(90, 62, 43, 0.3);
 }
 
 .btn-modal-confirm:active:not(:disabled) {
@@ -1210,7 +1196,7 @@ textarea:focus {
 .btn-modal-confirm:disabled {
     opacity: 0.8;
     cursor: wait;
-    background-color: #D9C2A3;
+    background: #9ca3af;
 }
 
 /* Botão de Cancelamento: Discreto e Elegante */
@@ -1218,7 +1204,7 @@ textarea:focus {
     width: 100%;
     padding: 1rem;
     background-color: transparent;
-    color: #6B4F3B;
+    color: var(--text-secondary);
     border: none;
     font-weight: 600;
     text-transform: uppercase;
@@ -1230,7 +1216,7 @@ textarea:focus {
 }
 
 .btn-modal-cancel:hover:not(:disabled) {
-    color: #2B1D17;
+    color: var(--text-primary);
     transform: translateY(-1px);
 }
 
@@ -1316,7 +1302,7 @@ textarea:focus {
 
 /* Fundo da tela de login: Creme suave para conforto visual e redução de fadiga */
 .login-body {
-    background-color: #F7F1E8 !important; 
+    background-color: var(--bg-main) !important; 
     background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
     background-blend-mode: multiply;
     min-height: 100vh;
@@ -1326,13 +1312,13 @@ textarea:focus {
 .login-card {
     background-color: #FFFFFF !important;
     border-radius: 2.5rem !important;
-    box-shadow: 0 15px 35px rgba(62, 44, 35, 0.12) !important;
-    border: 1px solid #D1D5DB !important;
+    box-shadow: 0 15px 35px rgba(90, 62, 43, 0.1) !important;
+    border: 1px solid var(--border) !important;
 }
 
 /* Título de Login: Escuro forte para máximo contraste */
 .login-title {
-    color: #2C2C2C !important;
+    color: var(--text-primary) !important;
     font-family: 'Cinzel', serif;
     font-size: 2.5rem !important;
     font-weight: 700;
@@ -1341,7 +1327,7 @@ textarea:focus {
 
 /* Labels dos campos: Escuro para leitura fácil (16px) */
 .login-label {
-    color: #333333 !important;
+    color: var(--text-primary) !important;
     font-size: 1rem !important; /* 16px */
     font-weight: 700;
     text-transform: uppercase;
@@ -1351,8 +1337,8 @@ textarea:focus {
 /* Inputs de Login: Fundo branco, texto escuro e borda visível */
 .login-input {
     background-color: #FFFFFF !important;
-    color: #1A1A1A !important;
-    border: 2px solid #D1D5DB !important;
+    color: var(--text-primary) !important;
+    border: 2px solid var(--border) !important;
     border-radius: 1.25rem !important;
     font-size: 1.125rem !important; /* ~18px para leitura confortável */
     padding: 1rem 1.25rem !important;
@@ -1361,20 +1347,20 @@ textarea:focus {
 
 /* Foco no Input: Borda marrom com glow elegante */
 .login-input:focus {
-    border-color: #8B5E3C !important;
-    box-shadow: 0 0 0 5px rgba(139, 94, 60, 0.2) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 5px rgba(90, 62, 43, 0.1) !important;
     transform: translateY(-1px);
 }
 
 /* Placeholder: Cinza escuro para ser legível mas discreto */
 .login-input::placeholder {
-    color: #777777 !important;
-    opacity: 1;
+    color: var(--text-secondary) !important;
+    opacity: 0.6;
 }
 
 /* Botão de Login: Marrom médio com texto branco de alto contraste */
 .login-button {
-    background: #8B5E3C !important;
+    background: var(--primary) !important;
     color: #FFFFFF !important;
     font-size: 1.125rem !important; /* 18px */
     font-weight: 600 !important;
@@ -1388,9 +1374,9 @@ textarea:focus {
 
 /* Hover no Botão: Marrom mais claro para feedback visual */
 .login-button:hover {
-    background-color: #A47148 !important;
+    background-color: var(--primary-light) !important;
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(139, 94, 60, 0.3) !important;
+    box-shadow: 0 12px 25px rgba(90, 62, 43, 0.3) !important;
 }
 
 /* Active no Botão: Leve escurecida para feedback tátil */
@@ -1401,12 +1387,12 @@ textarea:focus {
 
 /* Ícones do Login: Cor marrom para manter a identidade da igreja */
 .login-icon {
-    color: #8B5E3C !important;
+    color: var(--primary) !important;
 }
 
 /* Texto secundário: Cinza escuro para bom contraste */
 .login-secondary-text {
-    color: #555555 !important;
+    color: var(--text-secondary) !important;
     font-size: 1.125rem;
     font-weight: 400;
 }
@@ -1489,7 +1475,7 @@ textarea:focus {
     letter-spacing: -0.01em;
     line-height: 1.1;
     text-transform: uppercase;
-    color: #5A3B2E;
+    color: var(--primary-dark); /* DESIGN CHOICE: Marrom Escuro Profundo */
     font-weight: 700;
 }
 
@@ -1498,7 +1484,7 @@ textarea:focus {
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.25em;
     font-weight: 400;
-    color: #8B5E3C;
+    color: var(--text-secondary); /* DESIGN CHOICE: Marrom Médio Elegante */
     text-transform: uppercase;
     opacity: 0.9;
 }
@@ -1508,7 +1494,7 @@ textarea:focus {
     font-family: 'Playfair Display', serif;
     letter-spacing: 0.3em; /* Espaçamento amplo para elegância */
     font-style: italic;
-    color: #5A3B2E;
+    color: var(--primary); /* DESIGN CHOICE: Marrom St. Francisco */
 }
 
 /* Linhas Decorativas: Mais sutis para não competir com o texto */
