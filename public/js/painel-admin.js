@@ -418,6 +418,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="flex justify-between items-start gap-2">
                         <h3 class="nome-destaque truncate flex-grow" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
                         <div class="flex gap-1">
+                            <button onclick="verFicha('${inscrito.id}')" class="btn-card-acao btn-ver" title="Ver Ficha Completa">
+                                <i data-lucide="eye"></i>
+                            </button>
+                            <button onclick="gerarFichaPDFById('${inscrito.id}')" class="btn-card-acao btn-pdf" title="Gerar Ficha PDF">
+                                <i data-lucide="file-text"></i>
+                            </button>
                             <button onclick="editarInscricao('${inscrito.id}')" class="btn-card-acao btn-editar" title="Editar">
                                 <i data-lucide="edit-3"></i>
                             </button>
@@ -501,6 +507,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     window.fecharModalEditar = () => {
         document.getElementById('modal-editar').classList.add('hidden');
+    };
+
+    /**
+     * Dispara a geração da ficha PDF buscando os dados no cache local.
+     * @param {string} id ID da inscrição
+     */
+    window.gerarFichaPDFById = (id) => {
+        const inscrito = todosInscritos.find(i => i.id === id);
+        if (inscrito && typeof window.gerarFichaPDF === 'function') {
+            window.gerarFichaPDF(inscrito);
+        } else {
+            console.error('ERRO [Admin]: Dados não encontrados ou script PDF não carregado.');
+            alert('Não foi possível gerar a ficha. Tente atualizar a página.');
+        }
+    };
+
+    /**
+     * Redireciona para a página de visualização/impressão da ficha.
+     * @param {string} id ID da inscrição
+     */
+    window.verFicha = (id) => {
+        window.location.href = `/ficha-inscrito.html?id=${id}`;
     };
 
     // Handler do formulário de edição

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha do Encontreiro - Paróquia São Francisco das Chagas</title>
+    <!-- Tailwind CSS para layout e responsividade -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS Global da Paróquia -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Fontes Cinzel (Religiosa) e Inter (Moderna) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Biblioteca de ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Estilos específicos para a ficha de visualização */
+        .ficha-container {
+            background-color: white;
+            color: #2E1F17;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #D9C2A3;
+        }
+
+        .secao-titulo {
+            border-bottom: 2px solid #C8A96B;
+            margin-bottom: 1rem;
+            padding-bottom: 0.25rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: #5C4033;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .campo-label {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #8C7365;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .campo-valor {
+            font-weight: 500;
+            color: #2E1F17;
+            border-bottom: 1px dotted #D9C2A3;
+            min-height: 1.5rem;
+            display: block;
+        }
+
+        /* Regras de Impressão */
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .ficha-container {
+                box-shadow: none !important;
+                border: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .bg-church {
+                background: white !important;
+            }
+            .fixed {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-church font-['Inter'] min-h-screen p-4 md:p-8 flex flex-col items-center">
+    
+    <!-- Overlay de fundo (oculto na impressão) -->
+    <div class="fixed inset-0 bg-black/60 z-0 no-print"></div>
+
+    <!-- Barra de Ações Superior (Oculta na impressão) -->
+    <div class="relative z-20 w-full max-w-4xl mb-6 flex flex-wrap gap-4 justify-between items-center no-print">
+        <button onclick="window.history.back()" class="flex items-center gap-2 text-cream hover:text-gold-soft transition-colors font-bold uppercase text-xs tracking-widest">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Voltar ao Painel
+        </button>
+
+        <div class="flex gap-3">
+            <button id="btn-imprimir" class="bg-white text-brown-dark px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-lg hover:bg-gold-soft hover:text-white transition-all">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                Imprimir Ficha
+            </button>
+            <button id="btn-pdf" class="bg-brown-medium text-white px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-lg hover:bg-brown-dark transition-all">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                Gerar PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- FICHA DE INSCRIÇÃO (O conteúdo principal) -->
+    <main id="ficha-conteudo" class="relative z-10 w-full max-w-4xl ficha-container rounded-[2rem] p-8 md:p-12 animate-fade-in overflow-hidden">
+        
+        <!-- Cabeçalho Institucional -->
+        <header class="text-center mb-10 border-b-4 border-gold-soft pb-6">
+            <h1 class="text-2xl md:text-3xl font-bold font-['Cinzel'] tracking-[0.2em] text-brown-dark mb-1">
+                ENCONTRO DE JOVENS COM CRISTO
+            </h1>
+            <p class="text-sm md:text-base font-bold text-brown-medium uppercase tracking-[0.1em]">
+                Paróquia São Francisco das Chagas • Bacabal - MA
+            </p>
+            <div class="mt-4 inline-block px-8 py-2 bg-brown-dark text-gold-soft font-['Cinzel'] font-bold tracking-widest text-lg rounded-lg">
+                FICHA DO ENCONTREIRO
+            </div>
+        </header>
+
+        <!-- Corpo da Ficha: Grid Principal -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <!-- Coluna da Foto (3x4) -->
+            <div class="md:col-span-1 flex flex-col items-center">
+                <div class="w-32 h-40 border-2 border-brown-dark rounded-lg overflow-hidden bg-zinc-100 shadow-inner flex items-center justify-center relative">
+                    <img id="display-foto" src="" alt="Foto 3x4" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer">
+                    <div id="foto-placeholder" class="flex flex-col items-center text-zinc-300">
+                        <i data-lucide="user" class="w-12 h-12"></i>
+                        <span class="text-[8px] uppercase font-bold mt-2">Foto 3x4</span>
+                    </div>
+                </div>
+                <div id="display-tipo" class="mt-4 px-4 py-1 bg-brown-medium text-white text-[10px] font-bold uppercase tracking-widest rounded-full">
+                    EJC
+                </div>
+            </div>
+
+            <!-- Coluna de Dados -->
+            <div class="md:col-span-3 space-y-8">
+                
+                <!-- SEÇÃO 1: DADOS PESSOAIS -->
+                <section>
+                    <h2 class="secao-titulo">1. Dados Pessoais</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Nome Completo</span>
+                            <span id="display-nome" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Como gosta de ser chamado</span>
+                            <span id="display-apelido" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Data de Nascimento</span>
+                            <span id="display-nascimento" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Telefone / WhatsApp</span>
+                            <span id="display-telefone" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Profissão / Ocupação</span>
+                            <span id="display-profissao" class="campo-valor">---</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Endereço</span>
+                            <span id="display-endereco" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Bairro</span>
+                            <span id="display-bairro" class="campo-valor">---</span>
+                        </div>
+                        <div>
+                            <span class="campo-label">Ponto de Referência</span>
+                            <span id="display-referencia" class="campo-valor">---</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEÇÃO 2: VIDA NA IGREJA E SACRAMENTOS -->
+                <section>
+                    <h2 class="secao-titulo">2. Vida na Igreja e Sacramentos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Sacramentos</span>
+                            <span id="display-sacramentos" class="campo-valor">---</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Participa de Pastoral/Movimento?</span>
+                            <span id="display-pastoral" class="campo-valor">---</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Aptidão Musical/Artística?</span>
+                            <span id="display-aptidao" class="campo-valor">---</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEÇÃO 3: EXPERIÊNCIA E LIDERANÇA -->
+                <section>
+                    <h2 class="secao-titulo">3. Experiência e Liderança</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Já participou do EJC anteriormente?</span>
+                            <span id="display-fez-ejc" class="campo-valor">---</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Equipes em que já serviu</span>
+                            <span id="display-equipes" class="campo-valor">---</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="campo-label">Já foi coordenador?</span>
+                            <span id="display-lideranca" class="campo-valor">---</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEÇÃO 4: OBSERVAÇÕES -->
+                <section>
+                    <h2 class="secao-titulo">4. Observações</h2>
+                    <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-100 min-h-[80px]">
+                        <p id="display-observacoes" class="text-sm text-brown-dark leading-relaxed">---</p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Rodapé da Ficha -->
+        <footer class="mt-12 pt-6 border-t border-zinc-100 flex justify-between items-end text-[10px] text-zinc-400 uppercase tracking-widest font-bold">
+            <div>
+                ID do Registro: <span id="display-id">---</span><br>
+                Data do Cadastro: <span id="display-criado">---</span>
+            </div>
+            <div class="text-right">
+                Paróquia São Francisco das Chagas<br>
+                Bacabal - Maranhão
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/supabase.js"></script>
+    <!-- Biblioteca jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Script de Geração de PDF (Reutilizado) -->
+    <script src="/js/ficha-pdf.js"></script>
+    <!-- Lógica da Página de Visualização -->
+    <script src="/js/ficha-inscrito.js"></script>
+</body>
+</html>
