@@ -47,8 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Variável para armazenar todos os inscritos (cache local para filtragem rápida)
     let todosInscritos = [];
-    // Referência para o gráfico Chart.js
-    let chartDistribuicao = null;
     // Controle para evitar execuções duplicadas simultâneas
     let estaCarregando = false;
 
@@ -71,95 +69,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         };
         window.requestAnimationFrame(step);
-    }
-
-    /**
-     * Inicializa ou atualiza o gráfico de distribuição EJC vs ECC
-     * @param {number} ejc Total de inscritos EJC
-     * @param {number} ecc Total de inscritos ECC
-     */
-    function renderizarGrafico(ejc, ecc) {
-        const ctx = document.getElementById('chart-distribuicao');
-        if (!ctx) return;
-
-        console.log('LOG [Dashboard]: Montando gráfico EJC vs ECC...', { ejc, ecc });
-
-        // Se o gráfico já existe, destrói para recriar com novos dados
-        if (chartDistribuicao) {
-            chartDistribuicao.destroy();
-        }
-
-        // Configurações do Chart.js
-        chartDistribuicao = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['EJC (Jovens)', 'ECC (Casais)'],
-                datasets: [{
-                    label: 'Quantidade de Inscritos',
-                    data: [ejc, ecc],
-                    backgroundColor: [
-                        'rgba(200, 169, 107, 0.7)', // Dourado/Marrom para EJC
-                        'rgba(46, 31, 23, 0.7)'    // Marrom Escuro para ECC
-                    ],
-                    borderColor: [
-                        '#C8A96B',
-                        '#2E1F17'
-                    ],
-                    borderWidth: 2,
-                    borderRadius: 10,
-                    hoverBackgroundColor: [
-                        'rgba(200, 169, 107, 0.9)',
-                        'rgba(46, 31, 23, 0.9)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false // Esconde a legenda pois só temos um dataset
-                    },
-                    tooltip: {
-                        backgroundColor: '#2E1F17',
-                        titleFont: { family: 'Cinzel', size: 14 },
-                        bodyFont: { family: 'Inter', size: 12 },
-                        padding: 12,
-                        cornerRadius: 8,
-                        displayColors: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)',
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#F5EBDD',
-                            font: { family: 'Inter', size: 11 },
-                            stepSize: 1
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#F5EBDD',
-                            font: { family: 'Cinzel', size: 12, weight: 'bold' }
-                        }
-                    }
-                },
-                animation: {
-                    duration: 2000,
-                    easing: 'easeOutQuart'
-                }
-            }
-        });
-        
-        console.log('LOG [Dashboard]: Gráfico montado com sucesso.');
     }
 
     /**
@@ -251,9 +160,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         animateValue(metricTotal, 0, total, 1500);
         animateValue(metricEjc, 0, totalEjc, 1500);
         animateValue(metricEcc, 0, totalEcc, 1500);
-
-        // Renderiza o gráfico de distribuição
-        renderizarGrafico(totalEjc, totalEcc);
 
         // Último Cadastro (Tolerante à ausência de created_at)
         if (total > 0) {

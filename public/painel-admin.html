@@ -17,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Chart.js para o gráfico de distribuição -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Scripts de Segurança e Sessão -->
     <script src="/js/session.js"></script>
     <!-- Auth Guard: Proteção de Acesso -->
@@ -119,20 +117,6 @@
                 </div>
                 <div id="metric-last-date" class="text-xl font-bold font-serif text-[#5A3B2E] truncate">---</div>
                 <p id="metric-last-name" class="text-[10px] text-brown-medium/60 mt-1 italic truncate">Nenhum registro</p>
-            </div>
-        </section>
-
-        <!-- Seção de Gráfico -->
-        <section class="mb-12 animate-fade-in" style="animation-delay: 0.5s;">
-            <div class="bg-white p-6 rounded-3xl border border-[#d1d5db] shadow-xl">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="h-px flex-grow bg-[#d1d5db]"></div>
-                    <h2 class="font-serif text-xl text-[#1a1a1a] tracking-[0.2em] uppercase section-title">Distribuição das Inscrições</h2>
-                    <div class="h-px flex-grow bg-[#d1d5db]"></div>
-                </div>
-                <div class="h-[300px] w-full">
-                    <canvas id="chart-distribuicao"></canvas>
-                </div>
             </div>
         </section>
 
