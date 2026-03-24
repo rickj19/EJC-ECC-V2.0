@@ -1466,9 +1466,44 @@ textarea:focus {
     -webkit-print-color-adjust: exact;
   }
   
-  .foto-inscrito img {
-    object-fit: cover !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
+
+/**
+ * IDENTIDADE VISUAL INSTITUCIONAL (TEXT-BASED)
+ * 
+ * DESIGN CHOICE:
+ * Optamos por uma abordagem tipográfica para a Paróquia de São Francisco das Chagas na Home.
+ * Sem o uso de logos em imagem, a força da marca reside na escolha das fontes e no
+ * espaçamento (kerning/tracking).
+ * 
+ * PALETA DE CORES:
+ * - Marrom Profundo (#5A3B2E): Autoridade e Tradição.
+ * - Marrom Suave (#8B5E3C): Acolhimento e Terra (Franciscanismo).
+ * - Dourado Suave (#C8A96B): Divindade e Nobreza.
+ */
+
+/* Título Principal da Home: Ajuste de Kerning para Máxima Elegância */
+.hero-title-text {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+    text-transform: uppercase;
 }
+
+/* Subtítulo: Espaçamento Amplo para Visual Moderno e Limpo */
+.hero-subtitle-text {
+    letter-spacing: 0.4em;
+    font-weight: 300;
+    opacity: 0.85;
+}
+
+/* Linhas Decorativas: Gradientes que desaparecem suavemente */
+.decorative-line-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    width: 100%;
+    opacity: 0.5;
+}
+
+/**
+ * FIM DA SEÇÃO DE IDENTIDADE TEXTUAL
+ */

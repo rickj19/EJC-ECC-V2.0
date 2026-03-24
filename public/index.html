@@ -21,43 +21,62 @@
 </head>
 <body class="bg-church-home font-sans min-h-screen flex flex-col items-center text-[#1a1a1a]">
     
-    <!-- Cabeçalho Institucional Comum -->
-    <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center gap-4">
-            <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain">
-            <div>
-                <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight">Paróquia de São Francisco das Chagas</h1>
-                <p class="text-[10px] text-[#8B5E3C] tracking-[0.2em] uppercase font-bold">Paz e bem</p>
-            </div>
+    <!-- 
+        CABEÇALHO INSTITUCIONAL: IDENTIDADE TEXTUAL
+        Design Choice: Removemos a imagem do logo para focar em uma tipografia limpa e solene.
+        O uso de 'font-serif' (Playfair Display) evoca tradição e elegância.
+    -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#D1D5DB] py-5 px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm transition-all duration-300">
+        <div class="flex flex-col">
+            <h1 class="text-xl md:text-2xl font-serif font-bold text-[#5A3B2E] leading-tight tracking-tight">
+                PARÓQUIA DE SÃO FRANCISCO DAS CHAGAS
+            </h1>
+            <p class="text-[10px] text-[#8B5E3C] tracking-[0.3em] uppercase font-bold opacity-80">
+                Paz e Bem
+            </p>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="/" class="text-xs font-bold text-[#555555] hover:text-[#8B5E3C] transition-colors uppercase tracking-widest">Início</a>
-        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="/" class="text-xs font-bold text-[#5A3B2E] hover:text-[#8B5E3C] transition-all uppercase tracking-[0.2em] border-b-2 border-transparent hover:border-[#C8A96B] pb-1">
+                Início
+            </a>
+        </nav>
     </header>
 
-    <!-- Container Principal com Animação de Entrada -->
-    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-16 px-4">
+    <!-- Container Principal com Animação de Entrada Suave -->
+    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-20 px-4 flex flex-col items-center justify-center">
         
-        <!-- Hero Section: Identidade Visual da Paróquia -->
-        <div class="text-center mb-20">
-            <!-- Símbolo Religioso: Cruz Estilizada com Efeito de Brilho -->
-            <div class="inline-block p-6 mb-10 rounded-full bg-white shadow-2xl border-2 border-[#D1D5DB] animate-slide-up relative">
-                <i data-lucide="cross" class="w-16 h-16 text-[#5A3B2E]"></i>
-                <div class="absolute inset-0 rounded-full bg-[#C8A96B]/10 animate-pulse"></div>
-            </div>
-            
-            <!-- Títulos com Tipografia Playfair Display (Solene) -->
-            <h2 class="text-4xl md:text-7xl font-bold font-serif tracking-tight text-[#5A3B2E] mb-6 drop-shadow-sm">
-                Sistema oficial de inscrições e acesso
+        <!-- 
+            HERO SECTION: IDENTIDADE VISUAL TEXTUAL
+            Design Choice: Substituímos o ícone central por uma composição tipográfica poderosa.
+            O contraste entre o título em caixa alta e o subtítulo leve cria uma hierarquia clara e profissional.
+        -->
+        <div class="text-center mb-24 max-w-4xl mx-auto">
+            <!-- Título Principal: Nome da Paróquia com Destaque Máximo -->
+            <h2 class="text-5xl md:text-8xl font-bold font-serif tracking-tighter text-[#5A3B2E] mb-6 leading-[0.9] uppercase drop-shadow-sm animate-slide-up">
+                PARÓQUIA DE SÃO FRANCISCO DAS CHAGAS
             </h2>
             
-            <p class="text-lg md:text-xl font-light text-[#8B5E3C] tracking-[0.2em] uppercase opacity-80 mb-8">
-                Sistema Oficial da Paróquia
+            <!-- Subtítulo: Descrição do Sistema -->
+            <p class="text-xl md:text-2xl font-light text-[#8B5E3C] tracking-[0.4em] uppercase opacity-90 mb-12 animate-slide-up" style="animation-delay: 0.1s;">
+                Sistema oficial de inscrições
             </p>
+
+            <!-- 
+                FRASE FINAL: MENSAGEM FRANCISCANA COM ELEMENTOS DECORATIVOS
+                Design Choice: Linhas finas laterais (estilo editorial) para emoldurar a saudação.
+                Isso adiciona um toque de sofisticação sem a necessidade de imagens.
+            -->
+            <div class="flex items-center justify-center gap-8 mt-16 animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="h-[1px] w-12 md:w-32 bg-gradient-to-r from-transparent via-[#C8A96B] to-[#C8A96B] opacity-40"></div>
+                <p class="text-3xl md:text-5xl font-serif italic text-[#5A3B2E] tracking-[0.15em] font-medium">
+                    PAZ E BEM
+                </p>
+                <div class="h-[1px] w-12 md:w-32 bg-gradient-to-l from-transparent via-[#C8A96B] to-[#C8A96B] opacity-40"></div>
+            </div>
         </div>
 
         <!-- Grade de Ações: EJC e ECC em Cards Premium -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24 w-full">
             
             <!-- Card EJC: Encontro de Jovens com Cristo -->
             <section class="church-card group animate-slide-up" style="animation-delay: 0.2s;">
