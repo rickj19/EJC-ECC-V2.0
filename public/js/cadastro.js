@@ -216,12 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
     btnConfirmar?.addEventListener('click', async () => {
         console.log('LOG: Confirmação aceita. Iniciando processamento final...');
         
-        // Estado de Loading no botão do Modal (Estilo Apple)
+        /**
+         * COMO O LOADING DO BOTÃO FUNCIONA:
+         * 1. Armazenamos o texto original para restauração em caso de erro.
+         * 2. Desabilitamos o botão para evitar múltiplos cliques acidentais.
+         * 3. Injetamos um spinner CSS (.spinner-premium) e trocamos o texto para "Enviando...".
+         * 4. A altura fixa no CSS evita que o botão "pule" ao trocar o conteúdo.
+         */
         const originalText = btnConfirmar.innerHTML;
         btnConfirmar.disabled = true;
         if (btnCancelar) btnCancelar.disabled = true;
         
-        // Adiciona o spinner elegante e troca o texto
         btnConfirmar.innerHTML = `
             <div class="spinner-premium"></div>
             <span>Enviando...</span>
@@ -229,14 +234,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             await executarCadastro();
-            // Se chegar aqui, o redirecionamento vai acontecer dentro de executarCadastro
+            // O redirecionamento de sucesso ocorre dentro de executarCadastro
         } catch (err) {
-            // Em caso de erro, restaura o botão para permitir nova tentativa
+            /**
+             * COMO O BOTÃO VOLTA AO ESTADO NORMAL:
+             * Se houver erro no processamento (ex: falha no Supabase),
+             * capturamos o erro, reativamos os botões e restauramos o HTML original.
+             * O modal é fechado para que o usuário possa ver a mensagem de erro no formulário.
+             */
             btnConfirmar.disabled = false;
             if (btnCancelar) btnCancelar.disabled = false;
             btnConfirmar.innerHTML = originalText;
             
-            // Fecha o modal para que o usuário veja a mensagem de erro no formulário
             modalConfirmacao?.classList.add('hidden');
         }
     });
@@ -313,7 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log('LOG: Cadastro concluído com sucesso!');
             
-            // Feedback de sucesso premium antes do redirecionamento
+            /**
+             * FEEDBACK VISUAL PREMIUM:
+             * Exibimos uma mensagem suave e inspiradora usando showFeedback.
+             * O modal é fechado com um pequeno atraso (setTimeout) para que o usuário
+             * sinta a conclusão da tarefa antes do redirecionamento final.
+             */
             showFeedback('Inscrição realizada com sucesso! Prepare seu coração...', false);
 
             // Fecha o modal suavemente antes de ir para a tela de sucesso
