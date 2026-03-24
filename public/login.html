@@ -20,18 +20,27 @@
 </head>
 <body class="bg-church-home font-sans min-h-screen flex flex-col items-center">
     
-    <!-- Cabeçalho Institucional Comum -->
-    <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center gap-4">
-            <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain">
-            <div>
-                <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight">Paróquia de São Francisco das Chagas</h1>
-                <p class="text-[10px] text-[#8B5E3C] tracking-[0.2em] uppercase font-bold">Paz e bem</p>
-            </div>
+    <!-- 
+        CABEÇALHO INSTITUCIONAL: IDENTIDADE TEXTUAL PADRONIZADA
+        Design Choice: Removida a imagem do logo para evitar ícones quebrados.
+        Agora utilizamos uma identidade puramente textual, elegante e institucional,
+        com hierarquia clara entre o nome da Paróquia e a saudação "PAZ E BEM".
+        Padronizado em todas as páginas para consistência visual.
+    -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-[var(--border)] py-4 px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm transition-all duration-300">
+        <div class="flex flex-col">
+            <h1 class="text-lg md:text-xl font-serif font-bold text-[var(--primary-dark)] leading-tight tracking-tight">
+                Paróquia de São Francisco das Chagas
+            </h1>
+            <p class="text-[10px] text-[var(--text-muted)] tracking-[0.3em] uppercase font-bold opacity-80">
+                PAZ E BEM
+            </p>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="/" class="text-xs font-bold text-[#555555] hover:text-[#8B5E3C] transition-colors uppercase tracking-widest">Início</a>
-        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="/" class="text-xs font-bold text-[var(--primary-dark)] hover:text-[var(--primary-light)] transition-all uppercase tracking-[0.2em] border-b-2 border-transparent hover:border-[var(--gold-soft)] pb-1">
+                Início
+            </a>
+        </nav>
     </header>
 
     <div class="flex-grow flex items-center justify-center p-4 w-full">

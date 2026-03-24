@@ -14,6 +14,11 @@
  * - Primária: Marrom St. Francisco (#5A3E2B) remetendo ao hábito franciscano.
  * - Dourado: Suave (#C8A96A) para detalhes de nobreza e divindade.
  * - Texto: Marrom Escuro (#3B2A1F) para leitura confortável sem o peso do preto puro.
+ * 
+ * IDENTIDADE VISUAL:
+ * A imagem do logo foi removida temporariamente para evitar ícones quebrados.
+ * O cabeçalho agora utiliza uma identidade puramente textual, padronizada em todas as páginas,
+ * baseada na tipografia elegante e na hierarquia visual da tela inicial.
  */
 :root {
     /* Cores de Texto - Contraste Elegante */
