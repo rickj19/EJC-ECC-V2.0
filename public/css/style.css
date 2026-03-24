@@ -1410,3 +1410,45 @@ textarea:focus {
     font-size: 1.125rem;
     font-weight: 400;
 }
+
+/**
+ * SEÇÃO: Estilização da Foto na Ficha de Inscrição (Estilo 3x4)
+ * O 'object-fit: contain' garante que a foto apareça completa na impressão,
+ * sem cortar partes importantes como a cabeça do inscrito.
+ * 
+ * DIFERENÇA ENTRE COVER E CONTAIN:
+ * - Cover: Preenche todo o espaço, mas pode cortar as bordas da imagem.
+ * - Contain: Mostra a imagem inteira dentro do espaço, mantendo a proporção original.
+ */
+.foto-inscrito-moldura {
+    width: 120px; /* Largura padrão 3x4 (proporcional) */
+    height: 160px; /* Altura padrão 3x4 (proporcional) */
+    border: 2px solid #5a3b2e; /* Borda elegante marrom da paróquia */
+    border-radius: 0.5rem; /* Leve arredondamento para suavizar o visual */
+    overflow: hidden;
+    background-color: #ffffff; /* Fundo branco para preencher espaços do 'contain' */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /* Sombra interna para profundidade */
+}
+
+.foto-inscrito-moldura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Na tela normal, mantém o preenchimento total para estética */
+}
+
+/* Ajuste específico para Impressão: Prioridade total na integridade da imagem */
+@media print {
+    .foto-inscrito-moldura {
+        border: 1.5px solid #5a3b2e !important;
+        background-color: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .foto-inscrito-moldura img {
+        object-fit: contain !important; /* Na impressão, NUNCA corta a foto do inscrito */
+        background-color: #ffffff !important;
+    }
+}

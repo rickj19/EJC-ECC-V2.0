@@ -33,7 +33,8 @@ async function gerarFichaPDF(dados) {
         
         y += 7;
         doc.setFontSize(12);
-        doc.text('Paróquia São Francisco das Chagas', 105, y, { align: 'center' });
+        doc.text('Paróquia de São Francisco das Chagas', 105, y, { align: 'center' });
+        // Padronização do nome oficial da paróquia
         
         y += 6;
         doc.setFont('helvetica', 'normal');
@@ -168,7 +169,8 @@ async function gerarFichaPDF(dados) {
         doc.setFontSize(8);
         doc.setTextColor(150, 150, 150);
         doc.text(`Ficha gerada em: ${new Date().toLocaleString('pt-BR')}`, margemEsquerda, footerY);
-        doc.text('Paróquia São Francisco das Chagas - Bacabal/MA', 105, footerY, { align: 'center' });
+        doc.text('Paróquia de São Francisco das Chagas - Bacabal/MA', 105, footerY, { align: 'center' });
+        // Padronização do nome oficial da paróquia
         doc.text(`ID: ${dados.id}`, margemDireita, footerY, { align: 'right' });
 
         // --- DOWNLOAD DO ARQUIVO ---

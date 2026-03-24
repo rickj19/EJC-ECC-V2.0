@@ -173,7 +173,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         doc.setFontSize(10);
         doc.setTextColor(122, 92, 69); // Marrom Médio
-        doc.text('Paróquia São Francisco das Chagas', 14, 28);
+        doc.text('Paróquia de São Francisco das Chagas', 14, 28);
+        // Padronização do nome oficial da paróquia
         doc.text(`Emissão: ${new Date().toLocaleString('pt-BR')}`, 14, 33);
         
         // Linha divisória
