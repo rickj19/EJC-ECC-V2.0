@@ -1067,3 +1067,13 @@ textarea:focus {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/**
+ * Estilo para a Saudação Personalizada nos Painéis
+ * Garante que o nome do usuário tenha destaque e elegância.
+ */
+#saudacao-usuario {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.02em;
+    font-weight: 600;
+}

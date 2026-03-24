@@ -90,6 +90,34 @@ const AuthGuard = {
             console.log('LOG [AuthGuard]: Acesso autorizado.');
             // Opcional: Mostrar o nome do usuário no console ou na tela
             document.body.classList.add('auth-ready');
+            
+            // Injeta a saudação personalizada se o elemento existir na página
+            this.exibirSaudacao();
+        }
+    },
+
+    /**
+     * Exibe a saudação personalizada com o nome do usuário logado.
+     * Busca o elemento com o ID 'saudacao-usuario' e injeta a mensagem:
+     * "Seja bem-vindo ao seu painel, [nome do usuário]. Paz e bem!"
+     */
+    exibirSaudacao: function() {
+        const usuario = this.getUsuarioLogado();
+        const elementoSaudacao = document.getElementById('saudacao-usuario');
+        
+        if (!elementoSaudacao) {
+            console.log('DEBUG [AuthGuard]: Elemento de saudação não encontrado nesta página.');
+            return;
+        }
+
+        console.log('LOG [AuthGuard]: Injetando saudação personalizada.');
+
+        // Se houver nome na sessão, exibe a saudação personalizada
+        if (usuario && usuario.nome) {
+            elementoSaudacao.textContent = `Seja bem-vindo ao seu painel, ${usuario.nome}. Paz e bem!`;
+        } else {
+            // Caso contrário, exibe a versão genérica
+            elementoSaudacao.textContent = `Seja bem-vindo ao seu painel. Paz e bem!`;
         }
     },
 
