@@ -10,6 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    /**
+     * LÓGICA DE CAMPOS CONDICIONAIS
+     * Mostra/Esconde campos baseados na seleção do usuário.
+     */
+    const setupConditionalField = (radioName, targetId) => {
+        const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+        const target = document.getElementById(targetId);
+        
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'sim') {
+                    target?.classList.remove('hidden');
+                } else {
+                    target?.classList.add('hidden');
+                }
+            });
+        });
+    };
+
+    setupConditionalField('ja_fez_ejc', 'campos-ejc-anterior');
+    setupConditionalField('participa_pastoral', 'campo-qual-pastoral');
+    setupConditionalField('tem_aptidao', 'campo-qual-aptidao');
+    setupConditionalField('foi_lider', 'campo-qual-lideranca');
+
     // Captura parâmetros da URL para identificar o tipo de inscrição (ejc ou ecc)
     const urlParams = new URLSearchParams(window.location.search);
     const tipoInscricao = urlParams.get('tipo') || 'ejc';
@@ -88,9 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const campos = [
             { id: 'nome', min: 3, errorId: 'error-nome' },
-            { id: 'telefone', min: 14, errorId: 'error-telefone' }, // (99) 99999-9999 tem 15 caracteres, mas aceitamos 14 para fixos
-            { id: 'cidade', min: 2, errorId: 'error-cidade' },
-            { id: 'paroquia', min: 2, errorId: 'error-paroquia' }
+            { id: 'telefone', min: 14, errorId: 'error-telefone' },
+            { id: 'data_nascimento', min: 10, errorId: 'error-data-nascimento' },
+            { id: 'endereco', min: 5, errorId: 'error-endereco' },
+            { id: 'bairro', min: 2, errorId: 'error-bairro' }
         ];
 
         campos.forEach(campo => {
@@ -257,10 +282,40 @@ document.addEventListener('DOMContentLoaded', () => {
     async function executarCadastro() {
         console.log('--- INÍCIO DO PROCESSAMENTO DE DADOS ---');
         
+        // Coleta de dados básicos
         const nome = document.getElementById('nome').value.trim();
+        const apelido = document.getElementById('apelido').value.trim();
+        const data_nascimento = document.getElementById('data_nascimento').value;
         const telefone = document.getElementById('telefone').value.trim();
-        const cidade = document.getElementById('cidade').value.trim();
-        const paroquia = document.getElementById('paroquia').value.trim();
+        const endereco = document.getElementById('endereco').value.trim();
+        const bairro = document.getElementById('bairro').value.trim();
+        const referencia = document.getElementById('referencia').value.trim();
+        
+        // Informações Pessoais
+        const escolaridade = document.getElementById('escolaridade').value;
+        const profissao = document.getElementById('profissao').value.trim();
+        const ja_fez_ejc = document.querySelector('input[name="ja_fez_ejc"]:checked').value;
+        const ano_ejc = document.getElementById('ano_ejc').value;
+        const circulo_ejc = document.getElementById('circulo_ejc').value.trim();
+
+        // Sacramentos (Array)
+        const sacramentos = Array.from(document.querySelectorAll('input[name="sacramentos"]:checked')).map(el => el.value);
+
+        // Vida na Igreja
+        const participa_pastoral = document.querySelector('input[name="participa_pastoral"]:checked').value;
+        const qual_pastoral = document.getElementById('qual_pastoral').value.trim();
+
+        // Aptidões
+        const tem_aptidao = document.querySelector('input[name="tem_aptidao"]:checked').value;
+        const qual_aptidao = document.getElementById('qual_aptidao').value.trim();
+
+        // Equipes Anteriores (Array)
+        const equipes_anteriores = Array.from(document.querySelectorAll('input[name="equipes_anteriores"]:checked')).map(el => el.value);
+
+        // Liderança
+        const foi_lider = document.querySelector('input[name="foi_lider"]:checked').value;
+        const qual_lideranca = document.getElementById('qual_lideranca').value.trim();
+
         const observacoes = document.getElementById('observacoes').value.trim();
         const fotoFile = photoInput.files[0];
 
@@ -301,14 +356,30 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Salvar Registro no Banco de Dados
             const perfil = tipoInscricao === 'ejc' ? 'jovem' : 'casal';
             const payload = { 
-                nome, 
-                telefone, 
+                nome,
+                apelido,
+                data_nascimento,
+                telefone,
+                endereco,
+                bairro,
+                referencia,
+                escolaridade,
+                profissao,
+                ja_fez_ejc: ja_fez_ejc === 'sim',
+                ano_ejc: ja_fez_ejc === 'sim' ? parseInt(ano_ejc) : null,
+                circulo_ejc: ja_fez_ejc === 'sim' ? circulo_ejc : null,
+                sacramentos,
+                participa_pastoral: participa_pastoral === 'sim',
+                qual_pastoral: participa_pastoral === 'sim' ? qual_pastoral : null,
+                tem_aptidao: tem_aptidao === 'sim',
+                qual_aptidao: tem_aptidao === 'sim' ? qual_aptidao : null,
+                equipes_anteriores,
+                foi_lider: foi_lider === 'sim',
+                qual_lideranca: foi_lider === 'sim' ? qual_lideranca : null,
                 tipo: tipoInscricao, 
                 perfil,
                 foto_url: publicUrl,
                 foto_path: fileName,
-                cidade, 
-                paroquia,
                 observacoes,
                 status: 'pendente'
             };

@@ -35,42 +35,313 @@
             Campos automáticos: tipo (da URL), perfil (baseado no tipo), foto_url, foto_path.
         -->
         <form id="cadastro-form" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Campo: Nome Completo -->
-                <div class="space-y-2">
-                    <label for="nome" class="text-sm font-bold text-brown-dark block">Nome Completo *</label>
-                    <input type="text" id="nome" required placeholder="Digite seu nome completo" 
-                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
-                    <p id="error-nome" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Nome é obrigatório (mín. 3 caracteres)</p>
-                </div>
-                <!-- Campo: Telefone -->
-                <div class="space-y-2">
-                    <label for="telefone" class="text-sm font-bold text-brown-dark block">Telefone / WhatsApp *</label>
-                    <input type="tel" id="telefone" required placeholder="(00) 00000-0000" 
-                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
-                    <p id="error-telefone" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Telefone inválido</p>
-                </div>
-                <!-- Campo: Cidade -->
-                <div class="space-y-2">
-                    <label for="cidade" class="text-sm font-bold text-brown-dark block">Cidade *</label>
-                    <input type="text" id="cidade" required placeholder="Sua cidade" 
-                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
-                    <p id="error-cidade" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Cidade é obrigatória</p>
-                </div>
-                <!-- Campo: Paróquia -->
-                <div class="space-y-2">
-                    <label for="paroquia" class="text-sm font-bold text-brown-dark block">Paróquia *</label>
-                    <input type="text" id="paroquia" required placeholder="Sua paróquia" 
-                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
-                    <p id="error-paroquia" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Paróquia é obrigatória</p>
-                </div>
-            </div>
+            <div class="space-y-12">
+                <!-- SEÇÃO 1: DADOS PESSOAIS -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                            1. DADOS PESSOAIS
+                        </h3>
+                    </div>
 
-            <!-- Campo: Observações -->
-            <div class="space-y-2">
-                <label for="observacoes" class="text-sm font-bold text-brown-dark block">Observações (Opcional)</label>
-                <textarea id="observacoes" rows="3" placeholder="Alguma informação importante? (Alergias, restrições, etc.)" 
-                          class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50 resize-none"></textarea>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nome -->
+                        <div class="md:col-span-2 space-y-2">
+                            <label for="nome" class="text-sm font-bold text-brown-dark block">Nome Completo *</label>
+                            <input type="text" id="nome" required placeholder="Digite seu nome completo" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                            <p id="error-nome" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Nome é obrigatório (mín. 3 caracteres)</p>
+                        </div>
+
+                        <!-- Apelido -->
+                        <div class="space-y-2">
+                            <label for="apelido" class="text-sm font-bold text-brown-dark block">Como gosta de ser chamado (Apelido)</label>
+                            <input type="text" id="apelido" placeholder="Ex: Zé, Maria..." 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+
+                        <!-- Data de Nascimento -->
+                        <div class="space-y-2">
+                            <label for="data_nascimento" class="text-sm font-bold text-brown-dark block">Data de Nascimento *</label>
+                            <input type="date" id="data_nascimento" required 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium">
+                            <p id="error-data-nascimento" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Data de nascimento é obrigatória</p>
+                        </div>
+
+                        <!-- Telefone -->
+                        <div class="space-y-2">
+                            <label for="telefone" class="text-sm font-bold text-brown-dark block">Telefone / WhatsApp *</label>
+                            <input type="tel" id="telefone" required placeholder="(00) 00000-0000" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                            <p id="error-telefone" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Telefone inválido</p>
+                        </div>
+
+                        <!-- Endereço -->
+                        <div class="md:col-span-2 space-y-2">
+                            <label for="endereco" class="text-sm font-bold text-brown-dark block">Endereço (Rua, Nº) *</label>
+                            <input type="text" id="endereco" required placeholder="Ex: Rua das Flores, 123" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                            <p id="error-endereco" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Endereço é obrigatório</p>
+                        </div>
+
+                        <!-- Bairro -->
+                        <div class="space-y-2">
+                            <label for="bairro" class="text-sm font-bold text-brown-dark block">Bairro *</label>
+                            <input type="text" id="bairro" required placeholder="Seu bairro" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                            <p id="error-bairro" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Bairro é obrigatório</p>
+                        </div>
+
+                        <!-- Ponto de Referência -->
+                        <div class="space-y-2">
+                            <label for="referencia" class="text-sm font-bold text-brown-dark block">Ponto de Referência</label>
+                            <input type="text" id="referencia" placeholder="Ex: Próximo à padaria..." 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 2: INFORMAÇÕES PESSOAIS -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="info" class="w-5 h-5"></i>
+                            2. INFORMAÇÕES PESSOAIS
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Escolaridade -->
+                        <div class="space-y-2">
+                            <label for="escolaridade" class="text-sm font-bold text-brown-dark block">Escolaridade</label>
+                            <select id="escolaridade" class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium bg-white">
+                                <option value="">Selecione...</option>
+                                <option value="fundamental-incompleto">Fundamental Incompleto</option>
+                                <option value="fundamental-completo">Fundamental Completo</option>
+                                <option value="medio-incompleto">Médio Incompleto</option>
+                                <option value="medio-completo">Médio Completo</option>
+                                <option value="superior-incompleto">Superior Incompleto</option>
+                                <option value="superior-completo">Superior Completo</option>
+                                <option value="pos-graduacao">Pós-Graduação</option>
+                            </select>
+                        </div>
+
+                        <!-- Profissão -->
+                        <div class="space-y-2">
+                            <label for="profissao" class="text-sm font-bold text-brown-dark block">Profissão / Ocupação</label>
+                            <input type="text" id="profissao" placeholder="O que você faz?" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+
+                        <!-- Já fez o EJC? -->
+                        <div class="md:col-span-2 space-y-4">
+                            <label class="text-sm font-bold text-brown-dark block">Já participou do EJC anteriormente?</label>
+                            <div class="flex gap-6">
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="radio" name="ja_fez_ejc" value="sim" class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                    <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sim</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="radio" name="ja_fez_ejc" value="nao" checked class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                    <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Não</span>
+                                </label>
+                            </div>
+                            
+                            <div id="campos-ejc-anterior" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
+                                <div class="space-y-2">
+                                    <label for="ano_ejc" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Em qual ano?</label>
+                                    <input type="number" id="ano_ejc" placeholder="Ex: 2022" 
+                                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="circulo_ejc" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual era seu círculo?</label>
+                                    <input type="text" id="circulo_ejc" placeholder="Ex: Vermelho" 
+                                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 3: SACRAMENTOS -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="cross" class="w-5 h-5"></i>
+                            3. SACRAMENTOS
+                        </h3>
+                    </div>
+
+                    <div class="flex flex-wrap gap-8">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="sacramentos" value="batismo" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Batismo</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="sacramentos" value="eucaristia" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Eucaristia</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="sacramentos" value="crisma" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Crisma</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 4: VIDA NA IGREJA -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="church" class="w-5 h-5"></i>
+                            4. VIDA NA IGREJA
+                        </h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="text-sm font-bold text-brown-dark block">Participa de alguma pastoral, movimento ou serviço?</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="participa_pastoral" value="sim" class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sim</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="participa_pastoral" value="nao" checked class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Não</span>
+                            </label>
+                        </div>
+                        <div id="campo-qual-pastoral" class="hidden animate-fade-in space-y-2">
+                            <label for="qual_pastoral" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual?</label>
+                            <input type="text" id="qual_pastoral" placeholder="Ex: Pastoral da Juventude, Coroinha..." 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 5: APTIDÕES -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="music" class="w-5 h-5"></i>
+                            5. APTIDÕES
+                        </h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="text-sm font-bold text-brown-dark block">Toca algum instrumento, canta ou tem alguma aptidão artística?</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="tem_aptidao" value="sim" class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sim</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="tem_aptidao" value="nao" checked class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Não</span>
+                            </label>
+                        </div>
+                        <div id="campo-qual-aptidao" class="hidden animate-fade-in space-y-2">
+                            <label for="qual_aptidao" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Especifique:</label>
+                            <input type="text" id="qual_aptidao" placeholder="Ex: Violão, Canto, Teatro, Desenho..." 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 6: EXPERIÊNCIA EM EQUIPES -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                            6. EXPERIÊNCIA EM EQUIPES
+                        </h3>
+                    </div>
+
+                    <p class="text-xs font-bold text-brown-medium/60 uppercase tracking-widest mb-4">Se já trabalhou em algum encontro, marque as equipes:</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="cozinha" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Cozinha</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="limpeza" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Limpeza</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="secretaria" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Secretaria</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="acolhida" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Acolhida</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="liturgia" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Liturgia</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="ordem" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Ordem</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="compras" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Compras</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="vigilia" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Vigília</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" name="equipes_anteriores" value="sociodrama" class="w-5 h-5 rounded border-zinc-300 text-brown-medium focus:ring-brown-medium">
+                            <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sociodrama</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 7: LIDERANÇA -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="award" class="w-5 h-5"></i>
+                            7. LIDERANÇA
+                        </h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="text-sm font-bold text-brown-dark block">Já foi coordenador de equipe ou de círculo?</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="foi_lider" value="sim" class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sim</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="foi_lider" value="nao" checked class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
+                                <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Não</span>
+                            </label>
+                        </div>
+                        <div id="campo-qual-lideranca" class="hidden animate-fade-in space-y-2">
+                            <label for="qual_lideranca" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual equipe/círculo e ano?</label>
+                            <input type="text" id="qual_lideranca" placeholder="Ex: Coordenador de Cozinha (2023)" 
+                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 8: OBSERVAÇÕES -->
+                <div class="space-y-6">
+                    <div class="border-b border-brown-medium/20 pb-2">
+                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-5 h-5"></i>
+                            8. OBSERVAÇÕES
+                        </h3>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="observacoes" class="text-sm font-bold text-brown-dark block">Informações adicionais (Opcional)</label>
+                        <textarea id="observacoes" rows="3" placeholder="Restrições alimentares, problemas de saúde ou qualquer outra informação relevante..." 
+                                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50 resize-none"></textarea>
+                    </div>
+                </div>
             </div>
 
             <!-- Área de Upload de Foto com Preview 3x4 -->
