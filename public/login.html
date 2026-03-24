@@ -14,56 +14,58 @@
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#f5f5f5] font-['Inter'] min-h-screen flex items-center justify-center p-4">
-    <!-- Container principal do formulário de login -->
-    <div class="max-w-md w-full bg-white p-8 rounded-3xl shadow-2xl border border-zinc-200 animate-slide-up">
-        <div class="text-center mb-8">
+<body class="login-body font-['Inter'] min-h-screen flex items-center justify-center p-4">
+    <!-- Container principal do formulário de login: Fundo branco, sombra leve e bordas arredondadas -->
+    <div class="max-w-md w-full login-card p-10 animate-slide-up">
+        <div class="text-center mb-10">
             <!-- Badge que indica o tipo de login (EJC, ECC ou ADMIN) -->
-            <div id="type-badge" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4"></div>
-            <h1 class="text-3xl font-bold text-[#1a1a1a]">Acesse sua conta</h1>
-            <p class="text-[#555555] mt-2">Entre com suas credenciais</p>
+            <div id="type-badge" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-6"></div>
+            <!-- Título: Grande, escuro e bem legível -->
+            <h1 class="login-title">Acesse sua conta</h1>
+            <!-- Texto secundário: Confortável e com bom contraste -->
+            <p class="login-secondary-text mt-3">Entre com suas credenciais para acessar o portal paroquial</p>
         </div>
 
-        <!-- Formulário de Login: Captura usuário e senha -->
-        <form id="login-form" class="space-y-6">
+        <!-- Formulário de Login: Espaçamento aumentado entre campos para facilitar a leitura -->
+        <form id="login-form" class="space-y-8">
             <!-- Campo de Usuário -->
-            <div class="space-y-2">
-                <label for="username" class="text-sm font-semibold text-[#333333] block">Usuário</label>
-                <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#777777]">
-                        <i data-lucide="user" class="w-5 h-5"></i>
+            <div class="space-y-3">
+                <label for="username" class="login-label">Usuário</label>
+                <div class="input-group">
+                    <span class="input-icon">
+                        <i data-lucide="user" class="w-6 h-6"></i>
                     </span>
-                    <input type="text" id="username" required class="w-full pl-10 pr-4 py-3 text-[#1a1a1a] placeholder-[#9ca3af]" placeholder="Seu usuário">
+                    <input type="text" id="username" required class="login-input" placeholder="Digite seu usuário">
                 </div>
             </div>
 
             <!-- Campo de Senha -->
-            <div class="space-y-2">
-                <label for="password" class="text-sm font-semibold text-[#333333] block">Senha</label>
-                <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#777777]">
-                        <i data-lucide="lock" class="w-5 h-5"></i>
+            <div class="space-y-3">
+                <label for="password" class="login-label">Senha</label>
+                <div class="input-group">
+                    <span class="input-icon">
+                        <i data-lucide="lock" class="w-6 h-6"></i>
                     </span>
-                    <input type="password" id="password" required class="w-full pl-10 pr-4 py-3 text-[#1a1a1a] placeholder-[#9ca3af]" placeholder="••••••••">
+                    <input type="password" id="password" required class="login-input" placeholder="Sua senha secreta">
                 </div>
             </div>
 
-            <!-- Container para mensagens de erro (exibido apenas se o login falhar) -->
-            <div id="error-message" class="hidden error-message">
-                Usuário ou senha incorretos.
+            <!-- Container para mensagens de erro: Cores de alto contraste para acessibilidade -->
+            <div id="error-message" class="hidden error-message p-4 rounded-xl font-bold text-center">
+                Usuário ou senha incorretos. Por favor, verifique seus dados.
             </div>
 
-            <!-- Botão de submissão do formulário -->
-            <button type="submit" id="submit-btn" class="w-full">
-                Entrar
+            <!-- Botão de submissão do formulário: Marrom médio com texto branco de alto contraste -->
+            <button type="submit" id="submit-btn" class="login-button w-full rounded-2xl shadow-lg">
+                Entrar no Sistema
             </button>
         </form>
 
-        <!-- Link para voltar à tela inicial -->
-        <div class="mt-8 text-center">
-            <a href="/" class="text-zinc-500 hover:text-zinc-800 transition-colors flex items-center justify-center gap-2 text-sm">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                Voltar ao início
+        <!-- Link para voltar à tela inicial: Cor marrom para manter a identidade -->
+        <div class="mt-10 text-center border-t border-zinc-100 pt-8">
+            <a href="/" class="text-[#8B5E3C] hover:text-[#A47148] font-bold transition-colors flex items-center justify-center gap-2 text-base">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                Voltar à página inicial
             </a>
         </div>
     </div>

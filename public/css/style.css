@@ -1268,8 +1268,145 @@ textarea:focus {
  * Estilo para a Saudação Personalizada nos Painéis
  * Garante que o nome do usuário tenha destaque e elegância.
  */
-#saudacao-usuario {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    letter-spacing: 0.02em;
-    font-weight: 600;
+
+
+/**
+ * SEÇÃO: Campos de Formulário com Ícones (Correção de Sobreposição)
+ * Estrutura que garante que o ícone fique fixo à esquerda e o texto comece após ele.
+ */
+
+/* Container do campo: Define o contexto de posicionamento para o ícone */
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+/* O Input: Recebe padding-left generoso para evitar que o texto sobreponha o ícone */
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding-left: 48px !important; /* Espaço garantido para o ícone (45px-48px) */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* O Ícone: Posicionado de forma absoluta e centralizado verticalmente */
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Garante que o clique passe para o input */
+    color: #8B5E3C;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Efeito no Focus: O ícone ganha destaque quando o usuário clica no campo */
+.input-group input:focus + .input-icon,
+.input-group input:focus ~ .input-icon,
+.input-group:focus-within .input-icon {
+    opacity: 1;
+    color: #A47148;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Fundo da tela de login: Creme suave para conforto visual e redução de fadiga */
+.login-body {
+    background-color: #F7F1E8 !important; 
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    background-blend-mode: multiply;
+    min-height: 100vh;
+}
+
+/* Card de Login: Branco puro com sombra leve e bordas arredondadas generosas */
+.login-card {
+    background-color: #FFFFFF !important;
+    border-radius: 2.5rem !important;
+    box-shadow: 0 15px 35px rgba(62, 44, 35, 0.12) !important;
+    border: 1px solid #D1D5DB !important;
+}
+
+/* Título de Login: Escuro forte para máximo contraste */
+.login-title {
+    color: #2C2C2C !important;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem !important;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Labels dos campos: Escuro para leitura fácil (16px) */
+.login-label {
+    color: #333333 !important;
+    font-size: 1rem !important; /* 16px */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Inputs de Login: Fundo branco, texto escuro e borda visível */
+.login-input {
+    background-color: #FFFFFF !important;
+    color: #1A1A1A !important;
+    border: 2px solid #D1D5DB !important;
+    border-radius: 1.25rem !important;
+    font-size: 1.125rem !important; /* ~18px para leitura confortável */
+    padding: 1rem 1.25rem !important;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
+/* Foco no Input: Borda marrom com glow elegante */
+.login-input:focus {
+    border-color: #8B5E3C !important;
+    box-shadow: 0 0 0 5px rgba(139, 94, 60, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+/* Placeholder: Cinza escuro para ser legível mas discreto */
+.login-input::placeholder {
+    color: #777777 !important;
+    opacity: 1;
+}
+
+/* Botão de Login: Marrom médio com texto branco de alto contraste */
+.login-button {
+    background: #8B5E3C !important;
+    color: #FFFFFF !important;
+    font-size: 1.125rem !important; /* 18px */
+    font-weight: 600 !important;
+    padding: 1.25rem !important;
+    border-radius: 1.25rem !important;
+    transition: all 0.4s ease !important;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border: none !important;
+}
+
+/* Hover no Botão: Marrom mais claro para feedback visual */
+.login-button:hover {
+    background-color: #A47148 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(139, 94, 60, 0.3) !important;
+}
+
+/* Active no Botão: Leve escurecida para feedback tátil */
+.login-button:active {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+/* Ícones do Login: Cor marrom para manter a identidade da igreja */
+.login-icon {
+    color: #8B5E3C !important;
+}
+
+/* Texto secundário: Cinza escuro para bom contraste */
+.login-secondary-text {
+    color: #555555 !important;
+    font-size: 1.125rem;
+    font-weight: 400;
 }
