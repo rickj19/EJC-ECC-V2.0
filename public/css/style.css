@@ -1465,43 +1465,56 @@ textarea:focus {
     background: #f5f5f5 !important;
     -webkit-print-color-adjust: exact;
   }
-  
+}
 
 /**
- * IDENTIDADE VISUAL INSTITUCIONAL (TEXT-BASED)
+ * IDENTIDADE VISUAL INSTITUCIONAL (TEXT-BASED) - REFINAMENTO DE HIERARQUIA
  * 
  * DESIGN CHOICE:
- * Optamos por uma abordagem tipográfica para a Paróquia de São Francisco das Chagas na Home.
- * Sem o uso de logos em imagem, a força da marca reside na escolha das fontes e no
- * espaçamento (kerning/tracking).
+ * Reorganizamos a hierarquia visual para um visual mais "Premium" e equilibrado.
  * 
- * PALETA DE CORES:
- * - Marrom Profundo (#5A3B2E): Autoridade e Tradição.
- * - Marrom Suave (#8B5E3C): Acolhimento e Terra (Franciscanismo).
- * - Dourado Suave (#C8A96B): Divindade e Nobreza.
+ * POR QUE OS TAMANHOS FORAM AJUSTADOS?
+ * - O título principal foi reduzido para ser sofisticado sem ser "gritante".
+ * - O subtítulo e a assinatura foram redimensionados para criar camadas de leitura.
+ * - Isso evita a poluição visual e permite que cada elemento tenha seu "respiro".
+ * 
+ * REFINAMENTO DE ESPAÇAMENTO:
+ * - Aumentamos o letter-spacing da assinatura para um ar de "selo de qualidade".
+ * - Ajustamos as margens para que o conteúdo central pareça flutuar elegantemente.
  */
 
-/* Título Principal da Home: Ajuste de Kerning para Máxima Elegância */
+/* Título Principal da Home: Sofisticado e Equilibrado */
 .hero-title-text {
     font-family: 'Playfair Display', serif;
-    letter-spacing: -0.05em;
-    line-height: 0.85;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     text-transform: uppercase;
+    color: #5A3B2E;
+    font-weight: 700;
 }
 
-/* Subtítulo: Espaçamento Amplo para Visual Moderno e Limpo */
+/* Subtítulo: Discreto, Moderno e com Respiro Visual */
 .hero-subtitle-text {
-    letter-spacing: 0.4em;
-    font-weight: 300;
-    opacity: 0.85;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.25em;
+    font-weight: 400;
+    color: #8B5E3C;
+    text-transform: uppercase;
+    opacity: 0.9;
 }
 
-/* Linhas Decorativas: Gradientes que desaparecem suavemente */
+/* Assinatura Visual (Paz e Bem): Leve e Elegante */
+.hero-signature-text {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.3em; /* Espaçamento amplo para elegância */
+    font-style: italic;
+    color: #5A3B2E;
+}
+
+/* Linhas Decorativas: Mais sutis para não competir com o texto */
 .decorative-line-gold {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-    width: 100%;
-    opacity: 0.5;
+    background: linear-gradient(90deg, transparent, rgba(200, 169, 107, 0.3), transparent);
 }
 
 /**

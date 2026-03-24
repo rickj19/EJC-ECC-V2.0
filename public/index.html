@@ -22,16 +22,17 @@
 <body class="bg-church-home font-sans min-h-screen flex flex-col items-center text-[#1a1a1a]">
     
     <!-- 
-        CABEÇALHO INSTITUCIONAL: IDENTIDADE TEXTUAL
-        Design Choice: Removemos a imagem do logo para focar em uma tipografia limpa e solene.
-        O uso de 'font-serif' (Playfair Display) evoca tradição e elegância.
+        CABEÇALHO INSTITUCIONAL: IDENTIDADE TEXTUAL REFINADA
+        Design Choice: O nome da Paróquia é mantido no topo como âncora institucional.
+        Ajustamos o tamanho para ser elegante e não competir com o destaque central, 
+        estabelecendo uma hierarquia clara desde o primeiro contato visual.
     -->
-    <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#D1D5DB] py-5 px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm transition-all duration-300">
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm transition-all duration-300">
         <div class="flex flex-col">
-            <h1 class="text-xl md:text-2xl font-serif font-bold text-[#5A3B2E] leading-tight tracking-tight">
+            <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight tracking-tight">
                 PARÓQUIA DE SÃO FRANCISCO DAS CHAGAS
             </h1>
-            <p class="text-[10px] text-[#8B5E3C] tracking-[0.3em] uppercase font-bold opacity-80">
+            <p class="text-[9px] text-[#8B5E3C] tracking-[0.3em] uppercase font-bold opacity-80">
                 Paz e Bem
             </p>
         </div>
@@ -43,35 +44,38 @@
     </header>
 
     <!-- Container Principal com Animação de Entrada Suave -->
-    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-20 px-4 flex flex-col items-center justify-center">
+    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-16 md:py-24 px-4 flex flex-col items-center justify-center">
         
         <!-- 
-            HERO SECTION: IDENTIDADE VISUAL TEXTUAL
-            Design Choice: Substituímos o ícone central por uma composição tipográfica poderosa.
-            O contraste entre o título em caixa alta e o subtítulo leve cria uma hierarquia clara e profissional.
+            HERO SECTION: REORGANIZAÇÃO DA HIERARQUIA VISUAL
+            Design Choice: Reorganizamos os textos para criar um fluxo de leitura equilibrado.
+            1. Título Principal (Função): "Sistema de Inscrições" - Destaque moderado e sofisticado.
+            2. Subtítulo (Áreas): Menor e discreto para não poluir.
+            3. Assinatura: "PAZ E BEM" - Suave e elegante, fechando a composição central.
+            Os tamanhos foram reduzidos para evitar que a home pareça "pesada" ou "gritante".
         -->
-        <div class="text-center mb-24 max-w-4xl mx-auto">
-            <!-- Título Principal: Nome da Paróquia com Destaque Máximo -->
-            <h2 class="text-5xl md:text-8xl font-bold font-serif tracking-tighter text-[#5A3B2E] mb-6 leading-[0.9] uppercase drop-shadow-sm animate-slide-up">
-                PARÓQUIA DE SÃO FRANCISCO DAS CHAGAS
+        <div class="text-center mb-20 md:mb-28 max-w-4xl mx-auto">
+            <!-- Título Principal: O ponto focal do sistema, agora com tamanho equilibrado -->
+            <h2 class="hero-title-text text-4xl md:text-6xl drop-shadow-sm animate-slide-up">
+                Sistema de Inscrições
             </h2>
             
-            <!-- Subtítulo: Descrição do Sistema -->
-            <p class="text-xl md:text-2xl font-light text-[#8B5E3C] tracking-[0.4em] uppercase opacity-90 mb-12 animate-slide-up" style="animation-delay: 0.1s;">
-                Sistema oficial de inscrições
+            <!-- Subtítulo: Informação complementar com visual moderno e respiro -->
+            <p class="hero-subtitle-text text-base md:text-lg mt-4 mb-10 animate-slide-up" style="animation-delay: 0.1s;">
+                EJC • ECC • Área Administrativa
             </p>
 
             <!-- 
-                FRASE FINAL: MENSAGEM FRANCISCANA COM ELEMENTOS DECORATIVOS
-                Design Choice: Linhas finas laterais (estilo editorial) para emoldurar a saudação.
-                Isso adiciona um toque de sofisticação sem a necessidade de imagens.
+                ASSINATURA VISUAL: "PAZ E BEM" REFINADA
+                Design Choice: Reduzimos o tamanho e aumentamos o espaçamento para uma assinatura leve.
+                As linhas decorativas agora são mais sutis, reforçando o aspecto premium.
             -->
-            <div class="flex items-center justify-center gap-8 mt-16 animate-slide-up" style="animation-delay: 0.2s;">
-                <div class="h-[1px] w-12 md:w-32 bg-gradient-to-r from-transparent via-[#C8A96B] to-[#C8A96B] opacity-40"></div>
-                <p class="text-3xl md:text-5xl font-serif italic text-[#5A3B2E] tracking-[0.15em] font-medium">
+            <div class="flex items-center justify-center gap-6 mt-12 animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="decorative-line-gold w-8 md:w-20"></div>
+                <p class="hero-signature-text text-sm md:text-base font-serif italic text-[#5A3B2E] tracking-[0.2em] font-medium">
                     PAZ E BEM
                 </p>
-                <div class="h-[1px] w-12 md:w-32 bg-gradient-to-l from-transparent via-[#C8A96B] to-[#C8A96B] opacity-40"></div>
+                <div class="decorative-line-gold w-8 md:w-20"></div>
             </div>
         </div>
 
