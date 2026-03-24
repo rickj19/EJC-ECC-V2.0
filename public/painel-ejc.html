@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <!-- Fontes elegantes para identidade religiosa -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Scripts de Segurança e Sessão -->
@@ -25,20 +25,32 @@
         AuthGuard.protegerPagina({ tipo_acesso: 'ejc' });
     </script>
 </head>
-<body class="bg-[#f5f5f5] font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-church-home font-sans min-h-screen flex flex-col items-center">
     
-    <!-- Overlay solene removido para fundo claro -->
-    <!-- <div class="fixed inset-0 bg-black/60 z-0"></div> -->
+    <!-- Cabeçalho Institucional Comum -->
+    <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-4">
+            <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain">
+            <div>
+                <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight">Paróquia de São Francisco das Chagas</h1>
+                <p class="text-[10px] text-[#8B5E3C] tracking-[0.2em] uppercase font-bold">Paz e bem</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="/" class="text-xs font-bold text-[#555555] hover:text-[#8B5E3C] transition-colors uppercase tracking-widest">Início</a>
+            <button onclick="AuthGuard.logout()" class="text-xs font-bold text-red-600 hover:text-red-700 transition-colors uppercase tracking-widest">Sair</button>
+        </div>
+    </header>
 
-    <main class="relative z-10 max-w-4xl w-full animate-fade-in py-12">
+    <main class="relative z-10 max-w-4xl w-full animate-fade-in py-12 px-4">
         <!-- Cabeçalho do Painel -->
         <header class="text-center mb-12 text-[#1a1a1a]">
-            <div class="inline-block p-4 mb-6 rounded-full bg-white shadow-xl border border-[#d1d5db]">
-                <i data-lucide="sparkles" class="w-12 h-12 text-[#8b5e3c]"></i>
+            <div class="inline-block p-4 mb-6 rounded-full bg-white shadow-xl border border-[#D1D5DB]">
+                <i data-lucide="sparkles" class="w-12 h-12 text-[#8B5E3C]"></i>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold font-['Cinzel'] tracking-widest text-[#1a1a1a] mb-4">
+            <h2 class="text-4xl md:text-6xl font-bold font-serif tracking-widest text-[#5A3B2E] mb-4">
                 Painel EJC
-            </h1>
+            </h2>
             <p class="text-lg md:text-xl font-light text-[#555555] tracking-[0.1em] uppercase opacity-90">
                 Encontro de Jovens com Cristo
             </p>
@@ -48,8 +60,8 @@
         <!-- Conteúdo Principal do Painel -->
         <section class="church-card p-8 md:p-12 text-center">
             <div class="mb-8">
-                <h2 id="saudacao-usuario" class="text-2xl font-bold font-['Cinzel'] text-brown-dark mb-4">Bem-vindo à Área do EJC</h2>
-                <p class="text-brown-medium leading-relaxed">
+                <h2 id="saudacao-usuario" class="text-2xl font-bold font-serif text-[#5A3B2E] mb-4">Bem-vindo à Área do EJC</h2>
+                <p class="text-[#555555] leading-relaxed">
                     Este é o seu espaço dedicado para gerenciar as atividades, inscrições e informações do Encontro de Jovens com Cristo da Paróquia de São Francisco das Chagas.
     <!-- Padronização do nome oficial da paróquia -->
                 </p>
@@ -96,5 +108,7 @@
             }
         });
     </script>
+    <!-- Favicon Animado: Adiciona um toque de vida à aba do navegador -->
+    <script src="/js/favicon-animado.js"></script>
 </body>
 </html>

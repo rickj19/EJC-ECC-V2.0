@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título da página: Identidade Institucional da Paróquia -->
-    <title>Paróquia de São Francisco das Chagas - Portal de Inscrições</title>
+    <title>Paróquia de São Francisco das Chagas - Sistema oficial de inscrições e acesso</title>
     <!-- Padronização do nome oficial da paróquia -->
     <!-- Tailwind CSS para estilização moderna e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,40 +14,47 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <!-- Fontes elegantes: Cinzel para títulos solenes e Inter para legibilidade moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fontes elegantes: Playfair Display para títulos solenes e Inter para legibilidade moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide para elementos visuais sutis -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-church-home font-['Inter'] min-h-screen flex flex-col items-center p-4 text-[#1a1a1a]">
+<body class="bg-church-home font-sans min-h-screen flex flex-col items-center text-[#1a1a1a]">
     
+    <!-- Cabeçalho Institucional Comum -->
+    <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-4">
+            <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain">
+            <div>
+                <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight">Paróquia de São Francisco das Chagas</h1>
+                <p class="text-[10px] text-[#8B5E3C] tracking-[0.2em] uppercase font-bold">Paz e bem</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="/" class="text-xs font-bold text-[#555555] hover:text-[#8B5E3C] transition-colors uppercase tracking-widest">Início</a>
+        </div>
+    </header>
+
     <!-- Container Principal com Animação de Entrada -->
-    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-16">
+    <main class="relative z-10 max-w-6xl w-full animate-fade-in py-16 px-4">
         
-        <!-- Cabeçalho Institucional: Inspirado na Bata de São Francisco (Marrom e Dourado) -->
-        <header class="text-center mb-20">
+        <!-- Hero Section: Identidade Visual da Paróquia -->
+        <div class="text-center mb-20">
             <!-- Símbolo Religioso: Cruz Estilizada com Efeito de Brilho -->
-            <div class="inline-block p-6 mb-10 rounded-full bg-white shadow-2xl border-2 border-[#D9C2A3] animate-slide-up relative">
-                <i data-lucide="cross" class="w-16 h-16 text-[#5C4033]"></i>
+            <div class="inline-block p-6 mb-10 rounded-full bg-white shadow-2xl border-2 border-[#D1D5DB] animate-slide-up relative">
+                <i data-lucide="cross" class="w-16 h-16 text-[#5A3B2E]"></i>
                 <div class="absolute inset-0 rounded-full bg-[#C8A96B]/10 animate-pulse"></div>
             </div>
             
-            <!-- Títulos com Tipografia Cinzel (Solene) -->
-            <h1 class="text-5xl md:text-8xl font-bold font-['Cinzel'] tracking-[0.15em] text-[#3E2C23] mb-6 drop-shadow-sm">
-                Paróquia de São Francisco das Chagas
-            </h1>
+            <!-- Títulos com Tipografia Playfair Display (Solene) -->
+            <h2 class="text-4xl md:text-7xl font-bold font-serif tracking-tight text-[#5A3B2E] mb-6 drop-shadow-sm">
+                Sistema oficial de inscrições e acesso
+            </h2>
             
-            <p class="text-xl md:text-2xl font-light text-[#5C4033] tracking-[0.3em] uppercase opacity-80 mb-8">
-                Sistema Oficial de Inscrições e Acesso
+            <p class="text-lg md:text-xl font-light text-[#8B5E3C] tracking-[0.2em] uppercase opacity-80 mb-8">
+                Sistema Oficial da Paróquia
             </p>
-            
-            <!-- Saudação Franciscana -->
-            <div class="flex items-center justify-center gap-4 mb-10">
-                <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-[#C8A96B]"></div>
-                <span class="font-['Cinzel'] text-2xl md:text-3xl text-[#8B6B4A] italic tracking-widest">Paz e Bem</span>
-                <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-[#C8A96B]"></div>
-            </div>
-        </header>
+        </div>
 
         <!-- Grade de Ações: EJC e ECC em Cards Premium -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
@@ -56,10 +63,10 @@
             <section class="church-card group animate-slide-up" style="animation-delay: 0.2s;">
                 <div class="card-header">
                     <i data-lucide="sparkles" class="w-12 h-12 text-[#C8A96B]"></i>
-                    <h2 class="text-5xl font-bold font-['Cinzel'] tracking-[0.2em]">EJC</h2>
+                    <h2 class="text-5xl font-bold font-serif tracking-widest">EJC</h2>
                 </div>
                 <div class="p-12 space-y-8 bg-white">
-                    <p class="text-[#3E2C23] font-bold text-center mb-10 uppercase text-sm tracking-[0.2em] opacity-70 border-b border-[#D9C2A3] pb-4">
+                    <p class="text-[#5A3B2E] font-bold text-center mb-10 uppercase text-sm tracking-[0.2em] opacity-70 border-b border-[#D1D5DB] pb-4">
                         Encontro de Jovens com Cristo
                     </p>
                     
@@ -83,10 +90,10 @@
             <section class="church-card group animate-slide-up" style="animation-delay: 0.4s;">
                 <div class="card-header">
                     <i data-lucide="heart" class="w-12 h-12 text-[#C8A96B]"></i>
-                    <h2 class="text-5xl font-bold font-['Cinzel'] tracking-[0.2em]">ECC</h2>
+                    <h2 class="text-5xl font-bold font-serif tracking-widest">ECC</h2>
                 </div>
                 <div class="p-12 space-y-8 bg-white">
-                    <p class="text-[#3E2C23] font-bold text-center mb-10 uppercase text-sm tracking-[0.2em] opacity-70 border-b border-[#D9C2A3] pb-4">
+                    <p class="text-[#5A3B2E] font-bold text-center mb-10 uppercase text-sm tracking-[0.2em] opacity-70 border-b border-[#D1D5DB] pb-4">
                         Encontro de Casais com Cristo
                     </p>
                     
@@ -111,8 +118,8 @@
         <!-- Acesso Administrativo: Discreto e Elegante -->
         <div class="max-w-md mx-auto text-center animate-slide-up" style="animation-delay: 0.6s;">
             <div class="flex flex-col items-center gap-6">
-                <div class="w-16 h-[1px] bg-[#D9C2A3]"></div>
-                <p class="text-[#8B6B4A] text-xs uppercase tracking-[0.4em] font-bold opacity-80">Área Restrita da Administração</p>
+                <div class="w-16 h-[1px] bg-[#D1D5DB]"></div>
+                <p class="text-[#8B5E3C] text-xs uppercase tracking-[0.4em] font-bold opacity-80">Área Restrita da Administração</p>
                 
                 <button type="button" onclick="irLogin('admin')" class="btn-church btn-admin group">
                     <i data-lucide="shield-check" class="w-6 h-6 transition-transform group-hover:scale-110"></i>
@@ -123,23 +130,23 @@
 
         <!-- Rodapé Institucional: Mensagem de São Francisco -->
         <footer class="mt-32 text-center">
-            <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm p-12 rounded-[3rem] border border-[#D9C2A3] shadow-2xl relative overflow-hidden">
+            <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm p-12 rounded-[3rem] border border-[#D1D5DB] shadow-2xl relative overflow-hidden">
                 <!-- Detalhe Decorativo Superior -->
                 <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#C8A96B] to-transparent"></div>
                 
                 <i data-lucide="quote" class="w-10 h-10 text-[#C8A96B]/30 mx-auto mb-6"></i>
                 
-                <p class="text-2xl md:text-3xl leading-relaxed text-[#3E2C23] font-['Cinzel'] italic mb-8">
+                <p class="text-2xl md:text-3xl leading-relaxed text-[#5A3B2E] font-serif italic mb-8">
                     "Senhor, fazei-me instrumento de vossa paz. Onde houver ódio, que eu leve o amor."
                 </p>
                 
                 <div class="flex flex-col items-center gap-2">
-                    <p class="font-bold text-[#5C4033] uppercase tracking-[0.5em] text-sm">São Francisco de Assis</p>
+                    <p class="font-bold text-[#5A3B2E] uppercase tracking-[0.5em] text-sm">São Francisco de Assis</p>
                     <div class="w-12 h-0.5 bg-[#C8A96B] mt-2"></div>
                 </div>
             </div>
             
-            <p class="mt-16 text-[10px] uppercase tracking-[0.5em] text-[#8B6B4A] opacity-60">
+            <p class="mt-16 text-[10px] uppercase tracking-[0.5em] text-[#8B5E3C] opacity-60">
                 © 2026 Paróquia de São Francisco das Chagas • Desenvolvido para a Glória de Deus
             </p>
         </footer>
@@ -147,5 +154,7 @@
 
     <!-- Script de lógica da Home -->
     <script src="/js/index.js"></script>
+    <!-- Favicon Animado: Adiciona um toque de vida à aba do navegador -->
+    <script src="/js/favicon-animado.js"></script>
 </body>
 </html>

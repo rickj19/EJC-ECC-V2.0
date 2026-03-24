@@ -14,21 +14,37 @@
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <!-- Fontes elegantes para identidade religiosa -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="login-body font-['Inter'] min-h-screen flex items-center justify-center p-4">
-    <!-- Container principal do formulário de login: Fundo branco, sombra leve e bordas arredondadas -->
-    <div class="max-w-md w-full login-card p-10 animate-slide-up">
-        <div class="text-center mb-10">
-            <!-- Badge que indica o tipo de login (EJC, ECC ou ADMIN) -->
-            <div id="type-badge" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-6"></div>
-            <!-- Título: Grande, escuro e bem legível -->
-            <h1 class="login-title">Acesse sua conta</h1>
-            <!-- Texto secundário: Confortável e com bom contraste -->
-            <p class="login-secondary-text mt-3">Entre com suas credenciais para acessar o portal paroquial</p>
+<body class="bg-church-home font-sans min-h-screen flex flex-col items-center">
+    
+    <!-- Cabeçalho Institucional Comum -->
+    <header class="w-full bg-white/90 backdrop-blur-md border-b border-[#D1D5DB] py-4 px-6 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-4">
+            <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain">
+            <div>
+                <h1 class="text-lg md:text-xl font-serif font-bold text-[#5A3B2E] leading-tight">Paróquia de São Francisco das Chagas</h1>
+                <p class="text-[10px] text-[#8B5E3C] tracking-[0.2em] uppercase font-bold">Paz e bem</p>
+            </div>
         </div>
+        <div class="flex items-center gap-4">
+            <a href="/" class="text-xs font-bold text-[#555555] hover:text-[#8B5E3C] transition-colors uppercase tracking-widest">Início</a>
+        </div>
+    </header>
+
+    <div class="flex-grow flex items-center justify-center p-4 w-full">
+        <!-- Container principal do formulário de login: Fundo branco, sombra leve e bordas arredondadas -->
+        <div class="max-w-md w-full login-card p-10 animate-slide-up bg-white rounded-[2.5rem] shadow-2xl border border-[#D1D5DB]">
+            <div class="text-center mb-10">
+                <!-- Badge que indica o tipo de login (EJC, ECC ou ADMIN) -->
+                <div id="type-badge" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-6"></div>
+                <!-- Título: Grande, escuro e bem legível -->
+                <h2 class="text-3xl font-serif font-bold text-[#5A3B2E]">Acesse sua conta</h2>
+                <!-- Texto secundário: Confortável e com bom contraste -->
+                <p class="text-[#555555] mt-3">Entre com suas credenciais para acessar o portal paroquial</p>
+            </div>
 
         <!-- Formulário de Login: Espaçamento aumentado entre campos para facilitar a leitura -->
         <form id="login-form" class="space-y-8">
@@ -85,5 +101,7 @@
     <script src="/js/supabase.js"></script>
     <!-- 5. Lógica específica da tela de login -->
     <script src="/js/login.js"></script>
+    <!-- Favicon Animado: Adiciona um toque de vida à aba do navegador -->
+    <script src="/js/favicon-animado.js"></script>
 </body>
 </html>

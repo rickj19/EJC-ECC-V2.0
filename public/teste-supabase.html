@@ -14,7 +14,7 @@
     <!-- CSS Customizado -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- Fontes -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Supabase SDK -->
@@ -22,12 +22,31 @@
 </head>
 <body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
     
+    <!-- Header Institucional: Mantém a identidade em todas as páginas -->
+    <header class="relative z-10 w-full max-w-2xl mb-8 text-center animate-fade-in">
+        <div class="flex flex-col items-center gap-4">
+            <!-- Logo/Favicon da Igreja -->
+            <div class="w-16 h-16 bg-white rounded-full shadow-xl flex items-center justify-center border border-[#d1d5db] overflow-hidden">
+                <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain" referrerpolicy="no-referrer">
+            </div>
+            <div>
+                <h1 class="font-['Playfair_Display'] text-xl md:text-2xl text-white tracking-widest uppercase">
+                    Paróquia de São Francisco das Chagas
+                </h1>
+                <p class="text-[#C8A96B] font-['Playfair_Display'] italic text-xs tracking-[0.2em] mt-1">
+                    Paz e bem
+                </p>
+            </div>
+        </div>
+        <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#C8A96B] to-transparent mx-auto mt-4 rounded-full opacity-50"></div>
+    </header>
+
     <!-- Overlay solene -->
     <div class="fixed inset-0 bg-black/60 z-0"></div>
 
     <main class="relative z-10 max-w-2xl w-full animate-fade-in py-12">
         <header class="text-center mb-10 text-cream">
-            <h1 class="text-3xl md:text-4xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold font-['Playfair_Display'] tracking-widest text-gold-soft mb-4">
                 Teste de Conexão Supabase
             </h1>
             <p class="text-beige text-sm uppercase tracking-[0.2em] opacity-80">

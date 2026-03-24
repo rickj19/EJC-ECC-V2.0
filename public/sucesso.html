@@ -19,11 +19,30 @@
     <!-- CSS customizado -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- Fontes elegantes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-zinc-50 font-['Inter'] min-h-screen flex items-center justify-center p-4">
+<body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- Header Institucional: Mantém a identidade em todas as páginas -->
+    <header class="w-full max-w-lg mb-8 text-center animate-fade-in">
+        <div class="flex flex-col items-center gap-4">
+            <!-- Logo/Favicon da Igreja -->
+            <div class="w-16 h-16 bg-white rounded-full shadow-xl flex items-center justify-center border border-[#d1d5db] overflow-hidden">
+                <img src="/favicon.png" alt="Logo Paróquia" class="w-10 h-10 object-contain" referrerpolicy="no-referrer">
+            </div>
+            <div>
+                <h1 class="font-['Playfair_Display'] text-xl md:text-2xl text-[#1a1a1a] tracking-widest uppercase">
+                    Paróquia de São Francisco das Chagas
+                </h1>
+                <p class="text-[#8b5e3c] font-['Playfair_Display'] italic text-xs tracking-[0.2em] mt-1">
+                    Paz e bem
+                </p>
+            </div>
+        </div>
+        <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#8b5e3c] to-transparent mx-auto mt-4 rounded-full opacity-50"></div>
+    </header>
+
     <!-- Card de Sucesso: Design limpo e acolhedor -->
     <div class="max-w-lg w-full bg-white p-12 rounded-3xl shadow-xl border border-zinc-100 text-center animate-scale-in">
         <div class="mb-8 flex justify-center">
@@ -33,7 +52,7 @@
             </div>
         </div>
 
-        <h1 class="text-4xl font-bold text-zinc-900 mb-6">Inscrição Realizada!</h1>
+        <h1 class="text-4xl font-bold text-zinc-900 mb-6 font-['Playfair_Display']">Inscrição Realizada!</h1>
         
         <!-- Container para a Mensagem Bíblica (preenchido via JavaScript) -->
         <div class="bg-zinc-50 p-8 rounded-2xl border border-zinc-100 mb-8 italic text-zinc-600 leading-relaxed">
@@ -54,5 +73,7 @@
 
     <!-- Script de lógica da página de sucesso -->
     <script src="/js/sucesso.js"></script>
+    <!-- Favicon Animado: Adiciona um toque de vida à aba do navegador -->
+    <script src="/js/favicon-animado.js"></script>
 </body>
 </html>
