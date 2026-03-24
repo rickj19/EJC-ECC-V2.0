@@ -19,14 +19,14 @@
     <!-- Biblioteca de ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-zinc-50 font-['Inter'] min-h-screen flex items-center justify-center p-4 py-12">
+<body class="bg-[#f5f5f5] font-['Inter'] min-h-screen flex items-center justify-center p-4 py-12">
     <!-- Container principal da ficha de inscrição -->
-    <div class="max-w-2xl w-full bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-zinc-100 animate-slide-up">
+    <div class="max-w-2xl w-full bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-zinc-200 animate-slide-up">
         <div class="text-center mb-10">
             <!-- Badge dinâmico que indica se é EJC ou ECC -->
             <div id="type-badge" class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4"></div>
-            <h1 class="text-3xl font-bold text-zinc-900">Ficha de Inscrição</h1>
-            <p class="text-zinc-500 mt-2">Preencha todos os campos para participar</p>
+            <h1 class="text-3xl font-bold text-[#1a1a1a]">Ficha de Inscrição</h1>
+            <p class="text-[#555555] mt-2">Preencha todos os campos para participar</p>
         </div>
 
         <!-- 
@@ -39,7 +39,7 @@
                 <!-- SEÇÃO 1: DADOS PESSOAIS -->
                 <div class="space-y-6">
                     <div class="border-b border-brown-medium/20 pb-2">
-                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-[#1a1a1a] font-cinzel flex items-center gap-2">
                             <i data-lucide="user" class="w-5 h-5"></i>
                             1. DADOS PESSOAIS
                         </h3>
@@ -48,71 +48,71 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nome -->
                         <div class="md:col-span-2 space-y-2">
-                            <label for="nome" class="text-sm font-bold text-brown-dark block">Nome Completo *</label>
+                            <label for="nome" class="text-sm font-bold text-[#333333] block">Nome Completo *</label>
                             <input type="text" id="nome" required placeholder="Digite seu nome completo" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-nome" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Nome é obrigatório (mín. 3 caracteres)</p>
                         </div>
 
                         <!-- Apelido -->
                         <div class="space-y-2">
-                            <label for="apelido" class="text-sm font-bold text-brown-dark block">Como gosta de ser chamado (Apelido)</label>
+                            <label for="apelido" class="text-sm font-bold text-[#333333] block">Como gosta de ser chamado (Apelido)</label>
                             <input type="text" id="apelido" placeholder="Ex: Zé, Maria..." 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                         </div>
 
                         <!-- Data de Nascimento -->
                         <div class="space-y-2">
-                            <label for="data_nascimento" class="text-sm font-bold text-brown-dark block">Data de Nascimento *</label>
+                            <label for="data_nascimento" class="text-sm font-bold text-[#333333] block">Data de Nascimento *</label>
                             <input type="date" id="data_nascimento" required 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium">
                             <p id="error-data-nascimento" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Data de nascimento é obrigatória</p>
                         </div>
 
                         <!-- Telefone -->
                         <div class="space-y-2">
-                            <label for="telefone" class="text-sm font-bold text-brown-dark block">Telefone / WhatsApp *</label>
+                            <label for="telefone" class="text-sm font-bold text-[#333333] block">Telefone / WhatsApp *</label>
                             <input type="tel" id="telefone" required placeholder="(00) 00000-0000" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-telefone" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Telefone inválido</p>
                         </div>
 
                         <!-- Endereço -->
                         <div class="md:col-span-2 space-y-2">
-                            <label for="endereco" class="text-sm font-bold text-brown-dark block">Endereço (Rua, Nº) *</label>
+                            <label for="endereco" class="text-sm font-bold text-[#333333] block">Endereço (Rua, Nº) *</label>
                             <input type="text" id="endereco" required placeholder="Ex: Rua das Flores, 123" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-endereco" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Endereço é obrigatório</p>
                         </div>
 
                         <!-- Bairro -->
                         <div class="space-y-2">
-                            <label for="bairro" class="text-sm font-bold text-brown-dark block">Bairro *</label>
+                            <label for="bairro" class="text-sm font-bold text-[#333333] block">Bairro *</label>
                             <input type="text" id="bairro" required placeholder="Seu bairro" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-bairro" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Bairro é obrigatório</p>
                         </div>
 
                         <!-- Ponto de Referência -->
                         <div class="space-y-2">
-                            <label for="referencia" class="text-sm font-bold text-brown-dark block">Ponto de Referência</label>
+                            <label for="referencia" class="text-sm font-bold text-[#333333] block">Ponto de Referência</label>
                             <input type="text" id="referencia" placeholder="Ex: Próximo à padaria..." 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                         </div>
 
                         <!-- Cidade -->
                         <div class="space-y-2">
-                            <label for="cidade" class="text-sm font-bold text-brown-dark block">Cidade *</label>
+                            <label for="cidade" class="text-sm font-bold text-[#333333] block">Cidade *</label>
                             <input type="text" id="cidade" required placeholder="Sua cidade" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-cidade" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Cidade é obrigatória</p>
                         </div>
 
                         <!-- Paróquia -->
                         <div class="space-y-2">
-                            <label for="paroquia" class="text-sm font-bold text-brown-dark block">Paróquia *</label>
+                            <label for="paroquia" class="text-sm font-bold text-[#333333] block">Paróquia *</label>
                             <input type="text" id="paroquia" required placeholder="Sua paróquia" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                             <p id="error-paroquia" class="text-[10px] text-red-600 font-bold hidden uppercase tracking-wider">Paróquia é obrigatória</p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                 <!-- SEÇÃO 2: INFORMAÇÕES PESSOAIS -->
                 <div class="space-y-6">
                     <div class="border-b border-brown-medium/20 pb-2">
-                        <h3 class="text-lg font-bold text-brown-dark font-cinzel flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-[#1a1a1a] font-cinzel flex items-center gap-2">
                             <i data-lucide="info" class="w-5 h-5"></i>
                             2. INFORMAÇÕES PESSOAIS
                         </h3>
@@ -130,8 +130,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Escolaridade -->
                         <div class="space-y-2">
-                            <label for="escolaridade" class="text-sm font-bold text-brown-dark block">Escolaridade</label>
-                            <select id="escolaridade" class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium bg-white">
+                            <label for="escolaridade" class="text-sm font-bold text-[#333333] block">Escolaridade</label>
+                            <select id="escolaridade" class="w-full px-4 py-3 text-[#1a1a1a] font-medium bg-white">
                                 <option value="">Selecione...</option>
                                 <option value="fundamental-incompleto">Fundamental Incompleto</option>
                                 <option value="fundamental-completo">Fundamental Completo</option>
@@ -145,35 +145,35 @@
 
                         <!-- Profissão -->
                         <div class="space-y-2">
-                            <label for="profissao" class="text-sm font-bold text-brown-dark block">Profissão / Ocupação</label>
+                            <label for="profissao" class="text-sm font-bold text-[#333333] block">Profissão / Ocupação</label>
                             <input type="text" id="profissao" placeholder="O que você faz?" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                         </div>
 
                         <!-- Já fez o EJC? -->
                         <div class="md:col-span-2 space-y-4">
-                            <label class="text-sm font-bold text-brown-dark block">Já participou do EJC anteriormente?</label>
+                            <label class="text-sm font-bold text-[#333333] block">Já participou do EJC anteriormente?</label>
                             <div class="flex gap-6">
                                 <label class="flex items-center gap-2 cursor-pointer group">
-                                    <input type="radio" name="ja_fez_ejc" value="sim" class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
-                                    <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Sim</span>
+                                    <input type="radio" name="ja_fez_ejc" value="sim" class="w-4 h-4 text-[#8b5e3c] focus:ring-[#8b5e3c] border-[#d1d5db]">
+                                    <span class="text-sm font-medium text-[#333333] group-hover:text-[#8b5e3c] transition-colors">Sim</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer group">
-                                    <input type="radio" name="ja_fez_ejc" value="nao" checked class="w-4 h-4 text-brown-medium focus:ring-brown-medium border-zinc-300">
-                                    <span class="text-sm font-medium text-brown-dark group-hover:text-brown-medium transition-colors">Não</span>
+                                    <input type="radio" name="ja_fez_ejc" value="nao" checked class="w-4 h-4 text-[#8b5e3c] focus:ring-[#8b5e3c] border-[#d1d5db]">
+                                    <span class="text-sm font-medium text-[#333333] group-hover:text-[#8b5e3c] transition-colors">Não</span>
                                 </label>
                             </div>
                             
                             <div id="campos-ejc-anterior" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
                                 <div class="space-y-2">
-                                    <label for="ano_ejc" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Em qual ano?</label>
+                                    <label for="ano_ejc" class="text-xs font-bold text-[#555555] uppercase tracking-wider">Em qual ano?</label>
                                     <input type="number" id="ano_ejc" placeholder="Ex: 2022" 
-                                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                           class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                                 </div>
                                 <div class="space-y-2">
-                                    <label for="circulo_ejc" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual era seu círculo?</label>
+                                    <label for="circulo_ejc" class="text-xs font-bold text-[#555555] uppercase tracking-wider">Qual era seu círculo?</label>
                                     <input type="text" id="circulo_ejc" placeholder="Ex: Vermelho" 
-                                           class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                           class="w-full px-4 py-3 text-[#1a1a1a] font-medium placeholder-[#9ca3af]">
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                         <div id="campo-qual-pastoral" class="hidden animate-fade-in space-y-2">
                             <label for="qual_pastoral" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual?</label>
                             <input type="text" id="qual_pastoral" placeholder="Ex: Pastoral da Juventude, Coroinha..." 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-brown-dark font-medium placeholder:text-brown-medium/50">
                         </div>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                         <div id="campo-qual-aptidao" class="hidden animate-fade-in space-y-2">
                             <label for="qual_aptidao" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Especifique:</label>
                             <input type="text" id="qual_aptidao" placeholder="Ex: Violão, Canto, Teatro, Desenho..." 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-brown-dark font-medium placeholder:text-brown-medium/50">
                         </div>
                     </div>
                 </div>
@@ -338,7 +338,7 @@
                         <div id="campo-qual-lideranca" class="hidden animate-fade-in space-y-2">
                             <label for="qual_lideranca" class="text-xs font-bold text-brown-medium uppercase tracking-wider">Qual equipe/círculo e ano?</label>
                             <input type="text" id="qual_lideranca" placeholder="Ex: Coordenador de Cozinha (2023)" 
-                                   class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50">
+                                   class="w-full px-4 py-3 text-brown-dark font-medium placeholder:text-brown-medium/50">
                         </div>
                     </div>
                 </div>
@@ -355,7 +355,7 @@
                     <div class="space-y-2">
                         <label for="observacoes" class="text-sm font-bold text-brown-dark block">Informações adicionais (Opcional)</label>
                         <textarea id="observacoes" rows="3" placeholder="Restrições alimentares, problemas de saúde ou qualquer outra informação relevante..." 
-                                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brown-medium focus:ring-2 focus:ring-brown-medium/20 outline-none transition-all text-brown-dark font-medium placeholder:text-brown-medium/50 resize-none"></textarea>
+                                  class="w-full px-4 py-3 text-brown-dark font-medium placeholder:text-brown-medium/50 resize-none"></textarea>
                     </div>
                 </div>
             </div>
@@ -390,7 +390,7 @@
             <div id="feedback-message" class="hidden p-4 rounded-xl text-sm font-bold animate-fade-in text-center shadow-sm"></div>
 
             <!-- Botão de submissão -->
-            <button type="button" id="submit-btn" class="w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] mt-4 uppercase tracking-[0.2em] text-sm">
+            <button type="button" id="submit-btn" class="w-full mt-4">
                 Finalizar Inscrição
             </button>
         </form>

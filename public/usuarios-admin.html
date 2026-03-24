@@ -18,39 +18,39 @@
         AuthGuard.protegerPagina({ perfil: 'admin', tipo_acesso: 'geral' });
     </script>
 </head>
-<body class="bg-brown-dark min-h-screen font-['Inter'] text-cream">
+<body class="bg-[#f5f5f5] min-h-screen font-['Inter'] text-[#1a1a1a]">
     <div class="container mx-auto px-4 py-12 max-w-4xl">
         <!-- Cabeçalho -->
         <header class="text-center mb-12">
-            <h1 class="font-['Cinzel'] text-3xl md:text-5xl text-gold-soft tracking-[0.2em] mb-4">Gerenciar Usuários</h1>
-            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
+            <h1 class="font-['Cinzel'] text-3xl md:text-5xl text-[#1a1a1a] tracking-[0.2em] mb-4">Gerenciar Usuários</h1>
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#8b5e3c] to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
         </header>
 
         <!-- Formulário de Cadastro -->
-        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-xl mb-12">
-            <h2 class="font-['Cinzel'] text-xl text-gold-soft mb-6 flex items-center gap-2">
-                <i data-lucide="user-plus"></i>
+        <div class="bg-white p-8 rounded-3xl border border-[#d1d5db] shadow-xl mb-12">
+            <h2 class="font-['Cinzel'] text-xl text-[#1a1a1a] mb-6 flex items-center gap-2">
+                <i data-lucide="user-plus" class="text-[#8b5e3c]"></i>
                 Novo Usuário de Acesso
             </h2>
             <form id="form-usuario" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Nome Completo</label>
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Nome Completo</label>
                     <input type="text" id="nome" required placeholder="Nome do usuário" 
-                           class="w-full bg-cream text-brown-dark px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                 </div>
                 <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">E-mail</label>
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">E-mail</label>
                     <input type="email" id="email" required placeholder="email@exemplo.com" 
-                           class="w-full bg-cream text-brown-dark px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                 </div>
                 <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Senha</label>
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Senha</label>
                     <input type="password" id="senha" required placeholder="••••••••" 
-                           class="w-full bg-cream text-brown-dark px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                 </div>
                 <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Tipo de Acesso</label>
-                    <select id="tipo" required class="w-full bg-cream text-brown-dark px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all font-bold">
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Tipo de Acesso</label>
+                    <select id="tipo" required class="w-full bg-white text-[#1a1a1a] px-4 py-3 cursor-pointer">
                         <option value="ejc">EJC (Jovens)</option>
                         <option value="ecc">ECC (Casais)</option>
                         <option value="admin">Administrador Geral</option>
@@ -62,16 +62,16 @@
                     <i data-lucide="check-circle" class="w-5 h-5"></i>
                     <span id="txt-sucesso">Usuário cadastrado com sucesso!</span>
                 </div>
-                <div id="msg-erro" class="hidden md:col-span-2 bg-red-500/20 border border-red-500 text-red-200 px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                <div id="msg-erro" class="hidden md:col-span-2 error-message flex items-center gap-2">
                     <i data-lucide="alert-circle" class="w-5 h-5"></i>
                     <span id="txt-erro">Erro ao cadastrar usuário.</span>
                 </div>
 
                 <div class="md:col-span-2 flex justify-end gap-4 mt-4">
-                    <a href="/painel-admin.html" class="bg-white/10 hover:bg-white/20 text-cream px-8 py-3 rounded-xl font-bold transition-all">
+                    <a href="/painel-admin.html" class="bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#1a1a1a] px-8 py-3 rounded-xl font-bold border border-[#d1d5db] transition-all">
                         Voltar
                     </a>
-                    <button type="button" id="btn-salvar" class="bg-[#C8A96B] hover:bg-[#B6985A] text-[#2E1F17] px-8 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2">
+                    <button type="button" id="btn-salvar" class="btn-premium">
                         <i data-lucide="save" class="w-5 h-5"></i>
                         Salvar Usuário
                     </button>
@@ -80,15 +80,15 @@
         </div>
 
         <!-- Lista de Usuários -->
-        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-xl">
-            <h2 class="font-['Cinzel'] text-xl text-gold-soft mb-6 flex items-center gap-2">
-                <i data-lucide="users"></i>
+        <div class="bg-white p-8 rounded-3xl border border-[#d1d5db] shadow-xl">
+            <h2 class="font-['Cinzel'] text-xl text-[#1a1a1a] mb-6 flex items-center gap-2">
+                <i data-lucide="users" class="text-[#8b5e3c]"></i>
                 Usuários Cadastrados
             </h2>
             <div id="lista-usuarios" class="space-y-4">
                 <!-- Usuários serão injetados aqui -->
                 <div class="flex justify-center py-8">
-                    <div class="w-8 h-8 border-2 border-gold-soft/20 border-t-gold-soft rounded-full animate-spin"></div>
+                    <div class="w-8 h-8 border-2 border-[#8b5e3c]/20 border-t-[#8b5e3c] rounded-full animate-spin"></div>
                 </div>
             </div>
         </div>

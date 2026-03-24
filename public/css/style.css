@@ -6,8 +6,27 @@
 @import "tailwindcss";
 
 /**
- * Definição de Variáveis de Tema (Cores da Paróquia)
+ * Definição de Variáveis de Tema (Cores da Paróquia e Padrão de Legibilidade)
  */
+:root {
+    /* Cores de Texto - Contraste Aumentado */
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --text-muted: #777777;
+
+    /* Cores de Fundo */
+    --bg-main: #f5f5f5;
+    --bg-card: #ffffff;
+
+    /* Cores de Identidade (Marrom/Dourado) */
+    --primary: #8b5e3c;
+    --primary-dark: #5a3b2e;
+    --gold-soft: #C8A96B;
+
+    /* Bordas e Elementos de UI */
+    --border: #d1d5db;
+}
+
 @theme {
     --color-brown-dark: #2E1F17;
     --color-brown-medium: #5C4033;
@@ -23,6 +42,21 @@
     background: linear-gradient(rgba(46, 31, 23, 0.9), rgba(46, 31, 23, 0.98)), 
                 url('https://images.unsplash.com/photo-1548625361-195fe5772a9d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat fixed;
     color: #F5EBDD;
+}
+
+/**
+ * Padrão de Legibilidade Global
+ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+.text-muted {
+    color: var(--text-muted);
 }
 
 /**
@@ -51,30 +85,30 @@
  * Cards Institucionais: Usados na Home e nos Painéis.
  */
 .church-card {
-    background: #F5EBDD;
-    border-radius: 2rem;
+    background: var(--bg-card);
+    border-radius: 2.5rem;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(200, 169, 107, 0.2);
-    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    color: #2E1F17;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    color: var(--text-primary);
 }
 
 .church-card:hover {
-    transform: translateY(-12px) scale(1.01);
-    border-color: #C8A96B;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 169, 107, 0.2);
+    transform: translateY(-10px);
+    border-color: var(--gold-soft);
+    box-shadow: 0 30px 70px rgba(139, 94, 60, 0.15);
 }
 
 .card-header {
-    padding: 2rem;
-    background: #5C4033;
-    color: #F5EBDD;
+    padding: 2.5rem;
+    background: var(--primary-dark);
+    color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    border-bottom: 4px solid #C8A96B;
+    border-bottom: 4px solid var(--gold-soft);
 }
 
 /**
@@ -82,24 +116,25 @@
  */
 .btn-church {
     width: 100%;
-    padding: 1rem 1.75rem;
-    border-radius: 1rem;
-    font-weight: 600;
+    padding: 1.1rem 1.75rem;
+    border-radius: 1.25rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.85rem;
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
     position: relative;
     overflow: hidden;
+    border: none;
 }
 
 .btn-church:active {
-    transform: scale(0.98);
+    transform: scale(0.96) translateY(1px);
 }
 
 /**
@@ -124,69 +159,69 @@
  * Estilos Específicos de Botões por Categoria
  */
 .btn-ejc {
-    background: #5C4033;
-    color: #F5EBDD;
-    border: 1px solid rgba(200, 169, 107, 0.2);
-    box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(90, 59, 46, 0.25);
 }
 
 .btn-ejc:hover {
-    background: #2E1F17;
-    box-shadow: 0 8px 20px rgba(46, 31, 23, 0.4), 0 0 15px rgba(200, 169, 107, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(90, 59, 46, 0.35);
+    filter: brightness(1.1);
 }
 
 .btn-outline-ejc {
-    border: 2px solid #5C4033;
-    color: #5C4033;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
     background: transparent;
 }
 
 .btn-outline-ejc:hover {
-    background: rgba(92, 64, 51, 0.08);
-    transform: translateY(-2px);
+    background: rgba(139, 94, 60, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(139, 94, 60, 0.1);
 }
 
 .btn-ecc {
-    background: #2E1F17;
-    color: #F5EBDD;
-    border: 1px solid #C8A96B;
-    box-shadow: 0 4px 12px rgba(46, 31, 23, 0.3);
+    background: linear-gradient(135deg, #1a1a1a, #333333);
+    color: #ffffff;
+    border: 1px solid rgba(200, 169, 107, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .btn-ecc:hover {
-    background: #000;
-    border-color: #F5EBDD;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(200, 169, 107, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
 }
 
 .btn-outline-ecc {
-    border: 2px solid #2E1F17;
-    color: #2E1F17;
+    border: 1.5px solid #1a1a1a;
+    color: #1a1a1a;
     background: transparent;
 }
 
 .btn-outline-ecc:hover {
-    background: rgba(46, 31, 23, 0.08);
-    transform: translateY(-2px);
+    background: rgba(26, 26, 26, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(26, 26, 26, 0.1);
 }
 
 /**
  * Botão Admin Premium (Dourado)
  */
 .btn-admin {
-    background: linear-gradient(135deg, #C8A96B, #B69559);
-    color: #2E1F17;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 25px rgba(200, 169, 107, 0.4);
-    padding: 1.1rem 2rem;
+    background: linear-gradient(135deg, var(--gold-soft), #d4af37);
+    color: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(200, 169, 107, 0.3);
+    padding: 1.25rem 2.5rem;
 }
 
 .btn-admin:hover {
-    background: linear-gradient(135deg, #D9C2A3, #C8A96B);
-    box-shadow: 0 15px 35px rgba(200, 169, 107, 0.6), 0 0 25px rgba(200, 169, 107, 0.3);
-    transform: translateY(-4px);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(200, 169, 107, 0.5);
+    filter: brightness(1.05);
 }
 
 /**
@@ -528,74 +563,104 @@
  * Botão de Login/Cadastro Premium (Estilo App Bancário)
  * Design refinado com transições suaves, sombras profundas e feedback tátil.
  */
-#submit-btn {
-    background-color: var(--primary);
-    color: #2B1D17 !important; /* Marrom escuro para máximo contraste */
+#submit-btn, .btn-premium {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary)) !important;
+    color: #ffffff !important; /* Branco para máximo contraste no fundo escuro */
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 0.15em; /* Espaçamento elegante entre letras */
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave estilo premium */
-    box-shadow: 0 8px 20px rgba(200, 169, 107, 0.3); /* Sombra suave inicial */
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important; /* Transição suave estilo premium */
+    box-shadow: 0 8px 20px rgba(90, 59, 46, 0.3) !important; /* Sombra suave inicial */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 1rem !important;
+    padding: 1.1rem 2rem !important;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Efeito de Elevação e Brilho no Hover: Estilo Premium */
-#submit-btn:hover:not(:disabled) {
-    transform: translateY(-3px); /* Leve elevação para profundidade */
-    box-shadow: 0 12px 28px rgba(200, 169, 107, 0.5); /* Sombra mais profunda no hover */
-    filter: brightness(1.05); /* Brilho sutil para sensação de interatividade */
+#submit-btn:hover:not(:disabled), .btn-premium:hover:not(:disabled) {
+    transform: translateY(-4px) !important; /* Leve elevação para profundidade */
+    box-shadow: 0 15px 35px rgba(90, 59, 46, 0.5) !important; /* Sombra mais profunda no hover */
+    filter: brightness(1.15) !important; /* Brilho sutil para sensação de interatividade */
 }
 
 /* Feedback Tátil ao Clicar: Sensação de botão físico */
-#submit-btn:active:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(200, 169, 107, 0.4);
+#submit-btn:active:not(:disabled), .btn-premium:active:not(:disabled) {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 5px 15px rgba(200, 169, 107, 0.4) !important;
+    transition: all 0.1s ease !important;
+}
+
+/* Efeito de brilho interno no hover */
+#submit-btn::before, .btn-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: 0.6s;
+}
+
+#submit-btn:hover::before, .btn-premium:hover::before {
+    left: 100%;
 }
 
 /* Estado de Loading e Desabilitado: Mantém a elegância mesmo em espera */
-#submit-btn:disabled {
-    opacity: 0.85;
+#submit-btn:disabled, .btn-premium:disabled {
+    opacity: 0.7;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: none !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    background: #9ca3af !important;
 }
 
 /* Estilização do Spinner de Loading: Ícone Lucide animado */
-#submit-btn i.animate-spin {
+#submit-btn i.animate-spin, .btn-premium i.animate-spin {
     width: 1.25rem;
     height: 1.25rem;
 }
 
 /**
- * Estilização de Inputs, Selects e Textareas (Contraste Aumentado)
+ * Estilização de Inputs, Selects e Textareas (UX Premium)
+ * Design refinado com animações suaves, elevação no foco e glow elegante.
  */
 label {
-    color: #4A3427 !important; /* Marrom escuro para labels em fundo claro */
+    color: var(--text-secondary) !important; /* Labels escuras para leitura clara */
     font-weight: 600;
     font-size: 0.85rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.4rem;
     display: block;
+    transition: color 0.3s ease;
 }
 
 input,
 select,
 textarea {
-    color: #2B1D17 !important; /* Marrom quase preto para texto digitado */
-    background-color: #FFFFFF !important;
-    border: 1.5px solid #D9C2A3 !important;
+    color: var(--text-primary) !important; /* Texto escuro para leitura clara */
+    background-color: var(--bg-card) !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 0.85rem !important; /* Bordas arredondadas elegantes */
     font-weight: 500;
-    transition: all 0.2s ease;
+    padding: 0.85rem 1rem !important;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important; /* Transição suave premium */
+    width: 100%;
+    outline: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* Sombra interna sutil */
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: #8C7365 !important; /* Marrom médio para placeholders */
+    color: #9ca3af !important; /* Placeholder cinza médio */
     font-weight: 400;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 textarea {
@@ -603,25 +668,54 @@ textarea {
     resize: vertical;
 }
 
+/* Efeito de Foco Premium: Glow elegante e leve elevação */
 input:focus,
 select:focus,
 textarea:focus {
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 4px var(--primary-ring) !important;
-    outline: none;
+    background-color: #ffffff !important;
+    transform: translateY(-1px); /* Leve elevação visual */
+    box-shadow: 0 8px 20px rgba(139, 94, 60, 0.12), 0 0 0 4px rgba(139, 94, 60, 0.08) !important; /* Glow elegante marrom/dourado */
+}
+
+/* Animação suave para o label quando o input está em foco */
+.space-y-2:focus-within label, 
+.flex:focus-within label,
+.grid:focus-within label {
+    color: var(--primary) !important;
 }
 
 /**
- * Mensagens de Erro de Validação
+ * Mensagens de Erro e Sucesso de Validação
  */
 .error-message {
-    color: #C62828 !important; /* Vermelho forte para erro */
-    font-size: 0.75rem;
+    background-color: #fee2e2 !important;
+    color: #991b1b !important; /* Vermelho forte para erro */
+    border: 1px solid #fecaca !important;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.success-message {
+    background-color: #dcfce7 !important;
+    color: #166534 !important; /* Verde forte para sucesso */
+    border: 1px solid #bbf7d0 !important;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 /**
@@ -742,13 +836,13 @@ textarea:focus {
  * Dashboard Admin: Cards de Métricas (Premium & Animado)
  */
 .dashboard-card {
-    background-color: #F5EBDD;
-    color: #3E2C23;
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-    border: 1px solid #D6C2A8;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    padding: 1.75rem;
+    border-radius: 1.75rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     overflow: hidden;
 }
@@ -759,16 +853,16 @@ textarea:focus {
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #C8A96B, #5C4033);
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold-soft), var(--primary));
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
 }
 
 .dashboard-card:hover {
-    transform: translateY(-8px);
-    border-color: #C8A96B;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 15px rgba(200, 169, 107, 0.1);
+    transform: translateY(-10px);
+    border-color: var(--gold-soft);
+    box-shadow: 0 20px 50px rgba(139, 94, 60, 0.1);
 }
 
 .dashboard-card:hover::before {
@@ -777,52 +871,55 @@ textarea:focus {
 
 /* Títulos e Números dentro dos cards de métricas */
 .dashboard-card div[id^="metric-"] {
-    color: #2B1D17;
+    color: var(--text-primary);
     font-weight: 700;
     letter-spacing: -0.02em;
 }
 
 .dashboard-card span, 
 .dashboard-card p {
-    color: #5C4033;
-    font-weight: 500;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /**
  * Dashboard Admin: Seção de Últimos Cadastros (Premium)
  */
 .ultimo-cadastro-card {
-    background-color: #F8EFE4;
-    color: #3E2C23;
-    padding: 1rem;
-    border-radius: 1.25rem;
-    border: 1px solid #E0D0B8;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .ultimo-cadastro-card:hover {
-    background: #F5EBDD;
-    transform: scale(1.03) translateX(5px);
-    border-color: #C8A96B;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--gold-soft);
+    box-shadow: 0 15px 35px rgba(139, 94, 60, 0.1);
 }
 
 /* Nomes e Detalhes nos cards de últimos cadastros */
 .ultimo-cadastro-card h4 {
-    color: #2B1D17;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 .ultimo-cadastro-card span {
-    color: #6B4F3B;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /**
  * Títulos das Seções do Dashboard
  */
 .section-title {
-    color: #EAD9C0;
-    letter-spacing: 2px;
+    color: var(--text-primary);
+    letter-spacing: 0.25em;
+    font-weight: 700;
 }
 
 /**

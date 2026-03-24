@@ -23,26 +23,26 @@
         AuthGuard.protegerPagina({ perfil: 'admin', tipo_acesso: 'geral' });
     </script>
 </head>
-<body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-[#f5f5f5] font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
     
-    <!-- Overlay solene para garantir legibilidade -->
-    <div class="fixed inset-0 bg-black/60 z-0"></div>
+    <!-- Overlay solene removido para fundo claro -->
+    <!-- <div class="fixed inset-0 bg-black/60 z-0"></div> -->
 
     <main class="relative z-10 max-w-7xl w-full animate-fade-in py-8 md:py-12">
         <!-- Cabeçalho do Painel: Identidade Visual da Paróquia -->
-        <header class="text-center mb-10 text-cream">
-            <div class="inline-block p-4 mb-4 rounded-full bg-brown-medium/30 backdrop-blur-lg border border-gold-soft/50 shadow-2xl">
-                <i data-lucide="shield-check" class="w-10 h-10 text-gold-soft"></i>
+        <header class="text-center mb-10 text-[#1a1a1a]">
+            <div class="inline-block p-4 mb-4 rounded-full bg-white shadow-xl border border-[#d1d5db]">
+                <i data-lucide="shield-check" class="w-10 h-10 text-[#8b5e3c]"></i>
             </div>
-            <h1 class="text-3xl md:text-5xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-2 drop-shadow-2xl">
+            <h1 class="text-3xl md:text-5xl font-bold font-['Cinzel'] tracking-widest text-[#1a1a1a] mb-2">
                 Área Administrativa
             </h1>
             <!-- Saudação Personalizada: Injetada via AuthGuard -->
-            <p id="saudacao-usuario" class="text-cream font-medium text-lg mb-2 animate-fade-in"></p>
-            <p class="text-sm md:text-base font-light text-beige tracking-[0.1em] uppercase opacity-90">
+            <p id="saudacao-usuario" class="text-[#555555] font-medium text-lg mb-2 animate-fade-in"></p>
+            <p class="text-sm md:text-base font-light text-[#777777] tracking-[0.1em] uppercase opacity-90">
                 Gestão de Inscritos • Paróquia São Francisco das Chagas
             </p>
-            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#8b5e3c] to-transparent mx-auto mt-4 rounded-full opacity-70"></div>
         </header>
 
         <!-- Dashboard de Métricas -->
@@ -98,11 +98,11 @@
 
         <!-- Seção de Gráfico -->
         <section class="mb-12 animate-fade-in" style="animation-delay: 0.5s;">
-            <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl">
+            <div class="bg-white p-6 rounded-3xl border border-[#d1d5db] shadow-xl">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-px flex-grow bg-gold-soft/30"></div>
-                    <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase section-title">Distribuição das Inscrições</h2>
-                    <div class="h-px flex-grow bg-gold-soft/30"></div>
+                    <div class="h-px flex-grow bg-[#d1d5db]"></div>
+                    <h2 class="font-['Cinzel'] text-xl text-[#1a1a1a] tracking-[0.2em] uppercase section-title">Distribuição das Inscrições</h2>
+                    <div class="h-px flex-grow bg-[#d1d5db]"></div>
                 </div>
                 <div class="h-[300px] w-full">
                     <canvas id="chart-distribuicao"></canvas>
@@ -113,14 +113,14 @@
         <!-- Seção: Últimos Cadastros (Visual Rápido) -->
         <section class="mb-12">
             <div class="flex items-center gap-3 mb-6">
-                <div class="h-px flex-grow bg-gold-soft/30"></div>
-                <h2 class="font-['Cinzel'] text-xl text-gold-soft tracking-[0.2em] uppercase section-title">Últimos Cadastros</h2>
-                <div class="h-px flex-grow bg-gold-soft/30"></div>
+                <div class="h-px flex-grow bg-[#d1d5db]"></div>
+                <h2 class="font-['Cinzel'] text-xl text-[#1a1a1a] tracking-[0.2em] uppercase section-title">Últimos Cadastros</h2>
+                <div class="h-px flex-grow bg-[#d1d5db]"></div>
             </div>
             
             <div id="container-ultimos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <!-- Injetado via JS: cards pequenos dos últimos 5/10 -->
-                <div class="col-span-full text-center py-8 text-cream/30 italic">Carregando métricas...</div>
+                <div class="col-span-full text-center py-8 text-[#777777] italic">Carregando métricas...</div>
             </div>
         </section>
 
@@ -146,21 +146,21 @@
                 <i data-lucide="refresh-cw"></i>
                 <span>Atualizar Lista</span>
             </button>
-            <button id="btn-sair" class="btn-acao-rapida" style="background: #5C4033; color: #F5EBDD;">
+            <button id="btn-sair" class="btn-acao-rapida btn-premium">
                 <i data-lucide="log-out"></i>
                 <span>Sair</span>
             </button>
         </div>
 
         <!-- Barra de Filtros e Busca -->
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 mb-8 shadow-xl">
+        <div class="bg-white p-6 rounded-3xl border border-[#d1d5db] mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                <h2 class="font-['Cinzel'] text-lg text-gold-soft tracking-[0.1em] uppercase">Filtros Avançados</h2>
+                <h2 class="font-['Cinzel'] text-lg text-[#1a1a1a] tracking-[0.1em] uppercase">Filtros Avançados</h2>
                 <div class="flex items-center gap-4">
-                    <span id="total-filtrado-container" class="text-xs text-cream/60 font-medium">
-                        Mostrando <span id="total-filtrado" class="text-gold-soft font-bold">0</span> de <span id="total-geral" class="text-gold-soft font-bold">0</span> inscritos
+                    <span id="total-filtrado-container" class="text-xs text-[#555555] font-medium">
+                        Mostrando <span id="total-filtrado" class="text-[#8b5e3c] font-bold">0</span> de <span id="total-geral" class="text-[#8b5e3c] font-bold">0</span> inscritos
                     </span>
-                    <button id="btn-limpar-filtros" class="px-4 py-2 bg-brown-medium/30 hover:bg-brown-medium/50 text-cream text-[10px] font-bold uppercase tracking-widest rounded-lg border border-gold-soft/20 transition-all flex items-center gap-2">
+                    <button id="btn-limpar-filtros" class="px-4 py-2 bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#1a1a1a] text-[10px] font-bold uppercase tracking-widest rounded-lg border border-[#d1d5db] transition-all flex items-center gap-2">
                         <i data-lucide="filter-x" class="w-3 h-3"></i>
                         Limpar Filtros
                     </button>
@@ -170,18 +170,18 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Busca por Nome -->
                 <div class="space-y-2">
-                    <label for="busca-nome" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Buscar por Nome</label>
+                    <label for="busca-nome" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Buscar por Nome</label>
                     <div class="relative">
-                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brown-medium"></i>
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#777777]"></i>
                         <input type="text" id="busca-nome" placeholder="Digite o nome..." 
-                               class="w-full bg-cream text-brown-dark pl-10 pr-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all placeholder:text-brown-medium/50 text-sm font-medium">
+                               class="w-full bg-white text-[#1a1a1a] pl-10 pr-4 py-2.5">
                     </div>
                 </div>
 
                 <!-- Filtro por Tipo (EJC/ECC) -->
                 <div class="space-y-2">
-                    <label for="filtro-tipo" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Tipo de Encontro</label>
-                    <select id="filtro-tipo" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
+                    <label for="filtro-tipo" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Tipo de Encontro</label>
+                    <select id="filtro-tipo" class="w-full bg-white text-[#1a1a1a] px-4 py-2.5 cursor-pointer">
                         <option value="todos">Todos os Encontros</option>
                         <option value="ejc">EJC (Jovens)</option>
                         <option value="ecc">ECC (Casais)</option>
@@ -190,8 +190,8 @@
 
                 <!-- Filtro por Perfil (Jovem/Casal) -->
                 <div class="space-y-2">
-                    <label for="filtro-perfil" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Perfil</label>
-                    <select id="filtro-perfil" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
+                    <label for="filtro-perfil" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Perfil</label>
+                    <select id="filtro-perfil" class="w-full bg-white text-[#1a1a1a] px-4 py-2.5 cursor-pointer">
                         <option value="todos">Todos os Perfis</option>
                         <option value="jovem">Jovens</option>
                         <option value="casal">Casais</option>
@@ -201,8 +201,8 @@
 
                 <!-- Filtro por Status -->
                 <div class="space-y-2">
-                    <label for="filtro-status" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Status</label>
-                    <select id="filtro-status" class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-bold cursor-pointer">
+                    <label for="filtro-status" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Status</label>
+                    <select id="filtro-status" class="w-full bg-white text-[#1a1a1a] px-4 py-2.5 cursor-pointer">
                         <option value="todos">Todos os Status</option>
                         <option value="pendente">Pendente</option>
                         <option value="aprovado">Aprovado</option>
@@ -212,30 +212,30 @@
 
                 <!-- Filtro por Cidade -->
                 <div class="space-y-2">
-                    <label for="filtro-cidade" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Cidade</label>
+                    <label for="filtro-cidade" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Cidade</label>
                     <input type="text" id="filtro-cidade" placeholder="Filtrar cidade..." 
-                           class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all placeholder:text-brown-medium/50 text-sm font-medium">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-2.5">
                 </div>
 
                 <!-- Filtro por Paróquia -->
                 <div class="space-y-2">
-                    <label for="filtro-paroquia" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Paróquia</label>
+                    <label for="filtro-paroquia" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Paróquia</label>
                     <input type="text" id="filtro-paroquia" placeholder="Filtrar paróquia..." 
-                           class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all placeholder:text-brown-medium/50 text-sm font-medium">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-2.5">
                 </div>
 
                 <!-- Data Inicial -->
                 <div class="space-y-2">
-                    <label for="filtro-data-inicio" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Data Inicial</label>
+                    <label for="filtro-data-inicio" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Data Inicial</label>
                     <input type="date" id="filtro-data-inicio" 
-                           class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-medium">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-2.5">
                 </div>
 
                 <!-- Data Final -->
                 <div class="space-y-2">
-                    <label for="filtro-data-fim" class="filter-label text-[10px] uppercase tracking-[0.2em] text-gold-soft font-bold">Data Final</label>
+                    <label for="filtro-data-fim" class="filter-label text-[10px] uppercase tracking-[0.2em] text-[#333333] font-bold">Data Final</label>
                     <input type="date" id="filtro-data-fim" 
-                           class="w-full bg-cream text-brown-dark px-4 py-2.5 rounded-xl border-none focus:ring-2 focus:ring-gold-soft outline-none transition-all text-sm font-medium">
+                           class="w-full bg-white text-[#1a1a1a] px-4 py-2.5">
                 </div>
             </div>
         </div>
@@ -245,17 +245,17 @@
             <!-- Os cards dos inscritos serão injetados aqui via JavaScript -->
             
             <!-- Estado de Carregamento -->
-            <div id="loading-state" class="col-span-full flex flex-col items-center justify-center py-24 text-cream/50">
-                <div class="w-16 h-16 border-4 border-gold-soft/10 border-t-gold-soft rounded-full animate-spin mb-6"></div>
-                <p class="font-['Cinzel'] text-lg tracking-[0.3em] animate-pulse text-gold-soft">Buscando registros...</p>
+            <div id="loading-state" class="col-span-full flex flex-col items-center justify-center py-24 text-[#777777]">
+                <div class="w-16 h-16 border-4 border-[#8b5e3c]/10 border-t-[#8b5e3c] rounded-full animate-spin mb-6"></div>
+                <p class="font-['Cinzel'] text-lg tracking-[0.3em] animate-pulse text-[#8b5e3c]">Buscando registros...</p>
             </div>
 
             <!-- Estado Vazio -->
-            <div id="empty-state" class="hidden col-span-full flex flex-col items-center justify-center py-24 text-cream/40 bg-brown-dark/30 rounded-[3rem] border-2 border-dashed border-gold-soft/20">
-                <div class="p-6 bg-brown-medium/20 rounded-full mb-6">
+            <div id="empty-state" class="hidden col-span-full flex flex-col items-center justify-center py-24 text-[#777777] bg-white rounded-[3rem] border-2 border-dashed border-[#d1d5db]">
+                <div class="p-6 bg-[#f5f5f5] rounded-full mb-6">
                     <i data-lucide="users" class="w-12 h-12 opacity-40"></i>
                 </div>
-                <p class="text-2xl font-['Cinzel'] tracking-widest mb-2 text-gold-soft/60">Nenhum registro</p>
+                <p class="text-2xl font-['Cinzel'] tracking-widest mb-2 text-[#1a1a1a]">Nenhum registro</p>
                 <p class="text-sm font-light tracking-wider">Não encontramos inscritos com os filtros aplicados.</p>
             </div>
 
@@ -271,7 +271,7 @@
         </section>
 
         <!-- Rodapé Institucional -->
-        <footer class="mt-12 text-center text-cream/60">
+        <footer class="mt-12 text-center text-[#777777]">
             <p class="text-[10px] uppercase tracking-[0.4em]">© 2026 Paróquia São Francisco das Chagas • Gestão Administrativa</p>
         </footer>
     </main>
@@ -288,10 +288,10 @@
 
     <!-- Modal: Editar Inscrição -->
     <div id="modal-editar" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-        <div class="bg-cream w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl border border-gold-soft/30">
-            <div class="bg-brown-dark p-6 flex items-center justify-between border-b-4 border-gold-soft">
-                <h3 class="font-['Cinzel'] text-xl text-gold-soft tracking-widest">Editar Inscrição</h3>
-                <button onclick="fecharModalEditar()" class="text-beige hover:text-white transition-colors">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl border border-[#d1d5db]">
+            <div class="bg-[#5a3b2e] p-6 flex items-center justify-between border-b-4 border-[#8b5e3c]">
+                <h3 class="font-['Cinzel'] text-xl text-white tracking-widest">Editar Inscrição</h3>
+                <button onclick="fecharModalEditar()" class="text-white/80 hover:text-white transition-colors">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -300,18 +300,18 @@
                 <input type="hidden" id="edit-id">
                 
                 <div class="space-y-1">
-                    <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Nome Completo</label>
-                    <input type="text" id="edit-nome" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                    <label class="text-[10px] uppercase tracking-widest text-[#333333] font-bold">Nome Completo</label>
+                    <input type="text" id="edit-nome" required class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Telefone</label>
-                        <input type="text" id="edit-telefone" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                        <label class="text-[10px] uppercase tracking-widest text-[#333333] font-bold">Telefone</label>
+                        <input type="text" id="edit-telefone" required class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Perfil</label>
-                        <select id="edit-perfil" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all cursor-pointer">
+                        <label class="text-[10px] uppercase tracking-widest text-[#333333] font-bold">Perfil</label>
+                        <select id="edit-perfil" required class="w-full bg-white text-[#1a1a1a] px-4 py-3 cursor-pointer">
                             <option value="jovem">Jovem</option>
                             <option value="casal">Casal</option>
                             <option value="tio">Tio/Tia</option>
@@ -321,17 +321,17 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Cidade</label>
-                        <input type="text" id="edit-cidade" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                        <label class="text-[10px] uppercase tracking-widest text-[#333333] font-bold">Cidade</label>
+                        <input type="text" id="edit-cidade" required class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] uppercase tracking-widest text-brown-medium font-bold">Paróquia</label>
-                        <input type="text" id="edit-paroquia" required class="w-full bg-white text-brown-dark px-4 py-3 rounded-xl border border-brown-medium/20 focus:ring-2 focus:ring-gold-soft outline-none transition-all">
+                        <label class="text-[10px] uppercase tracking-widest text-[#333333] font-bold">Paróquia</label>
+                        <input type="text" id="edit-paroquia" required class="w-full bg-white text-[#1a1a1a] px-4 py-3">
                     </div>
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-brown-dark text-gold-soft font-bold py-4 rounded-2xl border border-gold-soft/50 hover:bg-black hover:text-white transition-all shadow-lg flex items-center justify-center gap-3">
+                    <button type="submit" class="w-full btn-premium">
                         <i data-lucide="save" class="w-5 h-5"></i>
                         <span>SALVAR ALTERAÇÕES</span>
                     </button>

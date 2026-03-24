@@ -21,24 +21,24 @@
         AuthGuard.protegerPagina({ tipo_acesso: 'ejc' });
     </script>
 </head>
-<body class="bg-church font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-[#f5f5f5] font-['Inter'] min-h-screen flex flex-col items-center justify-center p-4">
     
-    <!-- Overlay solene para garantir legibilidade -->
-    <div class="fixed inset-0 bg-black/60 z-0"></div>
+    <!-- Overlay solene removido para fundo claro -->
+    <!-- <div class="fixed inset-0 bg-black/60 z-0"></div> -->
 
     <main class="relative z-10 max-w-4xl w-full animate-fade-in py-12">
         <!-- Cabeçalho do Painel -->
-        <header class="text-center mb-12 text-cream">
-            <div class="inline-block p-4 mb-6 rounded-full bg-brown-medium/30 backdrop-blur-lg border border-gold-soft/50 shadow-2xl">
-                <i data-lucide="sparkles" class="w-12 h-12 text-gold-soft"></i>
+        <header class="text-center mb-12 text-[#1a1a1a]">
+            <div class="inline-block p-4 mb-6 rounded-full bg-white shadow-xl border border-[#d1d5db]">
+                <i data-lucide="sparkles" class="w-12 h-12 text-[#8b5e3c]"></i>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold font-['Cinzel'] tracking-widest text-gold-soft mb-4 drop-shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-bold font-['Cinzel'] tracking-widest text-[#1a1a1a] mb-4">
                 Painel EJC
             </h1>
-            <p class="text-lg md:text-xl font-light text-beige tracking-[0.1em] uppercase opacity-90">
+            <p class="text-lg md:text-xl font-light text-[#555555] tracking-[0.1em] uppercase opacity-90">
                 Encontro de Jovens com Cristo
             </p>
-            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-soft to-transparent mx-auto mt-6 rounded-full opacity-70"></div>
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#8b5e3c] to-transparent mx-auto mt-6 rounded-full opacity-70"></div>
         </header>
 
         <!-- Conteúdo Principal do Painel -->
@@ -57,7 +57,7 @@
                     <span class="font-bold tracking-widest">Voltar ao Início</span>
                 </button>
 
-                <button type="button" onclick="AuthGuard.logout()" class="btn-church group w-full" style="background: #5C4033; color: #F5EBDD;">
+                <button type="button" onclick="AuthGuard.logout()" class="btn-church btn-premium group w-full">
                     <i data-lucide="log-out" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
                     <span class="font-bold tracking-widest">Sair do Painel</span>
                 </button>
@@ -65,7 +65,7 @@
         </section>
 
         <!-- Rodapé Institucional -->
-        <footer class="mt-12 text-center text-cream/60">
+        <footer class="mt-12 text-center text-[#777777]">
             <p class="text-[10px] uppercase tracking-[0.4em]">© 2026 Paróquia São Francisco das Chagas • Área Restrita EJC</p>
         </footer>
     </main>
