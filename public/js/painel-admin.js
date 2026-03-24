@@ -16,7 +16,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const listaInscritos = document.getElementById('lista-inscritos');
     const filtroTipo = document.getElementById('filtro-tipo');
     const filtroPerfil = document.getElementById('filtro-perfil');
+    const filtroStatus = document.getElementById('filtro-status');
+    const filtroCidade = document.getElementById('filtro-cidade');
+    const filtroParoquia = document.getElementById('filtro-paroquia');
+    const filtroDataInicio = document.getElementById('filtro-data-inicio');
+    const filtroDataFim = document.getElementById('filtro-data-fim');
     const buscaNome = document.getElementById('busca-nome');
+    const btnLimparFiltros = document.getElementById('btn-limpar-filtros');
     
     // Elementos do Dashboard
     const metricTotal = document.getElementById('metric-total');
@@ -209,15 +215,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (error) throw error;
-
+            
             // Armazena no cache local para filtragem sem novas requisições
             todosInscritos = data || [];
             console.log(`LOG [Admin]: ${todosInscritos.length} registros encontrados no banco.`);
             
-            // 1. Calcula e Atualiza Métricas do Dashboard
-            atualizarDashboard(todosInscritos);
-
-            // 2. Renderiza os dados aplicando os filtros selecionados na listagem principal
+            // Renderiza os dados aplicando os filtros selecionados na listagem principal
+            // filtrarERenderizar agora também chama atualizarDashboard internamente
             filtrarERenderizar();
 
         } catch (err) {
@@ -325,6 +329,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     function filtrarERenderizar() {
         const tipoSelecionado = filtroTipo.value;
         const perfilSelecionado = filtroPerfil.value;
+        const statusSelecionado = filtroStatus.value;
+        const cidadeFiltro = filtroCidade.value.toLowerCase().trim();
+        const paroquiaFiltro = filtroParoquia.value.toLowerCase().trim();
+        const dataInicio = filtroDataInicio.value;
+        const dataFim = filtroDataFim.value;
         const termoBusca = buscaNome.value.toLowerCase().trim();
         
         // Filtra os dados localmente
@@ -336,13 +345,51 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Filtro por Perfil (Jovem/Casal)
             const matchesPerfil = perfilSelecionado === 'todos' || 
                                  (inscrito.perfil || '').toLowerCase() === perfilSelecionado;
+
+            // Filtro por Status
+            const matchesStatus = statusSelecionado === 'todos' || 
+                                 (inscrito.status || 'pendente').toLowerCase() === statusSelecionado;
+            
+            // Filtro por Cidade
+            const matchesCidade = !cidadeFiltro || 
+                                 (inscrito.cidade || '').toLowerCase().includes(cidadeFiltro);
+            
+            // Filtro por Paróquia
+            const matchesParoquia = !paroquiaFiltro || 
+                                   (inscrito.paroquia || '').toLowerCase().includes(paroquiaFiltro);
+            
+            // Filtro por Data de Cadastro
+            let matchesData = true;
+            if (inscrito.created_at) {
+                const dataCriacao = new Date(inscrito.created_at).getTime();
+                if (dataInicio) {
+                    const dInicio = new Date(dataInicio + 'T00:00:00').getTime();
+                    if (dataCriacao < dInicio) matchesData = false;
+                }
+                if (dataFim) {
+                    const dFim = new Date(dataFim + 'T23:59:59').getTime();
+                    if (dataCriacao > dFim) matchesData = false;
+                }
+            } else if (dataInicio || dataFim) {
+                // Se não tem data mas o usuário filtrou por data, não mostra
+                matchesData = false;
+            }
             
             // Busca por Nome (Case Insensitive)
             const matchesNome = !termoBusca || 
                                (inscrito.nome || '').toLowerCase().includes(termoBusca);
 
-            return matchesTipo && matchesPerfil && matchesNome;
+            return matchesTipo && matchesPerfil && matchesStatus && matchesCidade && matchesParoquia && matchesData && matchesNome;
         });
+
+        // Atualiza contadores de filtragem
+        const totalFiltradoEl = document.getElementById('total-filtrado');
+        const totalGeralEl = document.getElementById('total-geral');
+        if (totalFiltradoEl) totalFiltradoEl.textContent = inscritosFiltrados.length;
+        if (totalGeralEl) totalGeralEl.textContent = todosInscritos.length;
+
+        // Atualiza o Dashboard com base nos dados filtrados
+        atualizarDashboard(inscritosFiltrados);
 
         // Esconde carregamento
         loadingState.classList.add('hidden');
@@ -452,15 +499,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
 
-                <!-- Rodapé do Card com Ações de Status e Data -->
+                <!-- Rodapé do Card com Status e Data -->
                 <div class="pt-2 border-t border-gray-100 mt-1 flex items-center justify-between">
-                    <div class="flex gap-1">
-                        <button onclick="atualizarStatus('${inscrito.id}', 'aprovado')" class="btn-card-acao btn-aprovar" title="Aprovar">
-                            <i data-lucide="check"></i>
-                        </button>
-                        <button onclick="atualizarStatus('${inscrito.id}', 'rejeitado')" class="btn-card-acao btn-rejeitar" title="Rejeitar">
-                            <i data-lucide="x"></i>
-                        </button>
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-2 h-2 rounded-full ${status === 'aprovado' ? 'bg-green-500' : status === 'rejeitado' ? 'bg-red-500' : 'bg-amber-500'}"></div>
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-brown-medium/70">${status}</span>
                     </div>
                     <div class="dado-linha opacity-60 m-0">
                         <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
@@ -688,7 +731,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Filtros e Busca: Disparam a filtragem local instantânea
     filtroTipo.addEventListener('change', filtrarERenderizar);
     filtroPerfil.addEventListener('change', filtrarERenderizar);
+    filtroStatus.addEventListener('change', filtrarERenderizar);
+    filtroCidade.addEventListener('input', filtrarERenderizar);
+    filtroParoquia.addEventListener('input', filtrarERenderizar);
+    filtroDataInicio.addEventListener('change', filtrarERenderizar);
+    filtroDataFim.addEventListener('change', filtrarERenderizar);
     buscaNome.addEventListener('input', filtrarERenderizar);
+
+    // Botão Limpar Filtros
+    btnLimparFiltros?.addEventListener('click', () => {
+        filtroTipo.value = 'todos';
+        filtroPerfil.value = 'todos';
+        filtroStatus.value = 'todos';
+        filtroCidade.value = '';
+        filtroParoquia.value = '';
+        filtroDataInicio.value = '';
+        filtroDataFim.value = '';
+        buscaNome.value = '';
+        filtrarERenderizar();
+    });
 
     // Botões de Ações Rápidas
     btnUsuarios?.addEventListener('click', () => {

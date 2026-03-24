@@ -115,7 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'telefone', min: 14, errorId: 'error-telefone' },
             { id: 'data_nascimento', min: 10, errorId: 'error-data-nascimento' },
             { id: 'endereco', min: 5, errorId: 'error-endereco' },
-            { id: 'bairro', min: 2, errorId: 'error-bairro' }
+            { id: 'bairro', min: 2, errorId: 'error-bairro' },
+            { id: 'cidade', min: 2, errorId: 'error-cidade' },
+            { id: 'paroquia', min: 2, errorId: 'error-paroquia' }
         ];
 
         campos.forEach(campo => {
@@ -290,6 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const endereco = document.getElementById('endereco').value.trim();
         const bairro = document.getElementById('bairro').value.trim();
         const referencia = document.getElementById('referencia').value.trim();
+        const cidade = document.getElementById('cidade').value.trim();
+        const paroquia = document.getElementById('paroquia').value.trim();
         
         // Informações Pessoais
         const escolaridade = document.getElementById('escolaridade').value;
@@ -363,6 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 endereco,
                 bairro,
                 referencia,
+                cidade,
+                paroquia,
                 escolaridade,
                 profissao,
                 ja_fez_ejc: ja_fez_ejc === 'sim',
