@@ -331,17 +331,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     /**
      * Cria o elemento HTML do card de um inscrito (Estilo Ficha 3x4)
-     * Otimizado para legibilidade e economia de espaço.
+     * Otimizado para legibilidade, elegância e foco no primeiro nome.
      */
     function criarCardInscrito(inscrito) {
         const div = document.createElement('div');
         
-        // Determina a classe de status
-        const status = (inscrito.status || 'pendente').toLowerCase();
-        const statusClass = `status-${status}`;
-        
-        div.className = `inscrito-mini-card animate-fade-in ${statusClass}`;
+        // REMOÇÃO DO STATUS DO CARD:
+        // Conforme solicitado, removemos a classe de status que alterava a cor do card
+        // e qualquer indicador visual de status (pendente/aprovado/rejeitado).
+        div.className = `inscrito-mini-card animate-fade-in`;
         div.dataset.id = inscrito.id;
+        
+        // EXTRAÇÃO DO PRIMEIRO NOME:
+        // Utilizamos split(' ') para pegar apenas a primeira parte do nome completo.
+        const primeiroNome = (inscrito.nome || 'Inscrito').trim().split(' ')[0];
         
         // Formata a data de criação do registro
         const dataCadastro = inscrito.created_at 
@@ -352,9 +355,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tipo = (inscrito.tipo || inscrito.tipo_encontro || 'EJC').toUpperCase();
         const badgeClass = tipo === 'ECC' ? 'bg-[#2E1F17] text-[#F5EBDD]' : 'bg-[#5C4033] text-[#F5EBDD]';
         
-        // Perfil formatado (Jovem ou Casal)
-        const perfilDisplay = inscrito.perfil ? inscrito.perfil.charAt(0).toUpperCase() + inscrito.perfil.slice(1) : 'Não informado';
-
         div.innerHTML = `
             <div class="foto-3x4-container cursor-pointer group" onclick="abrirFoto('${inscrito.foto_url}')">
                 <img src="${inscrito.foto_url || 'https://picsum.photos/seed/church/300/400'}" 
@@ -367,10 +367,36 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             </div>
             <div class="info-compacta">
-                <div class="relative">
-                    <div class="flex justify-between items-start gap-2">
-                        <h3 class="nome-destaque truncate flex-grow" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</h3>
-                        <div class="flex gap-1">
+                <div class="flex flex-col h-full">
+                    <!-- DESTAQUE: PRIMEIRO NOME (Extraído via JS) -->
+                    <h3 class="primeiro-nome-destaque" title="${inscrito.nome}">${primeiroNome}</h3>
+                    
+                    <!-- NOME COMPLETO: Subtítulo discreto para manter a elegância -->
+                    <p class="nome-completo-sub truncate" title="${inscrito.nome}">${inscrito.nome || 'Sem Nome'}</p>
+                    
+                    <div class="mt-2 space-y-1">
+                        <!-- Telefone -->
+                        <div class="dado-linha">
+                            <i data-lucide="phone" class="w-3 h-3"></i>
+                            <span>${inscrito.telefone || 'Sem Telefone'}</span>
+                        </div>
+                        
+                        <!-- Localização: Cidade -->
+                        <div class="dado-linha">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i>
+                            <span class="truncate">${inscrito.cidade || 'Cidade N/I'}</span>
+                        </div>
+                    </div>
+
+                    <!-- RODAPÉ: DATA E AÇÕES (Limpos e Organizados) -->
+                    <!-- REMOÇÃO DO NOME ABREVIADO PERTO DOS ÍCONES: 
+                         Os ícones agora ficam isolados no canto inferior para maior clareza visual. -->
+                    <div class="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between">
+                        <div class="dado-linha opacity-60 m-0">
+                            <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
+                            <span class="text-[9px] italic">${dataCadastro}</span>
+                        </div>
+                        <div class="flex gap-1.5">
                             <button onclick="verFicha('${inscrito.id}')" class="btn-card-acao btn-ver" title="Ver Ficha Completa">
                                 <i data-lucide="eye"></i>
                             </button>
@@ -384,36 +410,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <i data-lucide="trash-2"></i>
                             </button>
                         </div>
-                    </div>
-                    
-                    <!-- Perfil (Jovem/Casal) -->
-                    <div class="dado-linha">
-                        <i data-lucide="user" class="w-3 h-3"></i>
-                        <span class="truncate">${perfilDisplay}</span>
-                    </div>
-
-                    <!-- Telefone -->
-                    <div class="dado-linha">
-                        <i data-lucide="phone" class="w-3 h-3"></i>
-                        <span>${inscrito.telefone || 'Sem Telefone'}</span>
-                    </div>
-                    
-                    <!-- Localização: Cidade -->
-                    <div class="dado-linha">
-                        <i data-lucide="map-pin" class="w-3 h-3"></i>
-                        <span class="truncate">${inscrito.cidade || 'Cidade N/I'}</span>
-                    </div>
-                </div>
-
-                <!-- Rodapé do Card com Status e Data -->
-                <div class="pt-2 border-t border-gray-100 mt-1 flex items-center justify-between">
-                    <div class="flex items-center gap-1.5">
-                        <div class="w-2 h-2 rounded-full ${status === 'aprovado' ? 'bg-green-500' : status === 'rejeitado' ? 'bg-red-500' : 'bg-amber-500'}"></div>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-brown-medium/70">${status}</span>
-                    </div>
-                    <div class="dado-linha opacity-60 m-0">
-                        <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
-                        <span class="text-[10px] italic">${dataCadastro}</span>
                     </div>
                 </div>
             </div>
