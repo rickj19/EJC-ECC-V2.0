@@ -389,14 +389,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
 
                     <!-- RODAPÉ: DATA E AÇÕES (Limpos e Organizados) -->
-                    <!-- REMOÇÃO DO NOME ABREVIADO PERTO DOS ÍCONES: 
-                         Os ícones agora ficam isolados no canto inferior para maior clareza visual. -->
-                    <div class="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between">
-                        <div class="dado-linha opacity-60 m-0">
+                    <!-- AJUSTE DE LAYOUT: 
+                         Aumentamos a altura do card no CSS e reorganizamos o rodapé para evitar cortes.
+                         O uso de 'flex-wrap' e 'acoes-container' garante que os botões caibam em qualquer largura. -->
+                    <div class="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between gap-2">
+                        <div class="dado-linha opacity-60 m-0 flex-shrink-0">
                             <i data-lucide="calendar" class="w-2.5 h-2.5"></i>
                             <span class="text-[9px] italic">${dataCadastro}</span>
                         </div>
-                        <div class="flex gap-1.5">
+                        <div class="acoes-container">
                             <button onclick="verFicha('${inscrito.id}')" class="btn-card-acao btn-ver" title="Ver Ficha Completa">
                                 <i data-lucide="eye"></i>
                             </button>

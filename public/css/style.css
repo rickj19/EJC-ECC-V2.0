@@ -16,7 +16,7 @@
  * - Texto: Marrom Escuro (#3B2A1F) para leitura confortável sem o peso do preto puro.
  * 
  * IDENTIDADE VISUAL:
- * A imagem do logo foi removida temporariamente para evitar ícones quebrados.
+ * A imagem do logo foi removida permanentemente para manter uma identidade textual limpa e institucional.
  * O cabeçalho agora utiliza uma identidade puramente textual, padronizada em todas as páginas,
  * baseada na tipografia elegante e na hierarquia visual da tela inicial.
  */
@@ -369,7 +369,7 @@ p {
     border: 1px solid rgba(46, 31, 23, 0.1);
     transition: all 0.3s ease;
     display: flex;
-    height: 140px; /* Altura fixa para alinhamento */
+    height: 160px; /* Aumentado de 140px para 160px para comportar melhor as ações e informações sem cortes */
 }
 
 .inscrito-mini-card:hover {
@@ -379,8 +379,8 @@ p {
 }
 
 .foto-3x4-container {
-    width: 105px; /* Proporção aproximada de 3x4 */
-    height: 140px;
+    width: 110px; /* Levemente aumentado para melhor proporção */
+    height: 160px; /* Acompanha a nova altura do card */
     flex-shrink: 0;
     background: #2E1F17;
     border-right: 2px solid #C8A96B;
@@ -394,12 +394,13 @@ p {
 }
 
 .info-compacta {
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem; /* Aumentado o padding para dar mais respiro interno */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-width: 0;
+    overflow: visible; /* Garantir que sombras de botões e tooltips não sejam cortadas */
 }
 
 .nome-destaque {
@@ -512,21 +513,31 @@ p {
 
 /**
  * Botões de Ação nos Cards de Inscritos
+ * Ajustados para evitar cortes e melhorar o espaçamento.
  */
+.acoes-container {
+    display: flex;
+    gap: 0.4rem; /* Espaçamento equilibrado entre ícones */
+    flex-wrap: wrap; /* Permite quebra de linha em telas muito pequenas, evitando transbordamento */
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .btn-card-acao {
-    width: 28px;
-    height: 28px;
+    width: 30px; /* Aumentado levemente para melhor área de clique */
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    border-radius: 0.6rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .btn-card-acao i {
-    width: 14px;
-    height: 14px;
+    width: 15px; /* Ícones ligeiramente maiores para melhor visibilidade */
+    height: 15px;
 }
 
 .btn-editar { background: #E3F2FD; color: #1976D2; }
