@@ -50,7 +50,20 @@
                 </p>
             </div>
 
-            <!-- Botões de Ação -->
+            <!-- Ação Principal: Nova Inscrição -->
+            <!-- Este botão foi adicionado para permitir que o coordenador acesse diretamente a ficha de cadastro -->
+            <!-- O parâmetro 'tipo=ejc' na URL garante que o formulário abra configurado para o EJC -->
+            <div class="mb-10">
+                <button type="button" onclick="window.location.href='/cadastro.html?tipo=ejc'" class="btn-action-card group">
+                    <i data-lucide="user-plus"></i>
+                    <span>Nova Ficha Cadastral EJC</span>
+                </button>
+                <p class="text-xs text-brown-medium mt-3 opacity-70 italic">
+                    Clique acima para iniciar um novo cadastro de encontrista para o EJC.
+                </p>
+            </div>
+
+            <!-- Botões de Ação Secundários -->
             <div class="max-w-xs mx-auto space-y-4">
                 <button type="button" onclick="window.location.href='/'" class="btn-church btn-ejc group w-full">
                     <i data-lucide="home" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
